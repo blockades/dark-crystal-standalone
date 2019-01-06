@@ -1,7 +1,6 @@
-# Infinite-game
+# Dark-Crystal
 
-weave things with your friends
-stay alive as long as you can
+back up secrets by weaving them into your relationships
 
 ```
 npm install

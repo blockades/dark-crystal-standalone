@@ -26,8 +26,7 @@ exports.create = function (api) {
       initial: initialTabs || api.settings.sync.get('patchbay.defaultTabs'),
       // NOTE : modded from original
       prepend: h('div.icons', [
-        h('i.fa.fa-calendar', { title: 'Calendar', 'ev-click': () => api.app.sync.goTo('/calendar') }),
-        h('i.fa.fa-question', { title: 'Scry', 'ev-click': () => api.app.sync.goTo('/scry') })
+        h('i.fa.fa-diamond', { title: 'Dark Crystal', 'ev-click': () => api.app.sync.goTo('/dark-crystal') })
       ]),
       append: null
     }))
