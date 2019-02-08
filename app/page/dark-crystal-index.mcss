@@ -1,0 +1,43 @@
+DarkCrystal -index {
+  section.picker {
+    display: flex
+
+    div {
+      text-transform: capitalize
+      letter-spacing: .2rem
+      cursor: pointer     
+
+      height: 1.4rem
+      border-bottom: 1px solid rgba(0,0,0,0)
+      margin-right: 2rem
+
+      -active {
+        border-bottom: 1px solid #000
+      }
+    }
+  }
+
+  section.content {
+    display: grid
+    align-content: start
+    grid-gap: 1rem
+
+    display: none
+    -active { display: grid }
+
+    button {
+      width: 4rem
+      justify-self: end
+    }
+
+    div.DarkCrystalFriendsIndex {
+      margin-top: 2.8rem
+      /* aligns with my crystal index */
+    }
+
+    div.DarkCrystalFriendsCrystalsIndex {
+      margin-top: 2.8rem
+    }
+  }
+}
+

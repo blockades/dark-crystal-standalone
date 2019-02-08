@@ -1,0 +1,84 @@
+DarkCrystalForwardNew {
+  padding-top: 1rem
+  font-family: sans, sans-serif, arial
+  font-size: 1rem
+  color: #fff
+  background: #000
+
+  width: 50rem
+  min-height: 32rem
+
+  h1 {
+    font-size: 1rem
+    text-transform: uppercase
+    letter-spacing: 0.4rem
+
+    padding: 2rem
+    padding-bottom: 1rem
+    margin: 0
+  }
+
+  section {
+    padding: 1rem 2rem
+  }
+
+  section.inputs {
+    display: grid
+    grid-gap: 1rem
+
+    div {
+      display: grid
+      grid-template-columns: 7.5rem auto
+      align-items: center
+
+      div.DarkCrystalRecipients {
+        padding: 0 1rem 0 1rem
+      }
+
+      label {
+        font-size: .8rem
+        text-transform: uppercase
+        letter-spacing: .1rem
+      }
+    }
+  }
+
+  section.description {
+    display: grid
+    grid-gap: 2rem
+    grid-template-columns: 1fr 2rem 1fr
+
+    div.from {
+      grid-column: 1
+      justify-self: end
+    }
+
+    div.between {
+      grid-column: 2
+      grid-row: 1 / 3
+    }
+
+    div.to {
+      grid-column: 3
+      justify-self: start
+    }
+
+    div.description { grid-row: 1 }
+    div.feedId {
+      grid-row: 2
+
+      div.DarkCrystalRecipient { margin: 0 }
+    }
+  }
+
+  section.actions {
+    text-align: center
+
+    div.warning {
+      display: grid
+
+      div.message { padding: 1rem }
+      div.submit { margin: auto }
+    }
+  }
+}

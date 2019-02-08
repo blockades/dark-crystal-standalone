@@ -1,0 +1,9 @@
+DarkCrystalForwardIndex {
+  font-family: sans, sans-serif, arial
+
+  display: grid
+  grid-template-columns: repeat(auto-fill, 6rem)
+  grid-column-gap: 2rem
+  grid-row-gap: 1.5rem
+  align-content: start
+}

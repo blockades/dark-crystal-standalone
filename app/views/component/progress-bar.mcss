@@ -1,0 +1,26 @@
+ProgressBar {
+  height: 1.8rem
+
+  progress[value] {
+    /* Reset the default appearance */
+    -webkit-appearance: none
+     appearance: none
+
+    width: 100%
+    height: 1.8rem
+
+    /* the bar container */
+    ::-webkit-progress-bar {
+      background: rgba(0,0,0,0)
+      padding: 4px
+      /* border: 1px solid white */
+      background: #474747
+    }
+
+    /* the progress */
+    ::-webkit-progress-value {
+      /* background-color: #9754de */
+      background-color: deeppink
+    }
+  }
+}

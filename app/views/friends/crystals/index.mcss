@@ -1,0 +1,57 @@
+DarkCrystalFriendsCrystalsIndex {
+  font-family: sans, sans-serif, arial
+
+  display: grid
+  grid-column-gap: 2rem
+  grid-row-gap: 1.5rem
+  align-content: start
+}
+
+DarkCrystalFriendsCrystals {
+  display: grid
+  grid-gap: .5rem
+  align-content: start
+  grid-template-columns: auto auto 70%
+
+  div.avatar {}
+  div.name {}
+  div.crystals {
+    cursor: pointer
+
+    display: grid
+    grid-template-columns: repeat(auto-fill, 1rem)
+    grid-gap: 1rem
+  }
+}
+
+DarkCrystalCrystal {
+  cursor: pointer
+
+  -recovered {
+    color: purple
+    /* filter: drop-shadow(grey 0 0 5px) */
+  }
+
+  -returned {
+    color: rgba(0,0,0,.3)
+  }
+
+  :hover {
+    transition: color: 0.2 ease-in
+    color: fuchsia
+  }
+}
+
+@keyframes pulse {
+  0% {
+    filter: drop-shadow(hsl(300, 100%, 100%) 0 0 5px);
+  }
+
+  66% {
+    filter: drop-shadow(hsl(300, 100%, 75%) 0 0 5px);
+  }
+
+  100% {
+    filter: drop-shadow(hsl(300, 100%, 50%) 0 0 5px);
+  }
+}

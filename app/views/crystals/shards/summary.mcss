@@ -1,0 +1,78 @@
+DarkCrystalShardsSummary {
+  color: white
+  background: black
+  padding: 1rem
+
+  display: grid
+  grid-template-columns: 1fr 10rem
+  grid-gap: 2rem
+  align-content: start
+  justify-items: stretch
+
+  section {
+    h3 {
+      font-weight: 400
+      font-size: .8rem
+      text-transform: uppercase
+      letter-spacing: 2px
+
+      margin-top: 0
+    }
+  }
+
+  section.custodians {
+    div.custodians {
+      display: grid
+      justify-content: start
+      grid-gap: .5rem
+      grid-template-columns: repeat(auto-fit, 4rem)
+
+      (img) {
+        width: 4rem
+        height: 4rem
+      }
+
+      /* this fixes links having annoying bottom margin */
+      a {
+        width: 4rem
+        height: 4rem
+      }
+    }
+  }
+
+  section.recombine {
+    align-self: end
+    button { width: 100% }
+  }
+}
+
+DarkCrystalSecret {
+  color: white
+  background: black
+
+  min-height: 400px
+  min-width: 600px
+  padding: 1rem
+
+  display: grid
+  align-content: start
+  grid-template-rows: auto 1fr auto
+
+  h1 {}
+  pre {
+    user-select: all
+  }
+
+  div.actions {
+    margin-top: 2rem
+
+    display: grid
+    justify-content: space-between
+    grid-template-columns: 1fr 1fr
+    grid-gap: 2rem
+
+    button {
+      i { margin-right: .5rem }
+    }
+  }
+}
