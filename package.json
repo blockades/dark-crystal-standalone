@@ -1,6 +1,6 @@
 {
   "name": "dark-crystal",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha",
   "description": "a standalone app for dark-crystal",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,8 @@
     "depnest": "^1.3.0",
     "libnested": "^1.3.2",
     "patchbay": "github:ssbc/patchbay#master",
-    "read-directory": "^3.0.1"
+    "read-directory": "^3.0.1",
+    "scuttle-dark-crystal": "^2.0.0"
   },
   "devDependencies": {
     "cross-script": "^1.0.5",

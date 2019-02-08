@@ -7,10 +7,7 @@ var Path = require('path')
 var windows = {}
 var quitting = false
 
-// NOTE this is a fork of patchbay/index.js with small mods to point this as patchbay's server.js and assets
-const patchbayRoot = Path.join(__dirname, 'node_modules/patchbay')
-
-const appName = 'Infinite Game'
+const appName = 'Dark Crystal'
 
 console.log('STARTING electron')
 electron.app.on('ready', () => {
@@ -37,8 +34,8 @@ electron.app.on('ready', () => {
 function startBackgroundProcess () {
   if (windows.background) return
 
-  windows.background = openWindow(Path.join(patchbayRoot, 'server.js'), {
-    title: 'patchbay-server',
+  windows.background = openWindow(Path.join(__dirname, 'server.js'), {
+    title: 'server',
     show: false,
     connect: false,
     width: 150,
@@ -58,22 +55,22 @@ function openMainWindow () {
   if (windows.main) return
 
   var windowState = WindowState({
-    defaultWidth: 1024,
-    defaultHeight: 768
+    defaultWidth: 300,
+    defaultHeight: 900 
   })
   windows.main = openWindow(Path.join(__dirname, 'main.js'), {
     title: appName,
     show: true,
-    x: windowState.x,
-    y: windowState.y,
-    minWidth: 800,
-    width: windowState.width,
-    height: windowState.height,
+    // x: windowState.x,
+    // y: windowState.y,
+    // minWidth: 800,
+    // width: windowState.width,
+    // height: windowState.height,
     autoHideMenuBar: true,
     frame: !process.env.FRAME,
     // titleBarStyle: 'hidden',
     backgroundColor: '#FFF',
-    icon: './assets/icon.png'
+    icon: Path.join(__dirname, 'assets', 'icon_200x200.png')
   })
   windowState.manage(windows.main)
   windows.main.setSheetOffset(40)
@@ -97,7 +94,7 @@ function openWindow (path, opts) {
       var electron = require('electron')
       var h = require('mutant/h')
       electron.webFrame.setVisualZoomLevelLimits(1, 1)
-      var title = ${JSON.stringify(opts.title || 'Infinite Game')}
+      var title = ${JSON.stringify(opts.title || 'Dark Crystal')}
       document.documentElement.querySelector('head').appendChild(
         h('title', title)
       )
@@ -115,7 +112,7 @@ function openWindow (path, opts) {
     electron.shell.openExternal(url)
   })
 
-  window.loadURL('file://' + Path.join(patchbayRoot, 'assets', 'base.html'))
+  window.loadURL('file://' + Path.join(__dirname, 'assets', 'base.html'))
   return window
 }
 
@@ -138,27 +135,6 @@ function startMenus () {
     { role: 'zoom' },
     { role: 'close', label: 'Close Window', accelerator: 'CmdOrCtrl+Shift+W' },
     { type: 'separator' },
-    {
-      label: 'Close Tab',
-      accelerator: 'CmdOrCtrl+W',
-      click () {
-        windows.main.webContents.send('closeTab')
-      }
-    },
-    {
-      label: 'Select Next Tab',
-      accelerator: 'CmdOrCtrl+Shift+]',
-      click () {
-        windows.main.webContents.send('nextTab')
-      }
-    },
-    {
-      label: 'Select Previous Tab',
-      accelerator: 'CmdOrCtrl+Shift+[',
-      click () {
-        windows.main.webContents.send('previousTab')
-      }
-    },
     { type: 'separator' },
     { role: 'front' }
   ]
