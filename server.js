@@ -22,13 +22,9 @@ var createSbot = require('ssb-server')
   .use(require('ssb-about'))
   .use(require('ssb-backlinks'))
   .use(require('ssb-ebt'))
-  .use(require('ssb-meme'))
   .use(require('ssb-private'))
   .use(require('ssb-query'))
-  .use(require('ssb-search'))
   .use(require('ssb-suggest'))
-
-  .use(require('ssb-unread'))
 
 var config = require('./config').create().config.sync.load()
 

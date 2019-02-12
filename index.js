@@ -58,7 +58,7 @@ function openMainWindow () {
     defaultWidth: 300,
     defaultHeight: 900 
   })
-  windows.main = openWindow(Path.join(__dirname, 'main.js'), {
+  windows.main = openWindow(Path.join(__dirname, 'app/index.js'), {
     title: appName,
     show: true,
     // x: windowState.x,

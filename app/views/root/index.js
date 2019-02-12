@@ -2,28 +2,27 @@ const nest = require('depnest')
 const { h, Dict, Value, computed } = require('mutant')
 const Scuttle = require('scuttle-dark-crystal')
 
-const CrystalsIndex = require('../views/crystals/index')
-const CrystalsNew = require('../views/crystals/new')
-const CrystalsShow = require('../views/crystals/show')
+// const CrystalsIndex = require('../views/crystals/index')
+// const CrystalsNew = require('../views/crystals/new')
+// const CrystalsShow = require('../views/crystals/show')
 
-const FriendsCrystalsIndex = require('../views/friends/crystals/index')
-const FriendsCrystalsShow = require('../views/friends/crystals/show')
+// const FriendsCrystalsIndex = require('../views/friends/crystals/index')
+// const FriendsCrystalsShow = require('../views/friends/crystals/show')
 
-const FriendsIndex = require('../views/friends/index')
-const FriendsShow = require('../views/friends/show')
+// const FriendsIndex = require('../views/friends/index')
+// const FriendsShow = require('../views/friends/show')
 
-const ForwardNew = require('../views/forward/new')
+// const ForwardNew = require('../views/forward/new')
 // const ForwardIndex = require('../../../views/forward/index')
 
 exports.gives = nest({
-  'app.page.darkCrystal': true
+  'app.views.root': true
 })
 
 exports.needs = nest({
   'about.async.suggest': 'first',
   'about.html.avatar': 'first',
   'about.obs.name': 'first',
-  'app.html.modal': 'first',
   'app.sync.goTo': 'first',
   'keys.sync.id': 'first',
   'sbot.obs.connection': 'first'
@@ -34,7 +33,7 @@ const SECRETS = 'Secrets'
 const SHARDS = 'Shards'
 
 exports.create = (api) => {
-  return nest('app.page.darkCrystal', DarkCrystal)
+  return nest('app.views.root', DarkCrystal)
 
   function DarkCrystal (location) {
     const scuttle = Scuttle(api.sbot.obs.connection)
