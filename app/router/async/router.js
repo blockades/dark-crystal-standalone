@@ -11,14 +11,10 @@ exports.create = (api) => {
   var router = null
 
   return nest('router.async.router', (location, cb) => {
-    if (!router) {
-      router = Router(api.router.sync.routes())
-    }
+    if (!router) router = Router(api.router.sync.routes())
 
-    debugger
     api.router.async.normalise(location, (err, normLocation) => {
       if (err) return cb(err)
-
       router(normLocation, cb)
     })
 

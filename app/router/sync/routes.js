@@ -13,7 +13,7 @@ exports.create = (api) => {
     const { crystals } = api.app.views
 
     const routes = [
-      [ loc => loc.page === 'crystals', crystals.index ],
+      [ loc => loc.view === 'crystals', crystals.index ],
       [ loc => isRoot, crystals.show ]
     ]
 

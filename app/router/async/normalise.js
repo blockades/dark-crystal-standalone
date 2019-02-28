@@ -36,7 +36,7 @@ exports.create = (api) => {
       cb(null, { blob: location })
     } else if (isChannel(location)) cb(null, { channel: location })
     else if (isFeed(location)) cb(null, { feed: location })
-    else if (isPage(location)) cb(null, { page: location.substring(1) })
+    else if (isView(location)) cb(null, { view: location.substring(1) })
 
     return true
   }
@@ -46,6 +46,6 @@ function isChannel (str) {
   return typeof str === 'string' && str[0] === '#' && str.length > 1
 }
 
-function isPage (str) {
+function isView (str) {
   return typeof str === 'string' && str[0] === '/' && str.length > 1
 }
