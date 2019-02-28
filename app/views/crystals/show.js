@@ -12,6 +12,11 @@ exports.create = (api) => {
   return nest('app.views.crystals.show', crystalsShow)
 
   function crystalsShow (msg) {
-    return h('CrystalsShow', JSON.stringify(msg))
+    return h('CrystalsShow', [
+      h('button', { 'ev-click': () => api.app.sync.goTo('/crystals') }, 'Back'),
+      h('div', [
+        JSON.stringify(msg)
+      ])
+    ])
   }
 }

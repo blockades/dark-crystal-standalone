@@ -67,8 +67,10 @@ function openMainWindow () {
     width: windowState.width,
     height: windowState.height,
     autoHideMenuBar: true,
+    fullscreen: false,
+    fullscreenable: false,
     frame: !process.env.FRAME,
-    // titleBarStyle: 'hidden',
+    titleBarStyle: 'hidden',
     backgroundColor: '#FFF',
     icon: Path.join(__dirname, 'assets', 'icon_200x200.png')
   })

@@ -1,13 +1,12 @@
 const nest = require('depnest')
 
-exports.gives = nest({ 'app.sync.goTo': true  })
+exports.gives = nest('app.sync.goTo')
 
 exports.needs = nest({
   'history.obs.store': 'first',
   'history.sync.push': 'first',
   'router.async.normalise': 'first',
   'router.async.router': 'first'
-
 })
 
 exports.create = function (api) {
