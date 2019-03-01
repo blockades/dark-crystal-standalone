@@ -1,8 +1,8 @@
 const nest = require('depnest')
 const pull = require('pull-stream')
 const pullParamap = require('pull-paramap')
-const { get, set, transform, pickBy, identity, omitBy } = require('lodash')
 const { isFeedId } = require('ssb-ref')
+const { get, set, transform, pickBy, identity, omitBy } = require('lodash')
 
 const Scuttle = require('scuttle-dark-crystal')
 const isShard = require('scuttle-dark-crystal/isShard')
@@ -18,7 +18,7 @@ const PENDING = 'pending'
 const REQUESTED = 'requested'
 const RECEIVED = 'received'
 
-exports.gives = nest('app.actions.crystals.fetch')
+exports.gives = nest('app.actions.secrets.fetch')
 
 exports.needs = nest({
   'sbot.obs.connection': 'first',
@@ -26,7 +26,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.actions.crystals.fetch', fetch)
+  return nest('app.actions.secrets.fetch', fetch)
 
   var store = null
 
@@ -52,9 +52,7 @@ exports.create = (api) => {
         //   name: string,
         //   quorum: integer,
         //   createdAt: datetime,
-        //   recipients: [
-        //     feedId: string
-        //   ],
+        //   recipients: [ feedId: string ],
         //   shards: [
         //     {
         //       id: string,
@@ -72,7 +70,7 @@ exports.create = (api) => {
       }
 
       pull(
-        scuttle.root.pull.mine({ live: false }),
+        scuttle.root.pull.mine({ live: false, reverse: true }),
         pull.paramap((root, done) => {
           set(records, [root.key, 'name'], get(root, 'value.content.name'))
           set(records, [root.key, 'createdAt'], new Date(root.timestamp).toLocaleDateString())
@@ -109,7 +107,10 @@ exports.create = (api) => {
 
                 shardRequests = requests.filter(r => r.feedId === feedId)
                 if (shardRequests.some(r => !!r)) {
-                  shardReplies = replies.filter(r => r.feedId === feedId)
+                  shardReplies = replies
+                    .filter(r => r.feedId === feedId)
+                    .map(r => omitBy(r, isFeedId))
+                  shardRequests.map(r => omitBy(r, isFeedId))
                   if (replies.some(r => !!r)) {
                     returnedShard = replies[0].shard // only gets the first one.. hmm
                     state = RECEIVED
@@ -117,17 +118,15 @@ exports.create = (api) => {
                   else state = REQUESTED
                 } else state = PENDING
 
-                let shard = {
+                return pickBy({
                   id: s.key,
                   feedId,
                   encryptedShard,
                   state,
-                  requests: shardRequests.map(r => omitBy(r, isFeedId)),
-                  replies: shardReplies.map(r => omitBy(r, isFeedId)),
+                  requests: shardRequests,
+                  replies: shardReplies,
                   shard: returnedShard
-                }
-
-                return pickBy(shard, identity)
+                }, identity)
               })
 
               set(records, [root.key, 'recipients'], shards.map(s => s.feedId))
@@ -137,11 +136,9 @@ exports.create = (api) => {
             })
           )
         }, 10),
-        pull.collect((err, crystals) => {
+        pull.collect((err, secrets) => {
           if (err) throw err
-          var recordsArray = transform(records, (acc, value, key, obj) => {
-            acc.push({ rootId: key, ...obj[key] })
-          }, [])
+          var recordsArray = transform(records, (acc, value, key, obj) => acc.push({ id: key, ...obj[key] }), [])
           store.set(recordsArray)
         })
       )

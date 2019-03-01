@@ -10,10 +10,10 @@ exports.needs = nest({
 exports.create = (api) => {
   var router = null
 
-  return nest('router.async.router', (location, cb) => {
+  return nest('router.async.router', (request, cb) => {
     if (!router) router = Router(api.router.sync.routes())
 
-    api.router.async.normalise(location, (err, normLocation) => {
+    api.router.async.normalise(request, (err, normLocation) => {
       if (err) return cb(err)
       router(normLocation, cb)
     })
@@ -23,8 +23,11 @@ exports.create = (api) => {
 }
 
 function Router (routes) {
-  return (location, cb) => {
-    const route = routes.find(([validator]) => validator(location))
-    if (route) cb(null, route[1](location))
+  return (request, cb) => {
+    const route = routes.find(([validator]) => validator(request))
+    if (route) {
+      const view = route[1]
+      cb(null, view(request))
+    }
   }
 }

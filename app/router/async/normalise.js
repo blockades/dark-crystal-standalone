@@ -11,41 +11,31 @@ exports.needs = nest({
 exports.create = (api) => {
   return nest('router.async.normalise', normalise)
 
-  function normalise (location, cb) {
-    if (typeof location === 'object') {
-      cb(null, location)
+  function normalise (request, cb) {
+    if (typeof request === 'object') {
+      cb(null, request)
       return true
     }
 
-    // if someone has given you an annoying html encoded location
-    if (location.match(/^%25.*%3D.sha256$/)) {
-      location = decodeURIComponent(location)
+    // if someone has given you an annoying html encoded request
+    if (request.match(/^%25.*%3D.sha256$/)) {
+      request = decodeURIComponent(request)
     }
 
-    if (isMsg(location)) {
-      api.sbot.async.get(location, (err, value) => {
+    if (isMsg(request)) {
+      api.sbot.async.get(request, (err, value) => {
         if (err) cb(err)
         else {
           if (typeof value.content === 'string') value = api.message.sync.unbox(value)
-          cb(null, { key: location, value })
+          cb(null, { key: request, value })
         }
       })
-    } else if (isBlobLink(location)) {
-      // handles public & private blobs
-      // TODO - parse into link and query?
-      cb(null, { blob: location })
-    } else if (isChannel(location)) cb(null, { channel: location })
-    else if (isFeed(location)) cb(null, { feed: location })
-    else if (isView(location)) cb(null, { view: location.substring(1) })
+    } else if (isPath(request)) cb(null, { path: request })
 
     return true
   }
 }
 
-function isChannel (str) {
-  return typeof str === 'string' && str[0] === '#' && str.length > 1
-}
-
-function isView (str) {
+function isPath (str) {
   return typeof str === 'string' && str[0] === '/' && str.length > 1
 }

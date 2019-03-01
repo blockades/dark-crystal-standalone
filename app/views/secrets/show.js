@@ -2,20 +2,20 @@ const nest = require('depnest')
 const pull = require('pull-stream')
 const { h, Array: MutantArray, map, throttle } = require('mutant')
 
-exports.gives = nest('app.views.crystals.show')
+exports.gives = nest('app.views.secrets.show')
 
 exports.needs = nest({
   'app.sync.goTo': 'first',
 })
 
 exports.create = (api) => {
-  return nest('app.views.crystals.show', crystalsShow)
+  return nest('app.views.secrets.show', secretsShow)
 
-  function crystalsShow (msg) {
+  function secretsShow ({ path, secret }) {
     return h('CrystalsShow', [
-      h('button', { 'ev-click': () => api.app.sync.goTo('/crystals') }, 'Back'),
+      h('button', { 'ev-click': () => api.app.sync.goTo('/secrets') }, 'Back'),
       h('div', [
-        JSON.stringify(msg)
+        JSON.stringify(secret)
       ])
     ])
   }
