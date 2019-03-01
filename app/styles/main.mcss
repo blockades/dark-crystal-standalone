@@ -1,9 +1,15 @@
 body {
-  border: 1px solid black
+  -ms-overflow-style: scrollbar
+  -webkit-app-region: drag
+}
+
+button, section, i {
+  -webkit-app-region: no-drag;
 }
 
 main.app {
   display: grid
+  border: 2px solid grey
   width: 360px
 
   article {

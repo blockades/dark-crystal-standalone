@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "electron index.js",
-    "start-frameless": "FRAME=false npm start",
+    "start:dev": "NODE_ENV=development electron index.js",
     "test": "standard --fix",
     "rebuild": "cross-script npm rebuild --runtime=electron \"--target=$(electron -v)\" \"--abi=$(electron --abi)\" --disturl=https://atom.io/download/atom-shell",
     "postinstall": "npm run rebuild"

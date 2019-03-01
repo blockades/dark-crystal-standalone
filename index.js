@@ -60,8 +60,9 @@ function openMainWindow () {
   windows.main = openWindow(Path.join(__dirname, 'app/index.js'), {
     title: appName,
     show: true,
-    maxWidth: windowState.width,
-    maxHeight: windowState.height,
+    center: true,
+    maxWidth: process.env.NODE_ENV === 'development' ? null : windowState.width,
+    maxHeight: process.env.NODE_ENV === 'development' ? null : windowState.height,
     width: windowState.width,
     height: windowState.height,
     autoHideMenuBar: true,
@@ -69,9 +70,11 @@ function openMainWindow () {
     fullscreenable: false,
     // maximizable: false,
     // resizable: false,
-    frame: false,
+    frame: process.env.NODE_ENV === 'development',
     icon: Path.join(__dirname, 'assets', 'icon_200x200.png')
   })
+
+  if (process.env.NODE_ENV === 'development') windows.main.webContents.openDevTools()
 
   windowState.manage(windows.main)
   windows.main.setSheetOffset(40)
