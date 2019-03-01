@@ -1,3 +1,7 @@
+body {
+  border: 1px solid black
+}
+
 main.app {
   display: grid
   width: 360px

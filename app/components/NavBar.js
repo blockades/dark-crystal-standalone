@@ -1,4 +1,5 @@
 const { h } = require('mutant')
+const { remote } = require('electron')
 
 // const Tabs = require('./Tabs')
 
@@ -29,8 +30,18 @@ module.exports = function NavBar (opts) {
         h('input')
       ]),
       h('div.right', [
-        h('i.fa.fa-minus.fa-lg'),
-        h('i.fa.fa-times.fa-lg')
+        h('i.fa.fa-minus.fa-lg', {
+          'ev-click': () => {
+            var window = remote.getCurrentWindow()
+            window.minimize()
+          }
+        }),
+        h('i.fa.fa-times.fa-lg', {
+          'ev-click': () => {
+            var window = remote.getCurrentWindow()
+            window.close()
+          }
+        })
       ])
     ]),
     h('section.bottom', [

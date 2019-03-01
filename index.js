@@ -14,6 +14,7 @@ electron.app.on('ready', () => {
   startMenus()
 
   startBackgroundProcess()
+
   electron.ipcMain.once('server-started', function (ev, config) {
     openMainWindow()
   })
@@ -68,7 +69,7 @@ function openMainWindow () {
     fullscreenable: false,
     // maximizable: false,
     // resizable: false,
-    frame: !process.env.FRAME,
+    frame: false,
     icon: Path.join(__dirname, 'assets', 'icon_200x200.png')
   })
 

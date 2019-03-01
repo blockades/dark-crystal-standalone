@@ -6,6 +6,12 @@ html {
 
 body {
   margin: 0
+  -ms-overflow-style: scrollbar
+  -webkit-app-region: drag
+}
+
+button, section, i {
+  -webkit-app-region: no-drag;
 }
 
 article,
