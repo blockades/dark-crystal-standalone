@@ -1,7 +1,7 @@
 const { h } = require('mutant')
 const { remote } = require('electron')
 
-// const Tabs = require('./Tabs')
+const ViewTabs = require('./ViewTabs')
 
 module.exports = function NavBar (opts) {
   const {
@@ -10,18 +10,19 @@ module.exports = function NavBar (opts) {
     currentPath
   } = opts
 
+  let isSettingsPage = currentPath === `/settings`
+
   return h('nav', [
     h('section.top', [
       h('div.left', [
         h('i.fa.fa-cog.fa-2x',
           {
             'ev-click': ()=> {
-              if (currentPath === `/settings`) goBack()
+              if (isSettingsPage) goBack()
               else routeTo({ path: `/settings` })
             },
-            'classList': [
-              currentPath === '/settings' ? 'bg-black white' : 'bg-white black'
-            ]
+            'classList': [isSettingsPage ? 'active' : ''],
+            'title': 'Settings'
           }
         )
       ]),
@@ -34,21 +35,23 @@ module.exports = function NavBar (opts) {
           'ev-click': () => {
             var window = remote.getCurrentWindow()
             window.minimize()
-          }
+          },
+          'title': 'Minimize'
         }),
         h('i.fa.fa-times.fa-lg', {
           'ev-click': () => {
             var window = remote.getCurrentWindow()
             window.close()
-          }
+          },
+          'title': 'Close'
         })
       ])
     ]),
-    h('section.bottom', [
-      // Tabs(currentPath, [
-      //   { name: 'secrets', routeTo: () => routeTo({ path: `/secrets` }) },
-      //   { name: 'shards', routeTo: () => routeTo({ path: `/shards` }) }
-      // ])
-    ])
+    !isSettingsPage ? h('section.bottom', [
+      ViewTabs(currentPath, [
+        { name: 'secrets', routeTo: () => routeTo({ path: `/secrets` }) },
+        { name: 'shards', routeTo: () => routeTo({ path: `/shards` }) }
+      ])
+    ]) : null
   ])
 }

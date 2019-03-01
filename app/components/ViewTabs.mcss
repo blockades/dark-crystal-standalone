@@ -1,0 +1,16 @@
+div.tabs {
+  display: grid
+  grid-template-columns: auto auto
+  text-align: center
+
+  div.tab {
+    border-right: 1px solid #FFFFFF
+
+    :last-child {
+      border-right: none
+    }
+
+    :hover { cursor: pointer }
+  }
+}
+

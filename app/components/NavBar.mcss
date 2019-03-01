@@ -9,10 +9,39 @@ nav {
     display: grid
     grid-template-columns: 4rem auto 4rem
 
+    div.left {
+
+      i {
+        border-radius: 3px;
+        padding: 0.1rem 0.4rem 0.1rem 0.4rem
+      }
+
+      i.active {
+        background: #1EAEDB;
+        :hover {
+          color: #FFFFFF
+        }
+      }
+
+      i {
+        cursor: pointer
+        :hover {
+          color: #1EAEDB
+        }
+      }
+    }
+
     div.right {
       display: grid
       grid-template-columns: auto auto
       padding: .5rem 0 1rem 0
+
+      i {
+        cursor: pointer
+        :hover {
+          color: #1eaedb
+        }
+      }
     }
 
     div.middle {

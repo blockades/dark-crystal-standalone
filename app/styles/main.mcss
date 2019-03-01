@@ -11,24 +11,11 @@ main.app {
   display: grid
   border: 2px solid grey
   width: 360px
+  height: 640px
+  background: #2B0929
+  color: white
 
   article {
     width: 360px
   }
-}
-
-bg-black {
-  background: #000
-}
-
-bg-white {
-  background: #FFF
-}
-
-white {
-  color: white
-}
-
-black {
-  color: black
 }

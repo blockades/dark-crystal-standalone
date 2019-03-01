@@ -1,0 +1,6 @@
+Settings -index {
+  display: grid
+  height: 580px
+  overflow-y: scroll
+  padding: 1rem
+}

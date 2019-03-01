@@ -23,7 +23,11 @@ exports.create = (api) => {
         goBack: api.router.sync.goBack,
         currentPath: request.path
       }),
-      h('h1', 'Settings')
+      h('Settings -index', [
+        h('section.settings', [
+          h('h2', 'Settings')
+        ])
+      ])
     ])
   }
 }
