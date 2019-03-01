@@ -5,13 +5,24 @@ const { h } = require('mutant')
 module.exports = function NavBar (opts) {
   const {
     routeTo,
+    goBack,
     currentPath
   } = opts
 
   return h('nav', [
     h('section.top', [
       h('div.left', [
-        h('i.fa.fa-cog.fa-2x', { 'ev-click': ()=> routeTo({ path: `/settings` }) })
+        h('i.fa.fa-cog.fa-2x',
+          {
+            'ev-click': ()=> {
+              if (currentPath === `/settings`) goBack()
+              else routeTo({ path: `/settings` })
+            },
+            'classList': [
+              currentPath === '/settings' ? 'bg-black white' : 'bg-white black'
+            ]
+          }
+        )
       ]),
       h('div.middle', [
         h('i.fa.fa-search.fa-lg'),
@@ -19,7 +30,7 @@ module.exports = function NavBar (opts) {
       ]),
       h('div.right', [
         h('i.fa.fa-minus.fa-lg'),
-        h('i.fa.fa-plus.fa-lg')
+        h('i.fa.fa-times.fa-lg')
       ])
     ]),
     h('section.bottom', [

@@ -79,10 +79,12 @@ exports.create = (api) => {
             scuttle.root.pull.backlinks(root.key, { live: false }),
             pull.collect((err, msgs) => {
               if (err) throw err
-              if (msgs.length === 0) return done(null)
 
               var ritual = msgs.find(isRitual)
-              set(records, [root.key, 'ritualId'], ritual.key)
+              if (ritual) {
+                set(records, [root.key, 'ritualId'], ritual.key)
+                set(records, [root.key, 'quorum'], get(ritual,'value.content.quorum'))
+              }
 
               var requestMsgs = msgs.filter(isRequest)
               var requests = requestMsgs.map(r => ({
@@ -127,7 +129,7 @@ exports.create = (api) => {
                   replies: shardReplies,
                   shard: returnedShard
                 }, identity)
-              })
+              }) || []
 
               set(records, [root.key, 'recipients'], shards.map(s => s.feedId))
               set(records, [root.key, 'shards'], shards)

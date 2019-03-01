@@ -1,4 +1,24 @@
 main.app {
   display: grid
   width: 360px
+
+  article {
+    width: 360px
+  }
+}
+
+bg-black {
+  background: #000
+}
+
+bg-white {
+  background: #FFF
+}
+
+white {
+  color: white
+}
+
+black {
+  color: black
 }

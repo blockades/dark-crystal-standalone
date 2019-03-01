@@ -14,7 +14,6 @@ electron.app.on('ready', () => {
   startMenus()
 
   startBackgroundProcess()
-  // wait until server has started before opening main window
   electron.ipcMain.once('server-started', function (ev, config) {
     openMainWindow()
   })
@@ -23,7 +22,6 @@ electron.app.on('ready', () => {
     quitting = true
   })
 
-  // allow inspecting of background process
   electron.ipcMain.on('open-background-devtools', function (ev, config) {
     if (windows.background) {
       windows.background.webContents.openDevTools({ detach: true })
@@ -37,9 +35,10 @@ function startBackgroundProcess () {
   windows.background = openWindow(Path.join(__dirname, 'server.js'), {
     title: 'server',
     show: false,
+    visibility: 'hidden',
     connect: false,
-    width: 150,
-    height: 150,
+    width: 100,
+    height: 400,
     center: true,
     fullscreen: false,
     fullscreenable: false,
@@ -55,33 +54,36 @@ function openMainWindow () {
   if (windows.main) return
 
   var windowState = WindowState({
-    defaultWidth: 300,
+    defaultWidth: 400,
     defaultHeight: 800
   })
 
   windows.main = openWindow(Path.join(__dirname, 'app/index.js'), {
     title: appName,
     show: true,
-    x: windowState.x,
-    y: windowState.y,
+    // maxWidth: windowState.width,
+    // maxHeight: windowState.height,
     width: windowState.width,
     height: windowState.height,
     autoHideMenuBar: true,
     fullscreen: false,
     fullscreenable: false,
+    maximizable: true,
+    resizable: true,
     frame: !process.env.FRAME,
-    titleBarStyle: 'hidden',
-    backgroundColor: '#FFF',
     icon: Path.join(__dirname, 'assets', 'icon_200x200.png')
   })
+
   windowState.manage(windows.main)
   windows.main.setSheetOffset(40)
+
   windows.main.on('close', function (e) {
     if (!quitting && process.platform === 'darwin') {
       e.preventDefault()
       windows.main.hide()
     }
   })
+
   windows.main.on('closed', function () {
     windows.main = null
     if (process.platform !== 'darwin') electron.app.quit()
@@ -101,7 +103,7 @@ function openWindow (path, opts) {
         h('title', title)
       )
       require(${JSON.stringify(path)})
-    `) // NOTE tried process(electron)
+    `)
   })
 
   window.webContents.on('will-navigate', function (e, url) {
