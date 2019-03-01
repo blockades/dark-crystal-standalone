@@ -37,8 +37,6 @@ function startBackgroundProcess () {
     show: false,
     visibility: 'hidden',
     connect: false,
-    width: 100,
-    height: 400,
     center: true,
     fullscreen: false,
     fullscreenable: false,
@@ -54,22 +52,22 @@ function openMainWindow () {
   if (windows.main) return
 
   var windowState = WindowState({
-    defaultWidth: 400,
-    defaultHeight: 800
+    defaultWidth: 360,
+    defaultHeight: 650
   })
 
   windows.main = openWindow(Path.join(__dirname, 'app/index.js'), {
     title: appName,
     show: true,
-    // maxWidth: windowState.width,
-    // maxHeight: windowState.height,
+    maxWidth: windowState.width,
+    maxHeight: windowState.height,
     width: windowState.width,
     height: windowState.height,
     autoHideMenuBar: true,
     fullscreen: false,
     fullscreenable: false,
-    maximizable: true,
-    resizable: true,
+    // maximizable: false,
+    // resizable: false,
     frame: !process.env.FRAME,
     icon: Path.join(__dirname, 'assets', 'icon_200x200.png')
   })
