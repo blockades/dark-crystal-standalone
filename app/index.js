@@ -9,7 +9,7 @@ const app = {
   actions: bulk(__dirname, ['actions/**/*.js']),
   views: bulk(__dirname, ['views/**/*.js']),
   router: bulk(__dirname, ['router/**/*.js']),
-  styles: require('./styles/mcss.js'),
+  styles: bulk(__dirname, ['styles/**/*.js']),
   ...require('../lib')
 }
 
