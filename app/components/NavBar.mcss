@@ -1,0 +1,25 @@
+nav {
+  padding: .5rem
+  display: grid
+  grid-template-rows: auto auto
+  grid-gap: .5rem
+
+  section.top {
+    display: grid
+    grid-template-columns: 4rem auto 4rem
+
+    div.right {
+      display: grid
+      grid-template-columns: auto auto
+      padding: 1rem 0 1rem 0;
+    }
+
+    div.middle {
+      display: grid
+      grid-template-columns: 1rem auto
+      grid-template-rows: 1rem
+      padding: .5rem 1.5rem 0 0
+      grid-gap: .5rem
+    }
+  }
+}

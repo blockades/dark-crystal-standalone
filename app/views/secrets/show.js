@@ -5,7 +5,7 @@ const { h, Array: MutantArray, map, throttle } = require('mutant')
 exports.gives = nest('app.views.secrets.show')
 
 exports.needs = nest({
-  'app.sync.goTo': 'first',
+  'router.sync.goTo': 'first',
 })
 
 exports.create = (api) => {
@@ -13,7 +13,7 @@ exports.create = (api) => {
 
   function secretsShow ({ path, secret }) {
     return h('CrystalsShow', [
-      h('button', { 'ev-click': () => api.app.sync.goTo('/secrets') }, 'Back'),
+      h('button', { 'ev-click': () => api.router.sync.goTo('/secrets') }, 'Back'),
       h('div', [
         JSON.stringify(secret)
       ])
