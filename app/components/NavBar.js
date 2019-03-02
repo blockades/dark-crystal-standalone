@@ -47,11 +47,11 @@ module.exports = function NavBar (opts) {
         })
       ])
     ]),
-    !isSettingsPage ? h('section.bottom', [
-      ViewTabs(currentPath, [
-        { name: 'secrets', routeTo: () => routeTo({ path: `/secrets` }) },
-        { name: 'shards', routeTo: () => routeTo({ path: `/shards` }) }
-      ])
-    ]) : null
+    // !isSettingsPage ? h('section.bottom', [
+    //   ViewTabs(currentPath, [
+    //     { name: 'secrets', routeTo: () => routeTo({ path: `/secrets` }) },
+    //     { name: 'shards', routeTo: () => routeTo({ path: `/shards` }) }
+    //   ])
+    // ]) : null
   ])
 }

@@ -1,4 +1,6 @@
 div.tabs {
+  border-bottom: 1px solid grey
+  padding: 0 0 .5rem 0
   display: grid
   grid-template-columns: auto auto
   text-align: center
@@ -11,6 +13,10 @@ div.tabs {
     }
 
     :hover { cursor: pointer }
+  }
+
+  div.active {
+    border-bottom: 2px solid #1EAEDB
   }
 }
 

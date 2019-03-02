@@ -3,6 +3,7 @@ const pull = require('pull-stream')
 const { h, Array: MutantArray, map, throttle } = require('mutant')
 
 const NavBar = require('../../components/NavBar')
+const ViewTabs = require('../../components/ViewTabs')
 
 exports.gives = nest('app.views.secrets.show')
 
@@ -24,6 +25,10 @@ exports.create = (api) => {
         goBack: api.router.sync.goBack,
         currentPath: request.path
       }),
+      ViewTabs(request.path, [
+        { name: 'secrets', click: () => routeTo({ path: `/secrets` }), class: 'active' },
+        { name: 'shards', click: () => routeTo({ path: `/shards` }) }
+      ]),
       h('Secrets -show', [
         h('div.left', [
           h('i.fa.fa-chevron-left', {

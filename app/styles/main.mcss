@@ -13,7 +13,7 @@ main.app {
   width: 360px
   height: 640px
   background: #2B0929
-  color: white
+  color: #F5F5DC
 
   article {
     width: 360px
