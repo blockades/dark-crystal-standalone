@@ -1,7 +1,12 @@
 const { h } = require('mutant')
 const { remote } = require('electron')
 
-const ViewTabs = require('./ViewTabs')
+const {
+  SettingsIndexPath,
+  SettingsAccountIndexPath,
+  SettingsNetworkIndexPath,
+  SecretsIndexPath
+} = require('../routes')
 
 module.exports = function NavBar (opts) {
   const {
@@ -10,18 +15,12 @@ module.exports = function NavBar (opts) {
     currentPath
   } = opts
 
-  let isSettingsPage = currentPath === `/settings`
-
   return h('nav', [
     h('section.top', [
       h('div.left', [
         h('i.fa.fa-cog.fa-2x',
-          {
-            'ev-click': ()=> {
-              if (isSettingsPage) goBack()
-              else routeTo({ path: `/settings` })
-            },
-            'classList': [isSettingsPage ? 'active' : ''],
+          { 'ev-click': goToPath,
+            'classList': [isSettingsNamespace() ? 'active' : ''],
             'title': 'Settings'
           }
         )
@@ -46,12 +45,15 @@ module.exports = function NavBar (opts) {
           'title': 'Close'
         })
       ])
-    ]),
-    // !isSettingsPage ? h('section.bottom', [
-    //   ViewTabs(currentPath, [
-    //     { name: 'secrets', routeTo: () => routeTo({ path: `/secrets` }) },
-    //     { name: 'shards', routeTo: () => routeTo({ path: `/shards` }) }
-    //   ])
-    // ]) : null
+    ])
   ])
+
+  function isSettingsNamespace () {
+    return currentPath.substring(0, 9) === `/settings`
+  }
+
+  function goToPath (ev) {
+    if (isSettingsNamespace()) routeTo({ path: `/secrets` })
+    else routeTo({ path: `/settings` })
+  }
 }

@@ -19,27 +19,16 @@ exports.create = (api) => {
   function secretsShow (request) {
     const { secret } = request
 
-    return h('article', [
-      NavBar({
-        routeTo: api.router.sync.goTo,
-        goBack: api.router.sync.goBack,
-        currentPath: request.path
-      }),
-      ViewTabs(request.path, [
-        { name: 'secrets', click: () => routeTo({ path: `/secrets` }), class: 'active' },
-        { name: 'shards', click: () => routeTo({ path: `/shards` }) }
+    return h('Secrets -show', [
+      h('div.left', [
+        h('i.fa.fa-chevron-left', {
+          'ev-click': api.router.sync.goBack
+        }),
+        h('div')
       ]),
-      h('Secrets -show', [
-        h('div.left', [
-          h('i.fa.fa-chevron-left', {
-            'ev-click': api.router.sync.goBack
-          }),
-          h('div')
-        ]),
-        h('div.main', [
-          h('section.secret', [
+      h('div.main', [
+        h('section.secret', [
 
-          ])
         ])
       ])
     ])

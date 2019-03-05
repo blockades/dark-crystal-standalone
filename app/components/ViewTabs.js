@@ -1,9 +1,10 @@
 const { h } = require('mutant')
+const { compact } = require('lodash')
 
-module.exports = function ViewTabs (path, tabs) {
+module.exports = function ViewTabs (tabs) {
   return h('div.tabs', [
     tabs.map(tab => (
-      h('div.tab', { classList: [tab.class], 'ev-click': () => tab.click() }, tab.name)
+      h('div.tab', { classList: compact([tab.class]), 'ev-click': tab.onClick }, tab.name)
     ))
   ])
 }

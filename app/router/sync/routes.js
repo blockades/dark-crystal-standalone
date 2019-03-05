@@ -4,32 +4,33 @@ const isRoot = require('scuttle-dark-crystal/isRoot')
 exports.gives = nest('router.sync.routes')
 
 exports.needs = nest({
+  'app.views.layouts.settings': 'first',
   'app.views.secrets.index': 'first',
   'app.views.secrets.show': 'first',
-  'app.views.settings.index': 'first',
   'app.views.settings.account.index': 'first',
   'app.views.settings.network.index': 'first'
 })
 
-const SecretsIndexPath = (request) => request.path === `/secrets`
-const SecretsShowPath = (request) => request.secret && request.path === `/secrets/${request.secret.id}`
-
-const SettingsIndexPath = (request) => request.path === `/settings`
-const SettingsAccountIndexPath = (request) => request.path === `/settings/account`
-const SettingsNetworkIndexPath = (request) => request.path === `/settings/network`
+const {
+  SecretsIndexPath,
+  SecretsShowPath,
+  SettingsIndexPath,
+  SettingsAccountIndexPath,
+  SettingsNetworkIndexPath
+} = require('../../routes')
 
 exports.create = (api) => {
-  return nest('router.sync.routes', (sofar = []) => {
-    const { secrets, settings } = api.app.views
+  return nest('router.sync.routes', (acc = []) => {
+    const { secrets, settings, layouts } = api.app.views
 
     const routes = [
-      [ SecretsIndexPath, secrets.index ],
-      [ SecretsShowPath, secrets.show ],
-      [ SettingsIndexPath, settings.index ],
-      [ SettingsAccountIndexPath, settings.account.index ],
-      [ SettingsNetworkIndexPath, settings.network.index ]
+      [ SecretsIndexPath, { view: secrets.index } ],
+      [ SecretsShowPath, { view: secrets.show } ],
+      [ SettingsIndexPath, { view: settings.account.index, layout: layouts.settings } ],
+      [ SettingsAccountIndexPath, { view: settings.account.index, layout: layouts.settings } ],
+      [ SettingsNetworkIndexPath, { view: settings.network.index, layout: layouts.settings } ]
     ]
 
-    return [...sofar, ...routes]
+    return [...acc, ...routes]
   })
 }

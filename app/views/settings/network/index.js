@@ -1,4 +1,5 @@
 const nest = require('depnest')
+const { computed, h } = require('mutant')
 
 exports.gives = nest('app.views.settings.network.index')
 
@@ -16,6 +17,11 @@ exports.create = (api) => {
 
   function settingsNetworkIndex (request) {
     return h('Settings Network -index', [
+      computed(api.sbot.obs.localPeers(), (peers) => {
+        if (!peers.length) return h('p', 'No local peers connected')
+        return peers.map(feedId => api.about.html.avatar(feedId))
+
+      })
     ])
   }
 }
