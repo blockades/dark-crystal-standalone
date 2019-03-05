@@ -11,11 +11,15 @@ main.app {
   display: grid
   border: 2px solid grey
   width: 360px
-  height: 640px
+  height: 650px
   background: #2B0929
   color: #F5F5DC
 
   article {
     width: 360px
   }
+}
+
+textarea.hidden {
+  display: none
 }
