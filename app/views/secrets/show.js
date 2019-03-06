@@ -46,11 +46,13 @@ exports.create = (api) => {
           ])
         ]),
         h('section.secret', [
-          h('div.down', [
-            h('i.fa.fa-chevron-down', { 'ev-click': () => hidden.set(hidden() === 'hidden' ? '' : 'hidden') }),
-          ]),
-          h('div.secret', [
-            h('textarea', { classList: computed(hidden, (hidden) => hidden), placeholder: 'secret placeholder' })
+          h('div.container', [
+            h('div.down', [
+              h('i.fa.fa-chevron-down', { 'ev-click': () => hidden.set(hidden() === 'hidden' ? '' : 'hidden') }),
+            ]),
+            h('div.secret', [
+              h('textarea', { classList: computed(hidden, (hidden) => hidden), placeholder: 'secret placeholder' })
+            ])
           ]),
           h('div.actions', [
             h('i.fa.fa-clipboard.fa-lg', { 'ev-click': clipboard.write(secret) }),
