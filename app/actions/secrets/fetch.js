@@ -2,13 +2,15 @@ const nest = require('depnest')
 const pull = require('pull-stream')
 const pullParamap = require('pull-paramap')
 const { isFeedId } = require('ssb-ref')
-const { get, set, transform, pickBy, identity, omitBy } = require('lodash')
+const { get, set, transform, pickBy, identity, uniq } = require('lodash')
 
 const Scuttle = require('scuttle-dark-crystal')
 const isShard = require('scuttle-dark-crystal/isShard')
 const isRitual = require('scuttle-dark-crystal/isRitual')
 const isRequest = require('scuttle-dark-crystal/isRequest')
 const isReply = require('scuttle-dark-crystal/isReply')
+
+const secrets = require('dark-crystal-secrets')
 
 const { h, Array: MutantArray, throttle } = require('mutant')
 
@@ -81,58 +83,73 @@ exports.create = (api) => {
               if (err) throw err
 
               var ritual = msgs.find(isRitual)
-              if (ritual) {
-                set(records, [root.key, 'ritualId'], ritual.key)
-                set(records, [root.key, 'quorum'], get(ritual,'value.content.quorum'))
-              }
+
+              if (!ritual) return done(null)
+
+              var version = get(ritual, 'value.content.version')
+              var quorum = get(ritual,'value.content.quorum')
+
+              set(records, [root.key, 'ritualId'], ritual.key)
+              set(records, [root.key, 'quorum'], quorum)
 
               var requestMsgs = msgs.filter(isRequest)
-              var requests = requestMsgs.map(r => ({
-                id: r.key,
-                createdAt: new Date(r.value.timestamp).toLocaleDateString(),
-                feedId: notMe(get(r, 'value.content.recps')),
-              }))
-
               var replyMsgs = msgs.filter(isReply)
-              var replies = replyMsgs.map(r => ({
-                id: r.key,
-                createdAt: new Date(r.value.timestamp).toLocaleDateString(),
-                feedId: notMe(get(r, 'value.content.recps')),
-                shard: get(r, 'value.content.body')
-              }))
-
               var shardMsgs = msgs.filter(isShard)
-              var shards = shardMsgs.map(s => {
-                const { recps, shard: encryptedShard } = get(s, 'value.content')
-                const feedId = notMe(recps)
-                let state, shardReplies, shardRequests, returnedShard
 
-                shardRequests = requests.filter(r => r.feedId === feedId)
-                if (shardRequests.some(r => !!r)) {
-                  shardReplies = replies
-                    .filter(r => r.feedId === feedId)
-                    .map(r => omitBy(r, isFeedId))
-                  shardRequests.map(r => omitBy(r, isFeedId))
-                  if (replies.some(r => !!r)) {
-                    returnedShard = replies[0].shard // only gets the first one.. hmm
-                    state = RECEIVED
-                  }
-                  else state = REQUESTED
-                } else state = PENDING
+              var shards = shardMsgs.map(shard => {
+                const { recps, shard: encryptedShard } = get(shard, 'value.content')
+                const feedId = notMe(recps)
+
+                let state, returnedShard
+
+                var requests = getDialogue(shard, requestMsgs).map(request => ({
+                  id: request.key,
+                  createdAt: new Date(request.value.timestamp).toLocaleDateString(),
+                  feedId: notMe(get(request, 'value.content.recps')),
+                }))
+
+                var replies = getDialogue(shard, replyMsgs).map(reply => ({
+                  id: reply.key,
+                  createdAt: new Date(reply.value.timestamp).toLocaleDateString(),
+                  feedId: notMe(get(reply, 'value.content.recps')),
+                  shard: get(reply, 'value.content.body')
+                }))
+
+                var body = uniq(replies.map(r => r.shard))[0] // only gets the first one per person... if we have more than one, they're sending us dud shards
 
                 return pickBy({
-                  id: s.key,
+                  id: shard.key,
                   feedId,
                   encryptedShard,
-                  state,
-                  requests: shardRequests,
-                  replies: shardReplies,
-                  shard: returnedShard
+                  shard: body,
+                  // state,
+                  requests,
+                  replies
                 }, identity)
-              }) || []
+              })
 
+              function dialogueKey (msg) {
+                var recps = get(msg, 'value.content.recps')
+                if (!recps) return null
+                return recps.sort().join(':')
+              }
+
+              function getDialogue (shard, msgs) {
+                return msgs.filter((msg) => dialogueKey(shard) === dialogueKey(msg))
+              }
+
+              // Our view demands that recipients knows about if there's been a response (adds a border)
               set(records, [root.key, 'recipients'], shards.map(s => s.feedId))
               set(records, [root.key, 'shards'], shards)
+
+              let shardBodies = shards
+                .filter(s => s.shard)
+                .map(s => s.shard)
+
+              if (shardBodies.length >= quorum) {
+                let secret = secrets.combine(shardBodies, version)
+                set(records, [root.key, 'secret'], secret)
+              }
 
               done(null)
             })
@@ -140,7 +157,9 @@ exports.create = (api) => {
         }, 10),
         pull.collect((err, secrets) => {
           if (err) throw err
-          var recordsArray = transform(records, (acc, value, key, obj) => acc.push({ id: key, ...obj[key] }), [])
+          var recordsArray = transform(records, (acc, value, key, obj) => {
+            if (obj[key]['ritualId']) acc.push({ id: key, ...obj[key] })
+          }, [])
           store.set(recordsArray)
         })
       )

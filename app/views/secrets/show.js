@@ -5,7 +5,6 @@ const { h, computed, Value } = require('mutant')
 
 const NavBar = require('../../components/NavBar')
 const ViewTabs = require('../../components/ViewTabs')
-
 exports.gives = nest('app.views.secrets.show')
 
 exports.needs = nest({
@@ -51,7 +50,11 @@ exports.create = (api) => {
               h('i.fa.fa-chevron-down', { 'ev-click': () => hidden.set(hidden() === 'hidden' ? '' : 'hidden') }),
             ]),
             h('div.secret', [
-              h('textarea', { classList: computed(hidden, (hidden) => hidden), placeholder: 'secret placeholder' })
+              h('textarea', {
+                classList: computed(hidden, (hidden) => hidden),
+                placeholder: 'secret placeholder',
+                attributes: { readonly: true }
+              }, secret.secret)
             ])
           ]),
           h('div.actions', [
