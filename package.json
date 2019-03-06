@@ -6,6 +6,7 @@
   "scripts": {
     "start": "electron index.js",
     "start:dev": "NODE_ENV=development electron index.js",
+    "start:testnet": "NODE_ENV=development ssb_appname=dark-crystal-test electron index.js",
     "test": "standard --fix",
     "rebuild": "cross-script npm rebuild --runtime=electron \"--target=$(electron -v)\" \"--abi=$(electron --abi)\" --disturl=https://atom.io/download/atom-shell",
     "postinstall": "npm run rebuild"

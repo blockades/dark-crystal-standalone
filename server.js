@@ -28,7 +28,7 @@ var createSbot = require('ssb-server')
 
 var config = require('./config').create().config.sync.load()
 
-var sbot = createSbot(config)
-var manifest = sbot.getManifest()
+var server = createSbot(config)
+var manifest = server.getManifest()
 fs.writeFileSync(Path.join(config.path, 'manifest.json'), JSON.stringify(manifest))
 electron.ipcRenderer.send('server-started')

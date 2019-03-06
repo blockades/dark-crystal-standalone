@@ -15,9 +15,13 @@ npm start
 
 In order to start in framed mode with dev tools automatically opening on start-up, run the following:
 
-```
+```sh
+# NOTE: with live data
 npm install
 npm run start:dev
+
+# NOTE: on a testnet
+npm run start:testnet
 ```
 
 Once started, hit Ctrl+Shift+M and choose Galaxy S5 for the correct dimensions.
