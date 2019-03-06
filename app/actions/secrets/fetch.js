@@ -125,7 +125,7 @@ exports.create = (api) => {
                   id: shard.key,
                   feedId,
                   encryptedShard,
-                  shard: body,
+                  body,
                   // state,
                   requests,
                   replies
@@ -147,8 +147,8 @@ exports.create = (api) => {
               set(records, [root.key, 'shards'], shards)
 
               let shardBodies = shards
-                .filter(s => s.shard)
-                .map(s => s.shard)
+                .map(s => s.body)
+                .filter(Boolean)
 
               if (shardBodies.length >= quorum) {
                 let secret = secrets.combine(shardBodies, version)

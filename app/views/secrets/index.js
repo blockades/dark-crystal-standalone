@@ -31,7 +31,7 @@ exports.create = (api) => {
                 secret.recipients.map(feedId => api.about.html.avatar(feedId))
               ]),
               h('div.state', [
-                h('span.recps', secret.recipients.length),
+                h('span.recps', secret.shards.filter(s => s.body).length),
                 h('span', '/'),
                 h('span.quorum', secret.quorum)
               ])
