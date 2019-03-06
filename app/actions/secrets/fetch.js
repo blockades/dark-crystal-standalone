@@ -115,7 +115,11 @@ exports.create = (api) => {
                   shard: get(reply, 'value.content.body')
                 }))
 
-                var body = uniq(replies.map(r => r.shard))[0] // only gets the first one per person... if we have more than one, they're sending us dud shards
+                // only gets the first one per person...
+                // if we have more than one, they're sending us multiple shards,
+                // some of which could be duds (including the first)
+                // we should handle this gracefully...
+                var body = uniq(replies.map(r => r.shard))[0]
 
                 return pickBy({
                   id: shard.key,

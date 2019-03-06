@@ -1,3 +1,5 @@
+// Define route functions here, then in order to use them, add to router/async/routes.js with the relevant view
+
 const SecretsIndexPath = (request) => request.path === `/secrets`
 const SecretsShowPath = (request) => request.secret && request.path === `/secrets/${request.secret.id}`
 
