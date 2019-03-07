@@ -10,7 +10,7 @@ const app = {
   views: bulk(__dirname, ['views/**/*.js']),
   router: bulk(__dirname, ['router/**/*.js']),
   styles: bulk(__dirname, ['styles/**/*.js']),
-  ...require('../lib')
+  ...require('../lib/scuttle')
 }
 
 const sockets = combine(app)

@@ -1,7 +1,8 @@
 const nest = require('depnest')
 const Config = require('ssb-config/inject')
-const Path = require('path')
-const merge = require('lodash/merge')
+
+const { merge } = require('lodash')
+const { join } = require('path')
 
 exports.gives = nest('config.sync.load')
 exports.create = (api) => {
@@ -29,7 +30,7 @@ function addSockets (config) {
       connections: {
         incoming: { unix: [{ scope: 'local', transform: 'noauth', server: true }] }
       },
-      remote: `unix:${Path.join(config.path, 'socket')}:~noauth:${pubkey}` // overwrites
+      remote: `unix:${join(config.path, 'socket')}:~noauth:${pubkey}` // overwrites
     }
   )
 }
