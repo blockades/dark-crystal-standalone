@@ -2,7 +2,7 @@ const nest = require('depnest')
 const { h } = require('mutant')
 
 const NavBar = require('../../components/NavBar')
-const ViewTabs = require('../../components/ViewTabs')
+const Tabs = require('../../components/Tabs')
 
 const {
   SettingsIndexPath,
@@ -26,7 +26,7 @@ exports.create = (api) => {
         goBack: api.router.sync.goBack,
         request
       }),
-      ViewTabs([
+      Tabs({ tabs: [
         {
           name: 'account',
           class: SettingsIndexPath(request) || SettingsAccountIndexPath(request) ? 'active' : '',
@@ -37,7 +37,7 @@ exports.create = (api) => {
           class: SettingsNetworkIndexPath(request) ? 'active' : '',
           onClick: () => api.router.sync.goTo({ path: `/settings/network` })
         }
-      ]),
+      ]}),
       ...children
     ])
   }

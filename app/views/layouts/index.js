@@ -2,7 +2,7 @@ const nest = require('depnest')
 const { h } = require('mutant')
 
 const NavBar = require('../../components/NavBar')
-const ViewTabs = require('../../components/ViewTabs')
+const Tabs = require('../../components/Tabs')
 
 const { isSecretsNamespace, isShardsNamespace } = require('../../routes')
 
@@ -22,10 +22,18 @@ exports.create = (api) => {
         goBack: api.router.sync.goBack,
         request
       }),
-      ViewTabs([
-        { name: 'secrets', routeTo: () => api.router.sync.goTo({ path: `/secrets` }), class: isSecretsNamespace(request) ? 'active' : '' },
-        { name: 'shards', routeTo: () => api.router.sync.goTo({ path: `/shards` }), class: isShardsNamespace(request) ? 'active' : ''  }
-      ]),
+      Tabs({ tabs: [
+        {
+          name: 'secrets',
+          onClick: () => api.router.sync.goTo({ path: `/secrets` }),
+          class: isSecretsNamespace(request) ? 'active' : ''
+        },
+        {
+          name: 'shards',
+          onClick: () => api.router.sync.goTo({ path: `/shards` }),
+          class: isShardsNamespace(request) ? 'active' : ''
+        }
+      ]}),
       ...children
     ])
   }

@@ -3,8 +3,6 @@ const pull = require('pull-stream')
 const { clipboard } = require('electron')
 const { h, computed, Value } = require('mutant')
 
-const NavBar = require('../../components/NavBar')
-const ViewTabs = require('../../components/ViewTabs')
 const Peers = require('../../components/Peers')
 
 exports.gives = nest('app.views.secrets.show')

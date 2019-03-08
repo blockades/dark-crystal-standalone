@@ -34,7 +34,7 @@ exports.create = (api) => {
                 avatar: api.about.html.avatar
               }),
               h('div.state', [
-                h('span.recps', secret.shards.filter(s => s.body).length),
+                h('span.shards', secret.shards.filter(s => s.body).length),
                 h('span', '/'),
                 h('span.quorum', secret.quorum)
               ])
