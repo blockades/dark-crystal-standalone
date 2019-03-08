@@ -20,7 +20,7 @@ exports.create = (api) => {
     const state = Struct({
       secretName: null,
       secret: null,
-      recps: MutantArray([]),
+      peers: MutantArray([]),
       quorum: null,
       image: null
     })
@@ -44,21 +44,22 @@ exports.create = (api) => {
         ]),
         h('div.custodians', [
           h('label.custodians', 'Custodians'),
-          Peers({ peers: state.recps, avatar: api.about.html.avatar }, [
+          Peers({ peers: state.peers, avatar: api.about.html.avatar }, [
             AddPeer({
-              peers: state.recps,
+              peers: state.peers,
               avatar: api.about.html.avatar,
               suggest: { about: api.about.async.suggest },
-              placeholder: 'Select custodians for your secret from your peers'
+              placeholder: 'Select custodians for your secret from your peers',
+              max: 7
             })
           ])
         ]),
-        computed(state.recps, recps => (
+        computed(state.peers, peers => (
           h('div.quorum', { title: 'Choose a quorum of custodians required to reassemble the secret' }, [
             h('label.quorum', 'Quorum'),
             h('div.slider', [
-              h('input.quorum', { type: 'range', min: 2, max: recps.length }),
-              h('span.quorum', recps.length)
+              h('input.quorum', { type: 'range', min: 2, max: peers.length }),
+              h('span.quorum', peers.length)
             ])
           ])
         ))

@@ -29,7 +29,6 @@ exports.create = (api) => {
       const route = routes.find(([validator]) => validator(request))
       if (route) {
         var { view, layout } = route[1]
-        console.log(layout)
         if (!layout) layout = api.app.views.layouts.index
         cb(null, layout(request, [ view(request) ]))
       }

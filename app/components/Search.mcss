@@ -1,0 +1,5 @@
+div.search {
+  display: grid
+  grid-template-columns: 1rem 1fr auto
+  grid-gap: 0.5rem
+}

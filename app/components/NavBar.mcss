@@ -33,7 +33,7 @@ nav {
     div.right {
       display: grid
       grid-template-columns: auto auto
-      padding: .5rem 0 1rem 0
+      padding: .5rem 0 1rem 1rem
 
       i {
         cursor: pointer
@@ -45,10 +45,10 @@ nav {
 
     div.middle {
       display: grid
-      grid-template-columns: 1rem auto
+      grid-template-columns: 1rem 1fr 1rem
       grid-template-rows: 1rem
-      padding: .5rem 1.5rem 0 0
       grid-gap: .5rem
+      padding: .5rem 0 0 0
     }
   }
 }

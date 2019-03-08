@@ -3,12 +3,15 @@ const { remote } = require('electron')
 
 const { isSettingsNamespace } = require('../routes')
 
-module.exports = function NavBar (opts) {
+const Search = require('./Search')
+
+module.exports = function NavBar (props, children = []) {
   const {
     routeTo,
     goBack,
-    request
-  } = opts
+    request,
+    suggest
+  } = props
 
   return h('nav', [
     h('section.top', [
@@ -21,8 +24,7 @@ module.exports = function NavBar (opts) {
         )
       ]),
       h('div.middle', [
-        h('i.fa.fa-search.fa-lg'),
-        h('input')
+        Search({ suggest, routeTo })
       ]),
       h('div.right', [
         h('i.fa.fa-minus.fa-lg', {

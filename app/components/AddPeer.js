@@ -6,23 +6,32 @@ module.exports = function AddPeer (props, children = []) {
   const {
     peers,
     suggest,
-    maxRecps,
+    max = 1,
     placeholder = '',
-    onChange = console.log
+    onChange = console.log,
+    onSubmit = console.log
   } = props
 
   const state = {
     peers,
-    minRecps: 0,
-    maxRecps,
+    min: 0,
+    max,
     isEmpty: true
   }
 
   const input = h('input', { placeholder })
-  suggestify(input, suggest, state)
+  suggestify(input, suggest, state, ({ state, link, name, e }) => {
+    addRecp({ state, link, name }, (err) => {
+      if (err) console.error(err)
+
+      e.target.value = ''
+      e.target.placeholder = ''
+      onSubmit()
+    })
+  })
 
   input.addEventListener('keydown', (e) => {
-    if (state.peers.getLength() >= maxRecps && !isBackspace(e)) {
+    if (state.peers.getLength() >= max && !isBackspace(e)) {
       e.preventDefault()
       return false
     }
@@ -42,7 +51,7 @@ module.exports = function AddPeer (props, children = []) {
       return
     }
 
-    if (isBackspace(e) && state.isEmpty && state.peers.getLength() > state.minRecps) {
+    if (isBackspace(e) && state.isEmpty && state.peers.getLength() > state.min) {
       peers.pop()
       onChange()
     }
@@ -60,12 +69,12 @@ module.exports = function AddPeer (props, children = []) {
   ]
 }
 
-function suggestify (input, suggest, state) {
+function suggestify (input, suggest, state, callback) {
   // TODO use a legit module to detect whether ready
-  if (!input.parentElement) return setTimeout(() => suggestify(input, suggest, state), 100)
+  if (!input.parentElement) return setTimeout(() => suggestify(input, suggest, state, callback), 100)
 
   addSuggest(input, (inputText, cb) => {
-    if (state.peers.getLength() >= state.maxRecps) return
+    if (state.peers.getLength() >= state.max) return
     // TODO - tell the user they're only allowed 6 (or 7?!) people in a message
 
     if (isFeedId(inputText)) return
@@ -77,12 +86,7 @@ function suggestify (input, suggest, state) {
 
   input.addEventListener('suggestselect', (e) => {
     const { id: link, title: name } = e.detail
-    addRecp({ state, link, name }, (err) => {
-      if (err) console.error(err)
-
-      e.target.value = ''
-      e.target.placeholder = ''
-    })
+    callback({ state, link, name, e })
   })
 }
 
@@ -90,7 +94,7 @@ function addRecp ({ state, link, name }, cb) {
   const isAlreadyPresent = resolve(state.peers).find(r => r === link || r.link === link)
   if (isAlreadyPresent) return cb(new Error('can only add each peer once'))
 
-  if (state.peers.getLength() >= state.maxRecps) return cb(new Error(`cannot add any more peers, already at maxRecps (${state.maxRecps})`))
+  if (state.peers.getLength() >= state.max) return cb(new Error(`cannot add any more peers, already at max (${state.max})`))
 
   state.peers.push({ link, name })
   cb(null)

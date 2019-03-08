@@ -9,7 +9,8 @@ const { isSecretsNamespace, isShardsNamespace } = require('../../routes')
 exports.gives = nest('app.views.layouts.index')
 exports.needs = nest({
   'router.sync.goTo': 'first',
-  'router.sync.goBack': 'first'
+  'router.sync.goBack': 'first',
+  'about.async.suggest': 'first'
 })
 
 exports.create = (api) => {
@@ -20,6 +21,7 @@ exports.create = (api) => {
       NavBar({
         routeTo: api.router.sync.goTo,
         goBack: api.router.sync.goBack,
+        suggest: { about: api.about.async.suggest },
         request
       }),
       Tabs({ tabs: [
