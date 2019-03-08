@@ -3,7 +3,7 @@ const { h, Array: MutantArray, resolve } = require('mutant')
 const AddPeer = require('./AddPeer')
 
 module.exports = function Search (props, children = []) {
-  const { suggest, routeTo } = props
+  const { suggest, routeTo, myId } = props
   const state = {
     feed: MutantArray([])
   }
@@ -16,7 +16,10 @@ module.exports = function Search (props, children = []) {
       max: 1,
       onSubmit: () => {
         const id = resolve(state.feed)[0].link
-        routeTo({ path: `/peers/${id}`, peer: { id } })
+        console.log(myId)
+        console.log(id)
+        if (id === myId) routeTo({ path: `/settings/account` })
+        else routeTo({ path: `/peers/${id}`, peer: { id } })
       }
     })
   ])

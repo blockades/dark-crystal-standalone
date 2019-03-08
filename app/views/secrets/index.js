@@ -19,6 +19,18 @@ exports.create = (api) => {
 
   function secretsIndex (request) {
     return h('Secrets -index', [
+      h('section.secret.new', { title: 'Share a new Secret' }, [
+        h('div.main', {
+          'ev-click': () => api.router.sync.goTo({ path: `/secrets/new` })
+        }, [
+          h('div.new', [
+            h('i.fa.fa-plus.fa-lg')
+          ])
+        ]),
+        h('div.right', {
+          'ev-click': () => api.router.sync.goTo({ path: `/secrets/new` })
+        }, [ h('i.fa.fa-chevron-right') ])
+      ]),
       map(api.app.actions.secrets.fetch(), (secret) => (
         h('section.secret', [
           h('div.main', [
@@ -44,16 +56,7 @@ exports.create = (api) => {
             'ev-click': () => api.router.sync.goTo({ path: `/secrets/${secret.id}`, secret: secret })
           }, [ h('i.fa.fa-chevron-right') ])
         ])
-      ), { comparer }),
-      h('section.secret.new', [
-        h('div.main', {
-          'ev-click': () => api.router.sync.goTo({ path: `/secrets/new` })
-        }, [
-          h('div.new', [
-            h('i.fa.fa-plus.fa-lg')
-          ])
-        ])
-      ])
+      ), { comparer })
     ])
   }
 }

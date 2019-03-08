@@ -10,7 +10,8 @@ module.exports = function NavBar (props, children = []) {
     routeTo,
     goBack,
     request,
-    suggest
+    suggest,
+    myId
   } = props
 
   return h('nav', [
@@ -24,7 +25,11 @@ module.exports = function NavBar (props, children = []) {
         )
       ]),
       h('div.middle', [
-        Search({ suggest, routeTo })
+        Search({
+          suggest,
+          routeTo,
+          myId
+        })
       ]),
       h('div.right', [
         h('i.fa.fa-minus.fa-lg', {
