@@ -3,7 +3,10 @@ const pull = require('pull-stream')
 const { clipboard } = require('electron')
 const { h, computed, Value } = require('mutant')
 
+const Tabs = require('../../components/Tabs')
 const Peers = require('../../components/Peers')
+const Secret = require('../../components/Secret')
+const History = require('../../components/History')
 
 exports.gives = nest('app.views.secrets.show')
 
@@ -19,10 +22,9 @@ exports.create = (api) => {
   function secretsShow (request) {
     const { secret } = request
 
-    // %%TODO%% I'd like it if we could remove this from these views and it just gets passed a state object...
-    // That way our views are much more like components, and our state can be determined higher up,
-    // in 'containers' or 'controllers'
-    const hidden = Value('hidden')
+    const state = {
+      tab: Value('history')
+    }
 
     return h('Secrets -show', [
       h('div.left', [
@@ -47,24 +49,15 @@ exports.create = (api) => {
             })
           ])
         ]),
-        h('section.secret', [
-          h('div.container', [
-            h('div.down', [
-              h('i.fa.fa-chevron-down', { 'ev-click': () => hidden.set(hidden() === 'hidden' ? '' : 'hidden') }),
-            ]),
-            h('div.secret', [
-              h('textarea', {
-                classList: computed(hidden, (hidden) => hidden),
-                placeholder: 'secret placeholder',
-                attributes: { readonly: true }
-              }, secret.secret)
-            ])
-          ]),
-          h('div.actions', [
-            h('i.fa.fa-clipboard.fa-lg', { 'ev-click': clipboard.write(secret) }),
-            h('button', 'Reset')
-          ])
-        ])
+        Tabs({ tabs: [
+          { name: 'history', onClick: () => state.tab.set('history'), class: computed(state.tab, tab => tab === 'history' ? 'active' : '') },
+          { name: 'secret', onClick: () => state.tab.set('secret'), class: computed(state.tab, tab => tab === 'secret' ? 'active' : '') }
+        ] }),
+        computed(state.tab, tab => {
+          if (tab === 'history') return History()
+          else if (tab === 'secret')  return Secret({ secret })
+          else return null
+        })
       ])
     ])
   }
