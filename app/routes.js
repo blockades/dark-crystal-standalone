@@ -1,6 +1,5 @@
 // Define route functions here, then in order to use them, add to router/async/routes.js with the relevant view
 
-
 const SecretsIndexPath = (request) => request.path === `/secrets`
 const SecretsShowPath = (request) => request.secret && request.path === `/secrets/${request.secret.id}`
 const SecretsNewPath = (request) => request.path === `/secrets/new`
@@ -18,15 +17,22 @@ const SettingsNetworkIndexPath = (request) => request.path === `/settings/networ
 
 const isSettingsNamespace = (request) => request.path.substring(0, 9) === `/settings`
 
+const PeersShowPath = (request) => request.peer && request.path === `/peers/${request.peer.id}`
+
 module.exports = {
   SecretsIndexPath,
   SecretsShowPath,
   SecretsNewPath,
+
+  ShardsIndexPath,
+  ShardsShowPath,
+
+  PeersShowPath,
+
   SettingsIndexPath,
   SettingsAccountIndexPath,
   SettingsNetworkIndexPath,
-  ShardsIndexPath,
-  ShardsShowPath,
+
   isSettingsNamespace,
   isSecretsNamespace,
   isShardsNamespace

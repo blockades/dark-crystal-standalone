@@ -41,7 +41,10 @@ exports.create = (api) => {
             ]),
           ]),
           h('div.remote', [
-            Peers({ peers: secret.recipients, avatar: api.about.html.avatar })
+            Peers({
+              peers: secret.recipients,
+              avatar: api.about.html.avatar
+            })
           ])
         ]),
         h('section.secret', [

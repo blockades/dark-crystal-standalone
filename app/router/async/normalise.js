@@ -30,7 +30,8 @@ exports.create = (api) => {
           cb(null, { key: request, value })
         }
       })
-    } else if (isPath(request)) cb(null, { path: request })
+    }
+    else if (isPath(request)) cb(null, { path: request })
 
     return true
   }

@@ -16,6 +16,7 @@ exports.create = function (api) {
     api.router.async.router(request, (err, view) => {
       if (err) throw err
       if (!view) return
+      console.log(view)
       api.history.sync.push(view)
     })
   }
