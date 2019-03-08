@@ -17,7 +17,6 @@ exports.create = (api) => {
   return nest('app.views.secrets.new', secretsNew)
 
   function secretsNew (request) {
-    // can we define this elsewhere...?
     const state = Struct({
       secretName: null,
       secret: null,

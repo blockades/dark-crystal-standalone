@@ -15,7 +15,7 @@ exports.needs = nest({
 exports.create = (api) => {
   return nest('app.views.layouts.index', layoutIndex)
 
-  function layoutIndex (request, children) {
+  function layoutIndex (request, children = []) {
     return h('article', [
       NavBar({
         routeTo: api.router.sync.goTo,

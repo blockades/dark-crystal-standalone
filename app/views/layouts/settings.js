@@ -5,7 +5,7 @@ const NavBar = require('../../components/NavBar')
 const ViewTabs = require('../../components/ViewTabs')
 
 const {
-  isSettingsNamespace,
+  SettingsIndexPath,
   SettingsAccountIndexPath,
   SettingsNetworkIndexPath
 } = require('../../routes')
@@ -19,7 +19,7 @@ exports.needs = nest({
 exports.create = (api) => {
   return nest('app.views.layouts.settings', layoutSettingsIndex)
 
-  function layoutSettingsIndex (request, children) {
+  function layoutSettingsIndex (request, children = []) {
     return h('article', [
       NavBar({
         routeTo: api.router.sync.goTo,
@@ -29,13 +29,7 @@ exports.create = (api) => {
       ViewTabs([
         {
           name: 'account',
-          // %%TODO%% We can make this better. If we extract to 'controllers' after the routes and before the views,
-          // we can cache any relevant values as observables and store the previous state of the nested views.
-          // For example, /settings would be able to remember values for /settings/account and /settings/network
-          // That way, when a user leaves /settings/network to /secrets then gets routed to /settings,
-          // the controller would direct them to the /settings/network view based on the previous value
-          // This way we can begin to store state outside of the views.
-          class: isSettingsNamespace(request) || SettingsAccountIndexPath(request) ? 'active' : '',
+          class: SettingsIndexPath(request) || SettingsAccountIndexPath(request) ? 'active' : '',
           onClick: () => api.router.sync.goTo({ path: `/settings/account` })
         },
         {
@@ -48,3 +42,10 @@ exports.create = (api) => {
     ])
   }
 }
+
+// %%TODO%% We can make this better. If we extract to 'controllers' after the routes and before the views,
+// we can cache any relevant values as observables and store the previous state of the nested views.
+// For example, /settings would be able to remember values for /settings/account and /settings/network
+// That way, when a user leaves /settings/network to /secrets then gets routed to /settings,
+// the controller would direct them to the /settings/network view based on the previous value
+// This way we can begin to store state outside of the views.
