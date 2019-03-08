@@ -8,7 +8,7 @@ module.exports = function Timestamp ({ prefix, timestamp, suffix }) {
     .filter(isString)
     .join(' ')
 
-  return h('div.Timestamp', text)
+  return h('div.timestamp', text)
 }
 
 function isString (i) {

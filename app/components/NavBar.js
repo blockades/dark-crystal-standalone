@@ -5,7 +5,7 @@ const { isSettingsNamespace } = require('../routes')
 
 const Search = require('./Search')
 
-module.exports = function NavBar (props, children = []) {
+module.exports = function NavBar (props = {}, children = []) {
   const {
     routeTo,
     goBack,

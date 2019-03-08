@@ -21,6 +21,7 @@ exports.create = (api) => {
 
   function secretsShow (request) {
     const { secret } = request
+    console.log(secret)
 
     const state = {
       tab: Value('history')
@@ -49,10 +50,12 @@ exports.create = (api) => {
             })
           ])
         ]),
-        Tabs({ tabs: [
-          { name: 'history', onClick: () => state.tab.set('history'), class: computed(state.tab, tab => tab === 'history' ? 'active' : '') },
-          { name: 'secret', onClick: () => state.tab.set('secret'), class: computed(state.tab, tab => tab === 'secret' ? 'active' : '') }
-        ] }),
+        h('section.tabs', [
+          Tabs({ tabs: [
+            { name: 'history', onClick: () => state.tab.set('history'), class: computed(state.tab, tab => tab === 'history' ? 'active' : '') },
+            { name: 'secret', onClick: () => state.tab.set('secret'), class: computed(state.tab, tab => tab === 'secret' ? 'active' : '') }
+          ] })
+        ]),
         computed(state.tab, tab => {
           if (tab === 'history') return History()
           else if (tab === 'secret')  return Secret({ secret })

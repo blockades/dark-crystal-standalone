@@ -37,7 +37,7 @@ exports.create = (api) => {
           ))
         ])
       ]),
-      h('div.remote', { title: '~ peers / pubs connected across the internet ~' }, [
+      h('div.remote', { title: '~ pubs connected via the internet ~' }, [
         h('label.remote', 'Remote Peers'),
         Peers({ peers: state.remote.peers, avatar: api.about.html.avatar }, [
           computed(state.remote.peers, (peers) => (

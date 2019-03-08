@@ -2,7 +2,7 @@ const { h, resolve } = require('mutant')
 const addSuggest = require('suggest-box')
 const { isFeedId  } = require('ssb-ref')
 
-module.exports = function AddPeer (props, children = []) {
+module.exports = function AddPeer (props = {}, children = []) {
   const {
     peers,
     suggest,
