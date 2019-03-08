@@ -36,7 +36,7 @@ exports.create = (api) => {
           h('label.name', 'Name'),
           h('input.name', {
             placeholder: 'For your reference only (this is private)',
-            'ev-input': ev => state.name.set(ev.target.value)
+            'ev-input': ev => state.secretName.set(ev.target.value)
           })
         ]),
         h('section.secret', { title: 'Enter the secret / key you wish to back-up' }, [
@@ -67,7 +67,17 @@ exports.create = (api) => {
               h('span.quorum', peers.length)
             ])
           ])
-        ))
+        )),
+        h('section.actions', [
+          computed(state, state => {
+            var canSubmit = state.secretName
+              && state.secret
+              && !!state.peers.length
+              && state.quorum
+
+            if (canSubmit) return Button()
+          })
+        ])
       ])
     ])
   }
