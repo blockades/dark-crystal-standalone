@@ -1,0 +1,10 @@
+div.peer {
+  a {
+    padding: 0 .5rem 0 0
+
+    img {
+      height: 35px
+      width: 35px
+    }
+  }
+}

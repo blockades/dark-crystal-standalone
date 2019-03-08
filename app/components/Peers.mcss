@@ -1,0 +1,3 @@
+div.peers {
+  display: flex
+}

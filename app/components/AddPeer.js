@@ -1,38 +1,18 @@
-const { h, map, resolve } = require('mutant')
+const { h, resolve } = require('mutant')
 const addSuggest = require('suggest-box')
-const { isFeedId } = require('ssb-ref')
-const Recipient = require('./recipient')
+const { isFeedId  } = require('ssb-ref')
 
-module.exports = function Recipients (opts) {
+module.exports = function AddPeer (props, children = []) {
   const {
-    state,
-    suggest,
-    name,
-    avatar,
-    maxRecps = 7,
-    placeholder = '',
-    onChange = console.log
-  } = opts
-
-  const avatarSmall = (feedId) => avatar(feedId, 2.5)
-
-  return h('DarkCrystalRecipients', [
-    map(state.recps, recp => Recipient({ recp, name, avatar: avatarSmall })),
-    RecipientInput({ state, suggest, maxRecps, placeholder, onChange })
-  ])
-}
-
-function RecipientInput (opts) {
-  const {
-    state: { recps },
+    peers,
     suggest,
     maxRecps,
     placeholder = '',
-    onChange
-  } = opts
+    onChange = console.log
+  } = props
 
   const state = {
-    recps,
+    peers,
     minRecps: 0,
     maxRecps,
     isEmpty: true
@@ -42,7 +22,7 @@ function RecipientInput (opts) {
   suggestify(input, suggest, state)
 
   input.addEventListener('keydown', (e) => {
-    if (state.recps.getLength() >= maxRecps && !isBackspace(e)) {
+    if (state.peers.getLength() >= maxRecps && !isBackspace(e)) {
       e.preventDefault()
       return false
     }
@@ -62,8 +42,8 @@ function RecipientInput (opts) {
       return
     }
 
-    if (isBackspace(e) && state.isEmpty && state.recps.getLength() > state.minRecps) {
-      recps.pop()
+    if (isBackspace(e) && state.isEmpty && state.peers.getLength() > state.minRecps) {
+      peers.pop()
       onChange()
     }
 
@@ -73,7 +53,7 @@ function RecipientInput (opts) {
   return [
     input,
     h('i.fa.fa-times', {
-      'ev-click': (e) => state.recps.set([]),
+      'ev-click': (e) => state.peers.set([]),
       'style': { 'cursor': 'pointer' },
       'title': 'Clear'
     })
@@ -85,7 +65,7 @@ function suggestify (input, suggest, state) {
   if (!input.parentElement) return setTimeout(() => suggestify(input, suggest, state), 100)
 
   addSuggest(input, (inputText, cb) => {
-    if (state.recps.getLength() >= state.maxRecps) return
+    if (state.peers.getLength() >= state.maxRecps) return
     // TODO - tell the user they're only allowed 6 (or 7?!) people in a message
 
     if (isFeedId(inputText)) return
@@ -107,20 +87,15 @@ function suggestify (input, suggest, state) {
 }
 
 function addRecp ({ state, link, name }, cb) {
-  const isAlreadyPresent = resolve(state.recps).find(r => r === link || r.link === link)
-  if (isAlreadyPresent) return cb(new Error('can only add each recp once'))
+  const isAlreadyPresent = resolve(state.peers).find(r => r === link || r.link === link)
+  if (isAlreadyPresent) return cb(new Error('can only add each peer once'))
 
-  if (state.recps.getLength() >= state.maxRecps) return cb(new Error(`cannot add any more recps, already at maxRecps (${state.maxRecps})`))
+  if (state.peers.getLength() >= state.maxRecps) return cb(new Error(`cannot add any more peers, already at maxRecps (${state.maxRecps})`))
 
-  state.recps.push({ link, name })
+  state.peers.push({ link, name })
   cb(null)
 }
 
 function isBackspace (e) {
   return e.code === 'Backspace' || e.key === 'Backspace' || e.keyCode === 8
 }
-
-// function isEnter (e) {
-//   return e.code === 'Enter' || e.key === 'Enter' || e.keyCode === 13
-// }
-// }

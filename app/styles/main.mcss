@@ -3,13 +3,20 @@ body {
   -webkit-app-region: drag
 }
 
+p {
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+
 button, section, i {
   -webkit-app-region: no-drag;
 }
 
 main.app {
   display: grid
-  border: 2px solid grey
+  border: 2px solid #F5F5DC;
   width: 360px
   height: 650px
   background: #2B0929

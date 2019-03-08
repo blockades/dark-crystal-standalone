@@ -3,6 +3,8 @@ const pull = require('pull-stream')
 const scuttle = require('scuttle-dark-crystal')
 const { h, computed, Array: MutantArray, map, throttle } = require('mutant')
 
+const Peers = require('../../components/Peers')
+
 exports.gives = nest('app.views.secrets.index')
 
 exports.needs = nest({
@@ -27,9 +29,10 @@ exports.create = (api) => {
               h('div.started', secret.createdAt)
             ]),
             h('div.bottom', [
-              h('div.recipients', [
-                secret.recipients.map(feedId => api.about.html.avatar(feedId))
-              ]),
+              Peers({
+                peers: secret.recipients,
+                avatar: api.about.html.avatar
+              }),
               h('div.state', [
                 h('span.recps', secret.shards.filter(s => s.body).length),
                 h('span', '/'),
@@ -42,7 +45,7 @@ exports.create = (api) => {
           }, [ h('i.fa.fa-chevron-right') ])
         ])
       ), { comparer }),
-      h('section.secret', [
+      h('section.secret.new', [
         h('div.main', {
           'ev-click': () => api.router.sync.goTo({ path: `/secrets/new` })
         }, [

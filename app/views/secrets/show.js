@@ -5,6 +5,8 @@ const { h, computed, Value } = require('mutant')
 
 const NavBar = require('../../components/NavBar')
 const ViewTabs = require('../../components/ViewTabs')
+const Peers = require('../../components/Peers')
+
 exports.gives = nest('app.views.secrets.show')
 
 exports.needs = nest({
@@ -41,7 +43,7 @@ exports.create = (api) => {
             ]),
           ]),
           h('div.remote', [
-            h('div.custodians', secret.recipients.map(feedId => api.about.html.avatar(feedId, 2))),
+            Peers({ peers: secret.recipients, avatar: api.about.html.avatar })
           ])
         ]),
         h('section.secret', [

@@ -1,18 +1,13 @@
 const { h } = require('mutant')
 const { remote } = require('electron')
 
-const {
-  SettingsIndexPath,
-  SettingsAccountIndexPath,
-  SettingsNetworkIndexPath,
-  SecretsIndexPath
-} = require('../routes')
+const { isSettingsNamespace } = require('../routes')
 
 module.exports = function NavBar (opts) {
   const {
     routeTo,
     goBack,
-    currentPath
+    request
   } = opts
 
   return h('nav', [
@@ -20,8 +15,8 @@ module.exports = function NavBar (opts) {
       h('div.left', [
         h('i.fa.fa-cog.fa-2x',
           { 'ev-click': goToPath,
-            'classList': [isSettingsNamespace() ? 'active' : ''],
-            'title': 'Settings'
+            classList: [isSettingsNamespace(request) ? 'active' : ''],
+            title: 'Settings'
           }
         )
       ]),
@@ -35,25 +30,21 @@ module.exports = function NavBar (opts) {
             var window = remote.getCurrentWindow()
             window.minimize()
           },
-          'title': 'Minimize'
+          title: 'Minimize'
         }),
         h('i.fa.fa-times.fa-lg', {
           'ev-click': () => {
             var window = remote.getCurrentWindow()
             window.close()
           },
-          'title': 'Close'
+          title: 'Close'
         })
       ])
     ])
   ])
 
-  function isSettingsNamespace () {
-    return currentPath.substring(0, 9) === `/settings`
-  }
-
   function goToPath (ev) {
-    if (isSettingsNamespace()) routeTo({ path: `/secrets` })
+    if (isSettingsNamespace(request)) routeTo({ path: `/secrets` })
     else routeTo({ path: `/settings` })
   }
 }

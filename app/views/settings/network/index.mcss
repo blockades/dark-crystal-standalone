@@ -1,0 +1,12 @@
+Settings Network -index {
+  display: grid
+
+  div {
+    display: grid
+    grid-template-rows: repeat(2, 1fr)
+    grid-gap: .5rem
+    padding: 1rem 0 1rem 0
+
+    label { font-weight: bold }
+  }
+}

@@ -4,6 +4,12 @@ const { h } = require('mutant')
 const NavBar = require('../../components/NavBar')
 const ViewTabs = require('../../components/ViewTabs')
 
+const {
+  isSettingsNamespace,
+  SettingsAccountIndexPath,
+  SettingsNetworkIndexPath
+} = require('../../routes')
+
 exports.gives = nest('app.views.layouts.settings')
 exports.needs = nest({
   'router.sync.goTo': 'first',
@@ -18,7 +24,7 @@ exports.create = (api) => {
       NavBar({
         routeTo: api.router.sync.goTo,
         goBack: api.router.sync.goBack,
-        currentPath: request.path
+        request
       }),
       ViewTabs([
         {
@@ -29,12 +35,12 @@ exports.create = (api) => {
           // That way, when a user leaves /settings/network to /secrets then gets routed to /settings,
           // the controller would direct them to the /settings/network view based on the previous value
           // This way we can begin to store state outside of the views.
-          class: request.path === `/settings` || request.path === `/settings/account` ? 'active' : '',
+          class: isSettingsNamespace(request) || SettingsAccountIndexPath(request) ? 'active' : '',
           onClick: () => api.router.sync.goTo({ path: `/settings/account` })
         },
         {
           name: 'network',
-          class: request.path === `/settings/network` ? 'active' : '',
+          class: SettingsNetworkIndexPath(request) ? 'active' : '',
           onClick: () => api.router.sync.goTo({ path: `/settings/network` })
         }
       ]),

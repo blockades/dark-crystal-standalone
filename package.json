@@ -63,7 +63,8 @@
     "ssb-replicate": "^1.0.4",
     "ssb-server": "^14.0.4",
     "ssb-suggest": "^1.0.3",
-    "ssb-ws": "^5.1.1"
+    "ssb-ws": "^5.1.1",
+    "suggest-box": "^2.2.3"
   },
   "devDependencies": {
     "cross-script": "^1.0.5",
