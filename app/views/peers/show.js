@@ -23,10 +23,17 @@ exports.create = (api) => {
     }
 
     return h('Peers -show', [
-      Peer({
-        feed: state.id,
-        avatar: api.about.html.avatar
-      })
+      h('div.left', [
+        h('i.fa.fa-chevron-left', {
+          'ev-click': api.router.sync.goBack
+        })
+      ]),
+      h('div.main', [
+        Peer({
+          feed: state.id,
+          avatar: api.about.html.avatar
+        })
+      ])
     ])
   }
 }

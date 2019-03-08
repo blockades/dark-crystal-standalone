@@ -1,0 +1,19 @@
+Peers -show {
+  display: grid
+  grid-template-columns: auto 1fr
+  height: 557px;
+
+  div.left {
+    cursor: pointer
+    display: grid
+    grid-template-rows: 9.5rem auto
+
+    i {
+      padding: 0 .2rem 0 .2rem
+      display: grid
+      align-items: center
+      background: #784e7e
+      :hover { background: #1eaedb }
+    }
+  }
+}

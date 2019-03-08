@@ -1,4 +1,5 @@
 div.peer {
+  cursor: pointer
   a {
     padding: 0 .5rem 0 0
 
