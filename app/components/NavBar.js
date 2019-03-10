@@ -1,6 +1,9 @@
 const { h } = require('mutant')
 const { remote } = require('electron')
 
+const Close = require('../components/Close')
+const Minimize = require('../components/Minimize')
+
 const { isSettingsNamespace } = require('../routes')
 
 const Search = require('./Search')
@@ -32,19 +35,17 @@ module.exports = function NavBar (props = {}, children = []) {
         })
       ]),
       h('div.right', [
-        h('i.fa.fa-minus.fa-lg', {
-          'ev-click': () => {
+        Minimize({
+          onClick: () => {
             var window = remote.getCurrentWindow()
             window.minimize()
-          },
-          title: 'Minimize'
+          }
         }),
-        h('i.fa.fa-times.fa-lg', {
-          'ev-click': () => {
+        Close({
+          onClick: () => {
             var window = remote.getCurrentWindow()
             window.close()
-          },
-          title: 'Close'
+          }
         })
       ])
     ])

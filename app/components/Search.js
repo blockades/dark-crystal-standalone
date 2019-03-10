@@ -16,7 +16,7 @@ module.exports = function Search (props = {}, children = []) {
       max: 1,
       canClear: true,
       onSubmit: () => {
-        const id = resolve(state.feed)[0].link
+        const { link: id } = resolve(state.feed)[0]
         if (id === myId) routeTo({ path: `/settings/account` })
         else routeTo({ path: `/peers/${id}`, peer: { id } })
       }

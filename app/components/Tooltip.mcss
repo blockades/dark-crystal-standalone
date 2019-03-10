@@ -1,0 +1,12 @@
+div.tooltip {
+  position: absolute
+  top: -10px
+  left: 30px
+  font-size: 10pt
+  width: max-content
+  background: #F5F5DC
+  color: #2B0929
+  display: grid
+  text-align: center
+  padding: .2rem 0.3rem 0.2rem 0.3rem
+}

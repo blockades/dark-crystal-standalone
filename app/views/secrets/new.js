@@ -23,7 +23,7 @@ exports.create = (api) => {
       secretName: null,
       secret: null,
       peers: MutantArray([]),
-      quorum: null,
+      quorum: 2,
       image: null
     })
 
@@ -33,13 +33,13 @@ exports.create = (api) => {
           'ev-click': api.router.sync.goBack
         }),
       ]),
-      h('div.main', [
+      h('form.main', [
         h('section.name', { title: 'Enter a name for your reference only' }, [
           h('label.name', 'Name'),
           h('input.name', {
             required: true,
             placeholder: 'For your reference only (this is private)',
-            'ev-input': ev => state.secretName.set(ev.target.value)
+            'ev-input': (e) => state.secretName.set(e.target.value)
           })
         ]),
         h('section.secret', { title: 'Enter the secret / key you wish to back-up' }, [
@@ -48,7 +48,16 @@ exports.create = (api) => {
             required: true,
             placeholder: 'Enter the secret / key you wish to back-up',
             value: state.secret,
-            'ev-input': ev => state.secret.set(ev.target.value)
+            'ev-input': (e) => state.secret.set(e.target.value)
+          })
+        ]),
+        h('section.quorum', [
+          h('label.quorum', 'Quorum'),
+          Slider({
+            required: true,
+            collection: state.peers,
+            value: state.quorum,
+            title: 'Choose a quorum of custodians required to reassemble the secret'
           })
         ]),
         h('section.custodians', [
@@ -60,22 +69,22 @@ exports.create = (api) => {
             placeholder: 'Select the custodians of your secret from your social network',
             max: 7
           }),
-          Peers({ peers: state.peers, avatar: api.about.html.avatar })
+          Peers({
+            peers: state.peers,
+            avatar: api.about.html.avatar
+          })
         ]),
-        Slider({
-          required: true,
-          collection: state.peers,
-          fieldName: 'quorum',
-          title: 'Choose a quorum of custodians required to reassemble the secret'
-        }),
         h('section.actions', [
           computed(state, state => {
             var canSubmit = state.secretName
               && state.secret
               && !!state.peers.length
               && state.quorum
+              && state.peers.length >= state.quorum
 
-            if (canSubmit) return Button()
+            return canSubmit
+              ? Button({ text: 'Share' })
+              : null
           })
         ])
       ])

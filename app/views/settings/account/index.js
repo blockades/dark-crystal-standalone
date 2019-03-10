@@ -1,6 +1,7 @@
 const nest = require('depnest')
-const { clipboard } = require('electron')
 const { h, computed } = require('mutant')
+
+const CopyToClipboard = require('../../../components/CopyToClipboard')
 
 exports.gives = nest('app.views.settings.account.index')
 
@@ -30,13 +31,12 @@ exports.create = (api) => {
       h('section.setting', [
         h('span.id', 'ID: '),
         h('input', { attributes: { readonly: true }, value: id }),
-        // %%TODO%%: This can be refactored into a component
-        h('i.fa.fa-clipboard.fa-lg', { 'ev-click': () => clipboard.writeText(id) })
+        CopyToClipboard({ value: id })
       ]),
       h('section.setting', [
         h('span.id', 'Name: '),
         h('input', { value: name }),
-        h('i.fa.fa-clipboard.fa-lg', { 'ev-click': () => clipboard.writeText(name) })
+        CopyToClipboard({ value: name })
       ]),
     ])
   }

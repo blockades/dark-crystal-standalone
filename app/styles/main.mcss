@@ -34,4 +34,46 @@ textarea.hidden {
 input {
   width: 100%
   font: inherit
+  background: #2B0929
+  color: #F5F5DC
+  border: 1px solid #F5F5DC;
+  padding: .2rem -0.2rem .2rem .2rem
+}
+
+textarea {
+  font: inherit
+  background: #2B0929
+  color: #F5F5DC
+  border: 1px solid #F5F5DC
+  padding: .2rem -0.2rem .2rem .2rem
+}
+
+input[type=range]{
+  -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: goldenrod;
+  margin-top: -4px;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ccc;
 }

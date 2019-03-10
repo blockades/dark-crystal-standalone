@@ -1,7 +1,7 @@
 const { h, Value, computed } = require('mutant')
-const { clipboard } = require('electron')
 
 const Button = require('./Button')
+const CopyToClipboard = require('./CopyToClipboard')
 
 module.exports = function Secret (props = {}, children = []) {
   const { secret } = props
@@ -24,8 +24,8 @@ module.exports = function Secret (props = {}, children = []) {
       ])
     ]),
     h('div.actions', [
-      h('i.fa.fa-clipboard.fa-lg', { 'ev-click': clipboard.write(secret) }),
-      Button({ text: 'Reset' })
+      CopyToClipboard({ value: secret, size: 'small' }),
+      Button({ text: 'Reset', type: 'subtle' })
     ])
   ])
 }

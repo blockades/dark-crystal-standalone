@@ -1,0 +1,6 @@
+i.fa {
+  cursor: pointer
+  :hover {
+    color: #1eaedb
+  }
+}

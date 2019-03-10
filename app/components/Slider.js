@@ -1,38 +1,36 @@
-const { h, computed, Value } = require('mutant')
+const { h, computed, Value, Array: MutantArray } = require('mutant')
 
 module.exports = function Slider (props = {}, children = []) {
   const {
-    collection = [],
+    collection = MutantArray([]),
     min = 2,
     max,
     title,
-    fieldName = '',
+    value = Value(),
     required = false
   } = props
 
-  const state = {
-    value: Value(min)
-  }
+  const state = { value }
 
   const slider = (collection) => {
     var currentLength = typeof collection === 'function'
     ? collection.getLength()
     : collection.length
 
-    return h('section', { classList: [fieldName], title }, [
-      h('label', { classList: [fieldName] }, capitalize(fieldName)),
-      h('div.slider', [
-        h('input', {
-          'ev-input': (ev) => state.value.set(Math.round(ev.target.value / 100)),
-          classList: [fieldName],
-          title,
-          type: 'range',
-          min,
-          max: (max * 100) || (currentLength * 100),
-          attributes: { value: computed(state.value, value => value > min ? value * 100 : min * 100) }
-        }),
-        h('span', { classList: [fieldName] }, computed(state.value, value => value > min ? value : min))
-      ])
+    return h('div.slider', [
+      h('input', {
+        'ev-input': (e) => (
+          (e.target.value / 100) >= min
+          ? state.value.set(Math.round(e.target.value / 100))
+          : null
+        ),
+        title,
+        type: 'range',
+        min,
+        max: (max * 100) || (currentLength * 100),
+        attributes: { value: computed(state.value, value => value > min ? value * 100 : min * 100) }
+      }),
+      h('span', computed(state.value, value => value > min ? value : min))
     ])
   }
 

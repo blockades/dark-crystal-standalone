@@ -1,8 +1,16 @@
 button {
   cursor: pointer
-  background: #784E7E
   border: 1px solid #F5F5DC
   color: #F5F5DC
+  font-size: inherit
+}
+
+button.-primary {
+  padding: 1rem 2rem 1rem 2rem
+  background: #1EAEDB
+}
+
+button.-subtle {
   padding: 0.2rem 2rem .2rem 2rem
-  font-size: medium
+  background: #784E7E
 }
