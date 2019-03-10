@@ -30,3 +30,8 @@ main.app {
 textarea.hidden {
   display: none
 }
+
+input {
+  width: 100%
+  font: inherit
+}

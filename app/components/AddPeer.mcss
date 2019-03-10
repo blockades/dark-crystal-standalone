@@ -1,0 +1,14 @@
+div.add-peer {
+  display: grid
+  grid-gap: .5rem
+  grid-template-columns: auto 1fr auto
+
+  input {
+    width: 100%
+    font: inherit
+  }
+
+  i {
+    padding-left: .5rem
+  }
+}

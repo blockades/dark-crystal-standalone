@@ -9,7 +9,8 @@ module.exports = function AddPeer (props = {}, children = []) {
     max = 1,
     placeholder = '',
     onChange = console.log,
-    onSubmit = console.log
+    onSubmit = console.log,
+    canClear = false
   } = props
 
   const state = {
@@ -59,14 +60,18 @@ module.exports = function AddPeer (props = {}, children = []) {
     wasEmpty = e.target.value.length === 0
   })
 
-  return [
+  return h('div.add-peer', {
+    style: {
+      'grid-template-columns': canClear ? 'auto 1fr auto' : 'auto'
+    }
+  }, [
     input,
-    h('i.fa.fa-times', {
+    canClear ? h('i.fa.fa-times', {
       'ev-click': (e) => state.peers.set([]),
       'style': { 'cursor': 'pointer' },
       'title': 'Clear'
-    })
-  ]
+    }) : null
+  ])
 }
 
 function suggestify (input, suggest, state, callback) {

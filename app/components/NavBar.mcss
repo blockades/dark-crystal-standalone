@@ -45,7 +45,6 @@ nav {
 
     div.middle {
       display: grid
-      grid-template-columns: 1rem 1fr 1rem
       grid-template-rows: 1rem
       grid-gap: .5rem
       padding: .5rem 0 0 0

@@ -14,6 +14,7 @@ module.exports = function Search (props = {}, children = []) {
       suggest,
       peers: state.feed,
       max: 1,
+      canClear: true,
       onSubmit: () => {
         const id = resolve(state.feed)[0].link
         if (id === myId) routeTo({ path: `/settings/account` })
