@@ -12,7 +12,9 @@ exports.needs = nest({
   'app.views.secrets.new': 'first',
   'app.views.peers.show': 'first',
   'app.views.settings.account.index': 'first',
-  'app.views.settings.network.index': 'first'
+  'app.views.settings.network.index': 'first',
+  'app.views.warnings.show': 'first',
+  'app.views.errors.show': 'first'
 })
 
 const {
@@ -20,6 +22,8 @@ const {
   SecretsShowPath,
   SecretsNewPath,
   PeersShowPath,
+  ErrorsShowPath,
+  WarningsShowPath,
   SettingsIndexPath,
   SettingsAccountIndexPath,
   SettingsNetworkIndexPath
@@ -31,6 +35,8 @@ exports.create = (api) => {
       secrets,
       settings,
       peers,
+      errors,
+      warnings,
       layouts
     } = api.app.views
 
@@ -41,7 +47,9 @@ exports.create = (api) => {
       [ PeersShowPath, { view: peers.show, layout: layouts.peers } ],
       [ SettingsIndexPath, { view: settings.account.index, layout: layouts.settings } ],
       [ SettingsAccountIndexPath, { view: settings.account.index, layout: layouts.settings } ],
-      [ SettingsNetworkIndexPath, { view: settings.network.index, layout: layouts.settings } ]
+      [ SettingsNetworkIndexPath, { view: settings.network.index, layout: layouts.settings } ],
+      [ ErrorsShowPath, { view: errors.show } ],
+      [ WarningsShowPath, { view: warnings.show } ]
     ]
 
     return [...acc, ...routes]

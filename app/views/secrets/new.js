@@ -5,6 +5,7 @@ const Peers = require('../../components/Peers')
 const AddPeer = require('../../components/AddPeer')
 const Slider = require('../../components/Slider')
 const Button = require('../../components/Button')
+const Backward = require('../../components/Backward')
 
 exports.gives = nest('app.views.secrets.new')
 
@@ -28,11 +29,7 @@ exports.create = (api) => {
     })
 
     return h('Secrets -new', [
-      h('div.left', [
-        h('i.fa.fa-chevron-left', {
-          'ev-click': api.router.sync.goBack
-        }),
-      ]),
+      Backward({ routeTo: api.router.sync.goBack }),
       h('form.main', [
         h('section.name', { title: 'Enter a name for your reference only' }, [
           h('label.name', 'Name'),

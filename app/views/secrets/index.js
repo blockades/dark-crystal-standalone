@@ -4,6 +4,7 @@ const scuttle = require('scuttle-dark-crystal')
 const { h, computed, Array: MutantArray, map, throttle } = require('mutant')
 
 const Peers = require('../../components/Peers')
+const Forward = require('../../components/Forward')
 
 exports.gives = nest('app.views.secrets.index')
 
@@ -27,9 +28,7 @@ exports.create = (api) => {
             h('i.fa.fa-plus.fa-lg')
           ])
         ]),
-        h('div.right', {
-          'ev-click': () => api.router.sync.goTo({ path: `/secrets/new` })
-        }, [ h('i.fa.fa-chevron-right') ])
+        Forward({ routeTo: () => api.router.sync.goTo({ path: `/secrets/new` }) })
       ]),
       map(api.app.actions.secrets.fetch(), (secret) => (
         h('section.secret', [
@@ -38,7 +37,7 @@ exports.create = (api) => {
               'ev-click': () => api.router.sync.goTo({ path: `/secrets/${secret.id}`, secret: secret })
             }, [
               h('div.name', secret.name),
-              h('div.started', secret.createdAt)
+              h('div.createdAt', secret.createdAt)
             ]),
             h('div.bottom', [
               Peers({
@@ -52,15 +51,9 @@ exports.create = (api) => {
               ])
             ])
           ]),
-          h('div.right', {
-            'ev-click': () => api.router.sync.goTo({ path: `/secrets/${secret.id}`, secret: secret })
-          }, [ h('i.fa.fa-chevron-right') ])
+          Forward({ routeTo: () => api.router.sync.goTo({ path: `/secrets/${secret.id}`, secret: secret }) })
         ])
-      ), { comparer })
+      ), { comparer: (a, b) => a && b && a.key === b.key })
     ])
   }
-}
-
-function comparer (a, b) {
-  return a && b && a.key === b.key
 }

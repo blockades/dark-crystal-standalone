@@ -7,6 +7,7 @@ const Tabs = require('../../components/Tabs')
 const Peers = require('../../components/Peers')
 const Secret = require('../../components/Secret')
 const History = require('../../components/History')
+const Backward = require('../../components/Backward')
 
 exports.gives = nest('app.views.secrets.show')
 
@@ -28,11 +29,7 @@ exports.create = (api) => {
     }
 
     return h('Secrets -show', [
-      h('div.left', [
-        h('i.fa.fa-chevron-left', {
-          'ev-click': api.router.sync.goBack
-        }),
-      ]),
+      Backward({ routeTo: api.router.sync.goBack }),
       h('div.main', [
         h('section.details', [
           h('div.local', [

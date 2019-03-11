@@ -1,10 +1,10 @@
 const nest = require('depnest')
 const pull = require('pull-stream')
-// const { clipboard } = require('electron')
 const { h, computed, Value } = require('mutant')
 
 const Peers = require('../../components/Peers')
 const Peer = require('../../components/Peer')
+const Backward = require('../../components/Backward')
 
 exports.gives = nest('app.views.peers.show')
 
@@ -23,11 +23,7 @@ exports.create = (api) => {
     }
 
     return h('Peers -show', [
-      h('div.left', [
-        h('i.fa.fa-chevron-left', {
-          'ev-click': api.router.sync.goBack
-        })
-      ]),
+      Backward({ routeTo: api.router.sync.goBack }),
       h('div.main', [
         Peer({
           feed: state.id,

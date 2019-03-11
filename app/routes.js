@@ -19,19 +19,21 @@ const isSettingsNamespace = (request) => request.path.substring(0, 9) === `/sett
 
 const PeersShowPath = (request) => request.peer && request.path === `/peers/${request.peer.id}`
 
+const ErrorsShowPath = (request) => request.error && request.path === `/error`
+const WarningsShowPath = (request) => request.warning && request.path === `/warning`
+
 module.exports = {
   SecretsIndexPath,
   SecretsShowPath,
   SecretsNewPath,
-
   ShardsIndexPath,
   ShardsShowPath,
-
   PeersShowPath,
-
   SettingsIndexPath,
   SettingsAccountIndexPath,
   SettingsNetworkIndexPath,
+  ErrorsShowPath,
+  WarningsShowPath,
 
   isSettingsNamespace,
   isSecretsNamespace,

@@ -75,7 +75,7 @@ exports.create = (api) => {
         scuttle.root.pull.mine({ live: false, reverse: true }),
         pull.paramap((root, done) => {
           set(records, [root.key, 'name'], get(root, 'value.content.name'))
-          set(records, [root.key, 'createdAt'], new Date(root.timestamp).toLocaleDateString())
+          set(records, [root.key, 'createdAt'], new Date(root.value.timestamp).toLocaleDateString())
 
           pull(
             scuttle.root.pull.backlinks(root.key, { live: false }),
