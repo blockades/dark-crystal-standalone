@@ -5,7 +5,6 @@ exports.gives = nest('router.sync.routes')
 
 exports.needs = nest({
   'app.views.layouts.index': 'first',
-  'app.views.layouts.peers': 'first',
   'app.views.layouts.settings': 'first',
   'app.views.secrets.index': 'first',
   'app.views.secrets.show': 'first',
@@ -16,8 +15,8 @@ exports.needs = nest({
   'app.views.peers.show': 'first',
   'app.views.settings.account.index': 'first',
   'app.views.settings.network.index': 'first',
-  'app.views.warnings.show': 'first',
-  'app.views.errors.show': 'first'
+  'app.views.errors.show': 'first',
+  'app.views.help.index': 'first'
 })
 
 const {
@@ -32,7 +31,8 @@ const {
 
   PeersShowPath,
   ErrorsShowPath,
-  WarningsShowPath,
+  HelpIndexPath,
+
   SettingsIndexPath,
   SettingsAccountIndexPath,
   SettingsNetworkIndexPath
@@ -45,7 +45,7 @@ exports.create = (api) => {
       settings,
       peers,
       errors,
-      warnings,
+      help,
       layouts
     } = api.app.views
 
@@ -57,12 +57,12 @@ exports.create = (api) => {
       [ SecretsNewSecretPath, { view: secrets.new.secret } ],
       [ SecretsNewTrustPath, { view: secrets.new.trust } ],
       [ SecretsNewSubmitPath, { view: secrets.new.submit } ],
-      [ PeersShowPath, { view: peers.show, layout: layouts.peers } ],
+      [ PeersShowPath, { view: peers.show } ],
       [ SettingsIndexPath, { view: settings.account.index, layout: layouts.settings } ],
       [ SettingsAccountIndexPath, { view: settings.account.index, layout: layouts.settings } ],
       [ SettingsNetworkIndexPath, { view: settings.network.index, layout: layouts.settings } ],
       [ ErrorsShowPath, { view: errors.show } ],
-      [ WarningsShowPath, { view: warnings.show } ]
+      [ HelpIndexPath, { view: help.index } ],
     ]
 
     return [...acc, ...routes]

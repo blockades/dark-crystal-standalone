@@ -21,12 +21,12 @@ module.exports = function NavBar (props = {}, children = []) {
     h('section.top', [
       h('div.left', [
         h('i.fa.fa-cog.fa-2x', {
-          'ev-click': goToPath,
+          'ev-click': goToSettings,
           classList: [isSettingsNamespace(request) ? 'active' : ''],
           title: 'Settings'
         }),
         h('i.fa.fa-question-circle.fa-2x', {
-          'ev-click': () => routeTo({ path: `/help` }),
+          'ev-click': goToHelp,
           classList: [isHelpNamespace(request) ? 'active' : ''],
           title: 'Help'
         }),
@@ -60,8 +60,13 @@ module.exports = function NavBar (props = {}, children = []) {
     ])
   ])
 
-  function goToPath (ev) {
+  function goToSettings (e) {
     if (isSettingsNamespace(request)) routeTo({ path: `/secrets` })
     else routeTo({ path: `/settings` })
+  }
+
+  function goToHelp (e) {
+    if (isHelpNamespace(request)) routeTo({ path: `/secrets` })
+    else routeTo({ path: `/help` })
   }
 }

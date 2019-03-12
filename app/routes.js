@@ -24,6 +24,7 @@ const NotificationsIndexPath = (request) => request.path === `/notifications`
 
 const ErrorsShowPath = (request) => request.error && request.path === `/error`
 const WarningsShowPath = (request) => request.warning && request.path === `/warning`
+const HelpIndexPath = (request) => request.path === `/help`
 
 const isHelpNamespace = (request) => request.path.substring(0, 5) === `/help`
 const isSecretsNamespace = (request) => request.path.substring(0, 8) === `/secrets`
@@ -47,6 +48,7 @@ module.exports = {
 
   ErrorsShowPath,
   WarningsShowPath,
+  HelpIndexPath,
 
   NotificationsIndexPath,
 

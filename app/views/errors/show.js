@@ -12,8 +12,12 @@ exports.create = (api) => {
   return nest('app.views.errors.show', errorsShow)
 
   function errorsShow (request) {
+    const { error } = request
+
     return h('Errors -show', [
-      h('h1', 'Warning! Are you sure you want to do this... This is some undoable stuff...')
+      h('div.error', [
+        h('div.message', error.message),
+      ])
     ])
   }
 }
