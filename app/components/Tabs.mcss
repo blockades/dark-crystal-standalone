@@ -1,10 +1,12 @@
 div.tabs {
+  -webkit-app-region: no-drag
   border-bottom: 1px solid #F5F5DC
   display: grid
   grid-template-columns: auto auto
   text-align: center
 
   div.tab {
+    -webkit-app-region: no-drag
     border-right: 1px solid #F5F5DC
     padding: .5rem 0 .5rem 0
 
@@ -16,6 +18,7 @@ div.tabs {
   }
 
   div.active {
+    -webkit-app-region: no-drag
     background: #1EAEDB
     font-weight: bold
   }

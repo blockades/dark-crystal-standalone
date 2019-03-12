@@ -9,7 +9,6 @@ exports.gives = nest('app.views.secrets.new.name')
 exports.needs = nest({
   'router.sync.goBack': 'first',
   'router.sync.goTo': 'first',
-  'about.html.avatar': 'first',
   'about.async.suggest': 'first'
 })
 
@@ -33,13 +32,12 @@ exports.create = (api) => {
             h('div.field', [
               h('label.name', 'Name'),
               h('div.description', [
-                h('p', 'Enter a name for your secret. '),
-                h('p', 'This is for your reference only. '),
-                h('p', 'Information stored is fully encrypted and completely private. ')
+                h('p.small', 'Enter a name for your secret. '),
+                h('p.small', 'This is for your reference only. '),
+                h('p.small', 'Information stored is fully encrypted and completely private. ')
               ]),
               h('input.name', {
                 required: true,
-                placeholder: 'For your reference only (this is private)',
                 'ev-input': (e) => state.secretName.set(e.target.value)
               })
             ])

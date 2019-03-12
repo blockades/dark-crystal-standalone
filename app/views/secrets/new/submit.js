@@ -13,7 +13,7 @@ exports.needs = nest({
   'app.actions.secrets.create': 'first',
   'router.sync.goBack': 'first',
   'router.sync.goTo': 'first',
-  'about.html.avatar': 'first',
+  'about.obs.imageUrl': 'first',
   'about.async.suggest': 'first'
 })
 
@@ -26,8 +26,8 @@ exports.create = (api) => {
     return h('Secrets -new', [
       Backward({ routeTo: api.router.sync.goBack }),
       h('div.main', [
-        h('section', [
-          h('div.submission', [
+        h('section.submit', [
+          h('div.container', [
             h('strong', 'Review your submission'),
             h('div.field', [
               h('label', 'Name'),
@@ -37,14 +37,15 @@ exports.create = (api) => {
               h('label', 'Custodians'),
               Peers({
                 peers: state.peers,
-                avatar: api.about.html.avatar
+                imageUrl: api.about.obs.imageUrl,
+                onClick: (id) => api.router.sync.goTo({ path: `/peers/${id}`, peer: { id } })
               }),
             ]),
             h('div.field', [
               h('label', 'Quorum'),
               h('input', { attributes: { readonly: true, value: resolve(state.quorum) } }),
             ]),
-            h('div.field', [
+            h('div.field.secret', [
               h('label', 'Secret'),
               Secret({
                 secret: resolve(state.secret),
@@ -54,15 +55,18 @@ exports.create = (api) => {
           ])
         ]),
         h('div.actions', [
-          computed(state, state => {
-            var canSubmit = state.secretName
-              && state.secret
-              && !!state.peers.length
-              && state.quorum
-              && state.peers.length >= state.quorum
+          computed(state, params => {
+            var canSubmit = params.secretName
+              && params.secret
+              && !!params.peers.length
+              && params.quorum
+              && params.peers.length >= params.quorum
 
             return canSubmit
-              ? Button({ text: 'Share' })
+              ? Button({
+                  text: 'Share',
+                  onClick: (e) => api.app.actions.secrets.create(params)
+                })
               : null
           })
         ])

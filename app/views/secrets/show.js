@@ -14,7 +14,7 @@ exports.gives = nest('app.views.secrets.show')
 exports.needs = nest({
   'router.sync.goTo': 'first',
   'router.sync.goBack': 'first',
-  'about.html.avatar': 'first'
+  'about.obs.imageUrl': 'first',
 })
 
 exports.create = (api) => {
@@ -43,7 +43,8 @@ exports.create = (api) => {
           h('div.remote', [
             Peers({
               peers: secret.recipients,
-              avatar: api.about.html.avatar
+              imageUrl: api.about.obs.imageUrl,
+              onClick: (id) => api.router.sync.goTo({ path: `/peers/${id}`, peer: { id } })
             })
           ])
         ]),

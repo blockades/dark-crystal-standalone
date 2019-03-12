@@ -2,12 +2,12 @@ const nest = require('depnest')
 const { h, computed } = require('mutant')
 
 const CopyToClipboard = require('../../../components/CopyToClipboard')
+const Avatar = require('../../../components/Avatar')
 
 exports.gives = nest('app.views.settings.account.index')
 
 exports.needs = nest({
   'keys.sync.id': 'first',
-  'about.html.avatar': 'first',
   'about.obs.name': 'first',
   'message.async.publish': 'first',
   'about.obs.imageUrl': 'first',
@@ -24,9 +24,11 @@ exports.create = (api) => {
 
     return h('Settings Account -index', [
       h('section.setting', [
-        computed(api.about.obs.imageUrl(id), (blob) => (
-          h('img', { src: blob })
-        ))
+        Avatar({
+          id,
+          size: 6,
+          imageUrl: api.about.obs.imageUrl
+        })
       ]),
       h('section.setting', [
         h('span.id', 'ID: '),

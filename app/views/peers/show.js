@@ -11,7 +11,7 @@ exports.gives = nest('app.views.peers.show')
 exports.needs = nest({
   'router.sync.goTo': 'first',
   'router.sync.goBack': 'first',
-  'about.html.avatar': 'first'
+  'about.obs.imageUrl': 'first',
 })
 
 exports.create = (api) => {
@@ -27,7 +27,7 @@ exports.create = (api) => {
       h('div.main', [
         Peer({
           feed: state.id,
-          avatar: api.about.html.avatar
+          imageUrl: api.about.obs.imageUrl
         })
       ])
     ])

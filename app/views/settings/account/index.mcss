@@ -8,11 +8,6 @@ Settings Account -index {
     grid-gap: 1rem;
     padding: 1rem 0 1rem 0
 
-    img {
-      height: 100px
-      width: 100px
-    }
-
     i {
       cursor: pointer
       padding-top: 0.2rem

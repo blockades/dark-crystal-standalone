@@ -7,10 +7,9 @@ exports.gives = nest('app.views.settings.network.index')
 
 exports.needs = nest({
   'keys.sync.id': 'first',
-  'about.html.avatar': 'first',
+  'about.obs.imageUrl': 'first',
   'about.obs.name': 'first',
-  'message.async.publish': 'first',
-  'sbot.async.addBlob': 'first',
+  'router.sync.goTo': 'first',
   'sbot.obs.localPeers': 'first',
   'sbot.obs.connectedPeers': 'first'
 })
@@ -29,24 +28,29 @@ exports.create = (api) => {
     }
 
     return h('Settings Network -index', [
-      h('div.local', { title: '~ peers on the same LAN connection ~' }, [
+      h('div.local', [
         h('label.local', 'Local Peers'),
+        h('p.small', 'Peers on the same LAN connection'),
         computed(state.local.peers, (peers) => (
-          !peers.length ? h('p', 'No local peers connected') : null
+          !peers.length ? h('p.small', 'None currently connected') : null
         )),
         Peers({
           peers: state.local.peers,
-          avatar: api.about.html.avatar
+          name: api.about.obs.name,
+          imageUrl: api.about.obs.imageUrl,
+          onClick: (id) => api.router.sync.goTo({ path: `/peers/${id}`, peer: { id } })
         })
       ]),
-      h('div.remote', { title: '~ pubs connected via the internet ~' }, [
+      h('div.remote', [
         h('label.remote', 'Remote Peers'),
+        h('p.small', 'Pubs connected via the internet'),
         computed(state.remote.peers, (peers) => (
-          !peers.length ? h('p', 'No remote peers / pubs connected') : null
+          !peers.length ? h('p.small', 'None currently connected') : null
         )),
         Peers({
           peers: state.remote.peers,
-          avatar: api.about.html.avatar
+          imageUrl: api.about.obs.imageUrl,
+          onClick: (id) => api.router.sync.goTo({ path: `/peers/${id}`, peer: { id } })
         })
       ])
     ])

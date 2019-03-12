@@ -7,14 +7,17 @@ module.exports = function Peers (props = {}, children = []) {
   const {
     peers,
     name,
-    avatar,
+    imageUrl = identity,
+    onClick = noop,
     size = 2.5
   } = props
 
   const peerMap = (peer) => Peer({
     feed: peer,
     name,
-    avatar: (feedId) => avatar(feedId, size)
+    imageUrl,
+    size,
+    onClick: () =>  onClick(peer)
   })
 
   return h('div.peers', [
@@ -24,3 +27,6 @@ module.exports = function Peers (props = {}, children = []) {
     ...children
   ])
 }
+
+function noop () {}
+function identity (id) { return id }

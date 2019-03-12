@@ -10,7 +10,6 @@ exports.gives = nest('app.views.secrets.new.secret')
 exports.needs = nest({
   'router.sync.goBack': 'first',
   'router.sync.goTo': 'first',
-  'about.html.avatar': 'first',
   'about.async.suggest': 'first'
 })
 
@@ -28,13 +27,12 @@ exports.create = (api) => {
             h('div.field.custodians', [
               h('label.secret', 'Secret'),
               h('div.description', [
-                h('p', 'Enter the secret / key you wish to back-up.'),
-                h('p', 'This secret will be cryptographically split into multiple pieces.'),
-                h('p', 'Without quorum, these pieces reveal nothing about the secret text you enter here.'),
+                h('p.small', 'Enter the secret / key you wish to back-up.'),
+                h('p.small', 'This secret will be cryptographically split into multiple pieces.'),
+                h('p.small', 'Without quorum, these pieces reveal nothing about the secret text you enter here.'),
               ]),
               h('textarea.secret', {
                 required: true,
-                placeholder: 'Enter the secret / key you wish to back-up',
                 value: state.secret,
                 'ev-input': (e) => state.secret.set(e.target.value)
               })

@@ -12,7 +12,7 @@ exports.needs = nest({
   'app.actions.secrets.fetch': 'first',
   'router.sync.goTo': 'first',
   'sbot.obs.connection': 'first',
-  'about.html.avatar': 'first'
+  'about.obs.imageUrl': 'first'
 })
 
 exports.create = (api) => {
@@ -42,7 +42,8 @@ exports.create = (api) => {
             h('div.bottom', [
               Peers({
                 peers: secret.recipients,
-                avatar: api.about.html.avatar
+                imageUrl: api.about.obs.imageUrl,
+                onClick: (id) => api.router.sync.goTo({ path: `/peers/${id}`, peer: { id } })
               }),
               h('div.state', [
                 h('span.shards', secret.shards.filter(s => s.body).length),

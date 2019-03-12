@@ -1,5 +1,5 @@
 const { h, Value, computed } = require('mutant')
-const { pick, identity } = require('lodash')
+const { pickBy, identity } = require('lodash')
 
 const Button = require('./Button')
 const CopyToClipboard = require('./CopyToClipboard')
@@ -17,15 +17,11 @@ module.exports = function Secret (props = {}, children = []) {
     hidden: Value('hidden')
   }
 
-  let attributes = pick({ readonly }, identity)
+  // Remove readonly entirely from attributes if false otherwise it applies itself anyway
+  let attributes = pickBy({ readonly }, identity)
 
-  let mainStyles = {
-    'grid-template-rows': withActions ? '1fr auto' : 'auto'
-  }
-
-  let containerStyles = {
-    'grid-template-rows': computed(state.hidden, (hidden) => hidden === 'hidden' ? 'auto' : 'auto 1fr')
-  }
+  let mainStyles = { 'grid-template-rows': withActions ? '1fr auto' : 'auto' }
+  let containerStyles = { 'grid-template-rows': computed(state.hidden, (hidden) => hidden === 'hidden' ? 'auto' : 'auto 1fr') }
 
   return h('div.secret', { style: mainStyles }, [
     h('div.container', { style: containerStyles }, [
