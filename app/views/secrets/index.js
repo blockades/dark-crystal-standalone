@@ -32,10 +32,10 @@ exports.create = (api) => {
       ]),
       map(api.app.actions.secrets.fetch(), (secret) => (
         h('section.secret', [
-          h('div.main', [
-            h('div.top', {
-              'ev-click': () => api.router.sync.goTo({ path: `/secrets/${secret.id}`, secret: secret })
-            }, [
+          h('div.main', {
+            'ev-click': () => api.router.sync.goTo({ path: `/secrets/${secret.id}`, secret: secret })
+          }, [
+            h('div.top', [
               h('div.name', secret.name),
               h('div.createdAt', secret.createdAt)
             ]),

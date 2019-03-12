@@ -7,7 +7,6 @@ const Backward = require('../../../components/Backward')
 exports.gives = nest('app.views.secrets.new.name')
 
 exports.needs = nest({
-  'app.actions.secrets.new': 'first',
   'router.sync.goBack': 'first',
   'router.sync.goTo': 'first',
   'about.html.avatar': 'first',

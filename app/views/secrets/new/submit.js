@@ -10,7 +10,7 @@ const Peers = require('../../../components/Peers')
 exports.gives = nest('app.views.secrets.new.submit')
 
 exports.needs = nest({
-  'app.actions.secrets.new': 'first',
+  'app.actions.secrets.create': 'first',
   'router.sync.goBack': 'first',
   'router.sync.goTo': 'first',
   'about.html.avatar': 'first',
