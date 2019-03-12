@@ -42,7 +42,11 @@ module.exports = function Secret (props = {}, children = []) {
     ]),
     withActions ? h('div.actions', [
       CopyToClipboard({ value: secret, size: 'small' }),
-      Button({ text: 'Reset', type: 'subtle' })
+      Button({
+        text: 'Reset',
+        title: 'Click to delete the secret locally. You can still recover this again from your peers',
+        type: 'subtle'
+      })
     ]) : null
   ])
 }
