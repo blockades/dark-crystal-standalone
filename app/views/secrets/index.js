@@ -30,31 +30,34 @@ exports.create = (api) => {
         ]),
         Forward({ routeTo: () => api.router.sync.goTo({ path: `/secrets/new` }) })
       ]),
-      map(api.app.actions.secrets.fetch(), (secret) => (
-        h('section.secret', [
-          h('div.main', {
-            'ev-click': () => api.router.sync.goTo({ path: `/secrets/${secret.id}`, secret: secret })
-          }, [
-            h('div.top', [
-              h('div.name', secret.name),
-              h('div.createdAt', secret.createdAt)
-            ]),
-            h('div.bottom', [
-              Peers({
-                peers: secret.recipients,
-                imageUrl: api.about.obs.imageUrl,
-                onClick: (id) => api.router.sync.goTo({ path: `/peers/${id}`, peer: { id } })
-              }),
-              h('div.state', [
-                h('span.shards', secret.shards.filter(s => s.body).length),
-                h('span', '/'),
-                h('span.quorum', secret.quorum)
+      computed(api.app.actions.secrets.fetch(), (secrets) => {
+        if (!secrets.length) return h('i.fa.fa-spinner.fa-pulse.fa-2x')
+        else return secrets.map((secret) => (
+          h('section.secret', [
+            h('div.main', {
+              'ev-click': () => api.router.sync.goTo({ path: `/secrets/${secret.id}`, secret: secret })
+            }, [
+              h('div.top', [
+                h('div.name', secret.name),
+                h('div.createdAt', secret.createdAt)
+              ]),
+              h('div.bottom', [
+                Peers({
+                  peers: secret.recipients,
+                  imageUrl: api.about.obs.imageUrl,
+                  onClick: (id) => api.router.sync.goTo({ path: `/peers/${id}`, peer: { id } })
+                }),
+                h('div.state', [
+                  h('span.shards', secret.shards.filter(s => s.body).length),
+                  h('span', '/'),
+                  h('span.quorum', secret.quorum)
+                ])
               ])
-            ])
-          ]),
-          Forward({ routeTo: () => api.router.sync.goTo({ path: `/secrets/${secret.id}`, secret: secret }) })
-        ])
-      ), { comparer: (a, b) => a && b && a.key === b.key })
+            ]),
+            Forward({ routeTo: () => api.router.sync.goTo({ path: `/secrets/${secret.id}`, secret: secret }) })
+          ])
+        ), { comparer: (a, b) => a && b && a.key === b.key })
+      })
     ])
   }
 }

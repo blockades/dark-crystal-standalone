@@ -49,6 +49,7 @@ exports.create = (api) => {
         )),
         Peers({
           peers: state.remote.peers,
+          name: api.about.obs.name,
           imageUrl: api.about.obs.imageUrl,
           onClick: (id) => api.router.sync.goTo({ path: `/peers/${id}`, peer: { id } })
         })
