@@ -1,6 +1,5 @@
 body {
   -ms-overflow-style: scrollbar
-  -webkit-app-region: drag
 }
 
 p {
@@ -8,10 +7,6 @@ p {
   -webkit-margin-after: 0em;
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
-}
-
-button, section, i {
-  -webkit-app-region: no-drag;
 }
 
 main.app {
@@ -27,13 +22,10 @@ main.app {
   }
 }
 
-textarea.hidden {
-  display: none
-}
-
 input {
+  -webkit-app-region: no-drag
   width: 100%
-  font: inherit
+  font-family: monospace
   background: #2B0929
   color: #F5F5DC
   border: 1px solid #F5F5DC;
@@ -41,11 +33,15 @@ input {
 }
 
 textarea {
-  font: inherit
+  font-family: monospace
   background: #2B0929
   color: #F5F5DC
   border: 1px solid #F5F5DC
   padding: .2rem -0.2rem .2rem .2rem
+}
+
+textarea.hidden {
+  display: none
 }
 
 input[type=range]{
@@ -76,4 +72,8 @@ input[type=range]:focus {
 
 input[type=range]:focus::-webkit-slider-runnable-track {
   background: #ccc;
+}
+
+p.small {
+  font-size: 10pt
 }

@@ -29,7 +29,7 @@ app.on('ready', () => {
   state.windows.server = Server(config, plugins)
 
   ipcMain.once('server-started', () => {
-    state.windows.ui = UI(join(__dirname, 'app/index'), {}, config)
+    state.windows.ui = UI(join(__dirname, 'app/index'), { width: 364, height: 654 }, config)
 
     state.windows.ui.on('close', (e) => {
       if (!state.quitting && process.platform === 'darwin') {
