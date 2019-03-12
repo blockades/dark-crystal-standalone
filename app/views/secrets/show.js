@@ -55,7 +55,7 @@ exports.create = (api) => {
         ]),
         computed(state.tab, tab => {
           if (tab === 'history') return History()
-          else if (tab === 'secret')  return Secret({ secret })
+          else if (tab === 'secret')  return Secret({ secret: secret.secret })
           else return null
         })
       ])

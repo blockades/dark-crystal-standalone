@@ -3,7 +3,7 @@ const Scuttle = require('scuttle-dark-crystal')
 
 const { h, Array: MutantArray, throttle } = require('mutant')
 
-exports.gives = nest('app.actions.secrets.new')
+exports.gives = nest('app.actions.secrets.create')
 
 exports.needs = nest({
   'sbot.obs.connection': 'first',
@@ -11,9 +11,9 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.actions.secrets.new', newSecret)
+  return nest('app.actions.secrets.create', createSecret)
 
-  function newSecret (opts = {}) {
+  function createSecret (opts = {}) {
     const scuttle = Scuttle(api.sbot.obs.connection)
 
     const publish = scuttle.share.async.share

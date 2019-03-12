@@ -13,6 +13,8 @@ const app = {
   ...require('../lib/scuttle')
 }
 
+console.log(app)
+
 const sockets = combine(app)
 const api = entry(sockets, nest('app.sync.start', 'first'))
 const App = api.app.sync.start

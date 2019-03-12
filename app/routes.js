@@ -2,7 +2,17 @@
 
 const SecretsIndexPath = (request) => request.path === `/secrets`
 const SecretsShowPath = (request) => request.secret && request.path === `/secrets/${request.secret.id}`
+
+// Saved state between different views for a form - gives better customisability
 const SecretsNewPath = (request) => request.path === `/secrets/new`
+const SecretsNewNamePath = (request) => request.path === `/secrets/new/name`
+const SecretsNewSecretPath = (request) => request.state && request.state.secretName && request.path === `/secrets/new/secret`
+const SecretsNewTrustPath = (request) => request.state && request.state.secretName && request.state.secret && request.path === `/secrets/new/trust`
+
+const SecretsNewSubmitPath = (request) => (
+  request.state && request.state.secretName && request.state.secret &&
+    request.state.quorum && request.state.peers && request.path === `/secrets/new/submit`
+)
 
 const SettingsIndexPath = (request) => request.path === `/settings`
 const SettingsAccountIndexPath = (request) => request.path === `/settings/account`
@@ -23,6 +33,11 @@ module.exports = {
   SecretsIndexPath,
   SecretsShowPath,
   SecretsNewPath,
+
+  SecretsNewNamePath,
+  SecretsNewSecretPath,
+  SecretsNewTrustPath,
+  SecretsNewSubmitPath,
 
   PeersShowPath,
 
