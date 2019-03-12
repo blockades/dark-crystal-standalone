@@ -17,7 +17,7 @@ nav {
 
     div.left {
       display: grid
-      grid-template-columns: auto auto
+      grid-template-columns: auto auto auto
       grid-gap: .5rem
 
       i {

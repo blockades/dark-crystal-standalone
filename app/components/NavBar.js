@@ -29,6 +29,11 @@ module.exports = function NavBar (props = {}, children = []) {
           'ev-click': () => routeTo({ path: `/help` }),
           classList: [isHelpNamespace(request) ? 'active' : ''],
           title: 'Help'
+        }),
+        h('i.fa.fa-bell.fa-2x', {
+          'ev-click': () => routeTo({ path: `/notifications` }),
+          classList: [''],
+          title: 'Notifications'
         })
       ]),
       h('div.right', [
