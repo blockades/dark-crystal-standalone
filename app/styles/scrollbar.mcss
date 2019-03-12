@@ -1,8 +1,8 @@
 ::-webkit-scrollbar {
   width: 10px
-  background: #2B0929
+  background: #F5F5DC
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #F5F5DC
+  background: #2B0929
 }

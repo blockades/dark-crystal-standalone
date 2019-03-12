@@ -14,13 +14,12 @@ module.exports = function Search (props = {}, children = []) {
       suggest,
       peers: state.feed,
       max: 1,
-      canClear: true,
+      canClear: false,
       onSubmit: () => {
         const { link: id } = resolve(state.feed)[0]
         if (id === myId) routeTo({ path: `/settings/account` })
         else routeTo({ path: `/peers/${id}`, peer: { id } })
       }
-    })
+    }, [ h('div') ])
   ])
-
 }

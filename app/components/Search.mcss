@@ -1,5 +1,7 @@
 div.search {
   display: grid
-  grid-template-columns: 1rem 1fr
+  grid-template-columns: auto 1fr auto
+  justify-content: center
+  align-items: center
   grid-gap: 0.5rem
 }

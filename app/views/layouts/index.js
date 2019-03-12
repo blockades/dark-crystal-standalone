@@ -4,8 +4,6 @@ const { h } = require('mutant')
 const NavBar = require('../../components/NavBar')
 const Tabs = require('../../components/Tabs')
 
-const { isSecretsNamespace, isShardsNamespace } = require('../../routes')
-
 exports.gives = nest('app.views.layouts.index')
 exports.needs = nest({
   'router.sync.goTo': 'first',
@@ -26,19 +24,20 @@ exports.create = (api) => {
         myId: api.keys.sync.id(),
         request
       }),
-      Tabs({ tabs: [
-        {
-          name: 'secrets',
-          onClick: () => api.router.sync.goTo({ path: `/secrets` }),
-          class: isSecretsNamespace(request) ? 'active' : ''
-        },
-        {
-          name: 'shards',
-          onClick: () => api.router.sync.goTo({ path: `/shards` }),
-          class: isShardsNamespace(request) ? 'active' : ''
-        }
-      ]}),
       ...children
     ])
   }
 }
+
+      // Tabs({ tabs: [
+      //   {
+      //     name: 'secrets',
+      //     onClick: () => api.router.sync.goTo({ path: `/secrets` }),
+      //     class: isSecretsNamespace(request) ? 'active' : ''
+      //   },
+      //   {
+      //     name: 'shards',
+      //     onClick: () => api.router.sync.goTo({ path: `/shards` }),
+      //     class: isShardsNamespace(request) ? 'active' : ''
+      //   }
+      // ]}),

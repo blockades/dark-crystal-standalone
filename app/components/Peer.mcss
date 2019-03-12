@@ -1,13 +1,6 @@
 div.peer {
   cursor: pointer
   font-size: 10pt
-  display: grid
-  grid-template-rows: min-content auto
-
-  div {
-    display: grid
-    justify-content: center
-  }
 
   a {
     padding: 0 .5rem 0 0

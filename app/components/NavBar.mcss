@@ -3,12 +3,22 @@ nav {
   display: grid
   grid-template-rows: auto auto
   grid-gap: .5rem
+  border-bottom: 1px solid #F5F5DC
+
+  section.bottom {
+    padding: 0 0 .5rem 0
+  }
 
   section.top {
     display: grid
-    grid-template-columns: 4rem auto 4rem
+    grid-template-columns: auto auto
+    justify-content: space-between
+    align-items: center
 
     div.left {
+      display: grid
+      grid-template-columns: auto auto
+      grid-gap: .5rem
 
       i {
         border-radius: 3px;
@@ -33,7 +43,8 @@ nav {
     div.right {
       display: grid
       grid-template-columns: auto auto
-      padding: .5rem 0 1rem 1rem
+      grid-gap: 1rem
+      padding: .5rem .5rem 1rem 1rem
 
       i {
         cursor: pointer

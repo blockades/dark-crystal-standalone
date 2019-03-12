@@ -1,12 +1,12 @@
 div.tabs {
   border-bottom: 1px solid #F5F5DC
-  padding: 0 0 .5rem 0
   display: grid
   grid-template-columns: auto auto
   text-align: center
 
   div.tab {
     border-right: 1px solid #F5F5DC
+    padding: .5rem 0 .5rem 0
 
     :last-child {
       border-right: none
@@ -16,7 +16,7 @@ div.tabs {
   }
 
   div.active {
-    border-bottom: 2px solid #1EAEDB
+    background: #1EAEDB
     font-weight: bold
   }
 }

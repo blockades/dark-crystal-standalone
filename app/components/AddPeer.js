@@ -62,7 +62,7 @@ module.exports = function AddPeer (props = {}, children = []) {
 
   return h('div.add-peer', {
     style: {
-      'grid-template-columns': canClear ? 'auto 1fr auto' : 'auto'
+      'grid-template-columns': canClear ? '1fr auto' : 'auto'
     }
   }, [
     input,
@@ -70,7 +70,8 @@ module.exports = function AddPeer (props = {}, children = []) {
       'ev-click': (e) => state.peers.set([]),
       'style': { 'cursor': 'pointer' },
       'title': 'Clear'
-    }) : null
+    }) : h('div'),
+    ...children
   ])
 }
 

@@ -31,19 +31,23 @@ exports.create = (api) => {
     return h('Settings Network -index', [
       h('div.local', { title: '~ peers on the same LAN connection ~' }, [
         h('label.local', 'Local Peers'),
-        Peers({ peers: state.local.peers, avatar: api.about.html.avatar }, [
-          computed(state.local.peers, (peers) => (
-            !peers.length ? h('p', 'No local peers connected') : null
-          ))
-        ])
+        computed(state.local.peers, (peers) => (
+          !peers.length ? h('p', 'No local peers connected') : null
+        )),
+        Peers({
+          peers: state.local.peers,
+          avatar: api.about.html.avatar
+        })
       ]),
       h('div.remote', { title: '~ pubs connected via the internet ~' }, [
         h('label.remote', 'Remote Peers'),
-        Peers({ peers: state.remote.peers, avatar: api.about.html.avatar }, [
-          computed(state.remote.peers, (peers) => (
-            !peers.length ? h('p', 'No remote peers / pubs connected') : null
-          ))
-        ])
+        computed(state.remote.peers, (peers) => (
+          !peers.length ? h('p', 'No remote peers / pubs connected') : null
+        )),
+        Peers({
+          peers: state.remote.peers,
+          avatar: api.about.html.avatar
+        })
       ])
     ])
   }
