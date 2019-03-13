@@ -22,6 +22,12 @@ exports.needs = nest({
   'sbot.obs.connection': 'first'
 })
 
+// %%TODO%% Reorganise this dataset so that the view can easily render based on 3 tabs:
+//
+// 1. Requested - shards with an outstanding request
+// 2. Received - shards we're holding but haven't received a request
+// 3. Returned - shards we've sent (that don't have a pending outstanding request...)
+
 exports.create = (api) => {
   return nest('app.actions.shards.fetch', fetch)
 
@@ -63,7 +69,7 @@ exports.create = (api) => {
           const author = get(shard, 'value.author')
           const root = get(shard, 'value.content.root')
 
-          set(records, [author, root, 'receivedAt'], new Date(shard.timestamp).toLocaleDateString())
+          set(records, [author, root, 'sentAt'], new Date(shard.value.timestamp).toLocaleDateString())
 
           pull(
             scuttle.root.pull.backlinks(root, { reverse: true  }),

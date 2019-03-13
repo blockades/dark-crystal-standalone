@@ -17,11 +17,6 @@ exports.create = (api) => {
       return true
     }
 
-    // if someone has given you an annoying html encoded request
-    if (request.match(/^%25.*%3D.sha256$/)) {
-      request = decodeURIComponent(request)
-    }
-
     if (isMsg(request)) {
       api.sbot.async.get(request, (err, value) => {
         if (err) cb(err)
@@ -38,5 +33,5 @@ exports.create = (api) => {
 }
 
 function isPath (str) {
-  return typeof str === 'string' && str[0] === '/' && str.length > 1
+  return typeof str === 'string' && str[0] === '/'
 }

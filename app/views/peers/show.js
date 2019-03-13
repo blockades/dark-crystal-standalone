@@ -43,11 +43,11 @@ exports.create = (api) => {
 
           const peer = shards.find(s => s.id === state.id)
 
-          if (!peer) return h('p', 'No shards mate')
+          if (!peer) return h('section', [ h('p', 'No shards mate') ])
           else return peer.shards.map((shard) => (
             h('section.shard', { title: shard.root }, [
               h('div.left', [
-                h('div.receivedAt', shard.receivedAt)
+                h('div.sentAt', shard.sentAt)
               ]),
               h('div.right', [
                 h('div.state', shard.state)

@@ -4,8 +4,10 @@ const isRoot = require('scuttle-dark-crystal/isRoot')
 exports.gives = nest('router.sync.routes')
 
 exports.needs = nest({
+  'app.views.root.index': 'first',
   'app.views.layouts.index': 'first',
   'app.views.layouts.settings': 'first',
+  'app.views.layouts.blank': 'first',
   'app.views.secrets.index': 'first',
   'app.views.secrets.show': 'first',
   'app.views.secrets.new.name': 'first',
@@ -20,6 +22,8 @@ exports.needs = nest({
 })
 
 const {
+  RootPath,
+
   SecretsIndexPath,
   SecretsShowPath,
   SecretsNewPath,
@@ -41,6 +45,7 @@ const {
 exports.create = (api) => {
   return nest('router.sync.routes', (acc = []) => {
     const {
+      root,
       secrets,
       settings,
       peers,
@@ -50,6 +55,7 @@ exports.create = (api) => {
     } = api.app.views
 
     const routes = [
+      [ RootPath, { view: root.index, layout: layouts.blank } ],
       [ SecretsIndexPath, { view: secrets.index } ],
       [ SecretsShowPath, { view: secrets.show } ],
       [ SecretsNewPath, { view: secrets.new.name } ],

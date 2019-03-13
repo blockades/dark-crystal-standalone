@@ -21,9 +21,15 @@ Peers -show {
 
   div.container {
     display: grid
-    grid-template-rows: auto 1fr
     padding: 0 1rem 1rem 0
     grid-gap: 1rem
+
+    i.fa.fa-spinner {
+      position: absolute
+      top: 50%
+      left: 42%
+      transform: translate(-50%, -50%)
+    }
 
     section.profile {
       padding: 1rem
@@ -39,6 +45,7 @@ Peers -show {
     }
 
     section.shard {
+      max-height: 35px
       display: grid
       grid-template-columns: auto auto
       justify-content: space-between

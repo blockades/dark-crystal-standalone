@@ -1,4 +1,5 @@
 // Define route functions here, then in order to use them, add to router/async/routes.js with the relevant view
+const RootPath = (request) => request.path === `/`
 
 const SecretsIndexPath = (request) => request.path === `/secrets`
 const SecretsShowPath = (request) => request.secret && request.path === `/secrets/${request.secret.id}`
@@ -31,6 +32,8 @@ const isSecretsNamespace = (request) => request.path.substring(0, 8) === `/secre
 const isSettingsNamespace = (request) => request.path.substring(0, 9) === `/settings`
 
 module.exports = {
+  RootPath,
+
   SecretsIndexPath,
   SecretsShowPath,
   SecretsNewPath,
