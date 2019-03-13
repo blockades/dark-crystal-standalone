@@ -2,16 +2,17 @@ const nest = require('depnest')
 const pull = require('pull-stream')
 const { h, computed, Value } = require('mutant')
 
-const Peers = require('../../components/Peers')
-const Peer = require('../../components/Peer')
+const Avatar = require('../../components/Avatar')
 const Backward = require('../../components/Backward')
 
 exports.gives = nest('app.views.peers.show')
 
 exports.needs = nest({
+  'app.actions.shards.fetch': 'first',
   'router.sync.goTo': 'first',
   'router.sync.goBack': 'first',
   'about.obs.imageUrl': 'first',
+  'about.obs.name': 'first'
 })
 
 exports.create = (api) => {
@@ -24,10 +25,35 @@ exports.create = (api) => {
 
     return h('Peers -show', [
       Backward({ routeTo: api.router.sync.goBack }),
-      h('div.main', [
-        Peer({
-          feed: state.id,
-          imageUrl: api.about.obs.imageUrl
+      h('div.container', [
+        h('section.profile', [
+          h('div.left', [
+            Avatar({
+              id: state.id,
+              imageUrl: api.about.obs.imageUrl,
+              size: 6
+            })
+          ]),
+          h('div.right', [
+            h('div.name', api.about.obs.name(state.id))
+          ])
+        ]),
+        computed(api.app.actions.shards.fetch(), (shards) => {
+          if (!shards.length) return h('i.fa.fa-spinner.fa-pulse.fa-2x')
+
+          const peer = shards.find(s => s.id === state.id)
+
+          if (!peer) return h('p', 'No shards mate')
+          else return peer.shards.map((shard) => (
+            h('section.shard', { title: shard.root }, [
+              h('div.left', [
+                h('div.receivedAt', shard.receivedAt)
+              ]),
+              h('div.right', [
+                h('div.state', shard.state)
+              ])
+            ])
+          ))
         })
       ])
     ])

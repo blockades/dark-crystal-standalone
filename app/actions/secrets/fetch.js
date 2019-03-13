@@ -30,10 +30,34 @@ exports.needs = nest({
 exports.create = (api) => {
   return nest('app.actions.secrets.fetch', fetch)
 
+  // store is an observable that returns an array of structure:
+  // [
+  //   {
+  //     id,
+  //     ritualId,
+  //     name,
+  //     quorum,
+  //     createdAt,
+  //     recipients: [ feedId ],
+  //     shards: [
+  //       {
+  //         id,
+  //         feedId,
+  //         encryptedShard,
+  //         state,
+  //         shard,
+  //         requests: [
+  //           { request },
+  //           { request, reply }
+  //         ]
+  //       }
+  //     ]
+  //   }
+  // ]
   var store = null
 
-  function fetch (opts = {}) {
-    const { limit = 100 } = opts
+  function fetch (props = {}) {
+    const { limit = 100 } = props
 
     const scuttle = Scuttle(api.sbot.obs.connection)
     const id = api.keys.sync.id()
@@ -79,10 +103,10 @@ exports.create = (api) => {
 
           pull(
             scuttle.root.pull.backlinks(root.key, { live: false }),
-            pull.collect((err, msgs) => {
-              if (err) throw err
+            pull.collect((err, thread) => {
+              if (err) return done(err)
 
-              var ritual = msgs.find(isRitual)
+              var ritual = thread.find(isRitual)
 
               if (!ritual) return done(null)
 
@@ -92,9 +116,9 @@ exports.create = (api) => {
               set(records, [root.key, 'ritualId'], ritual.key)
               set(records, [root.key, 'quorum'], quorum)
 
-              var requestMsgs = msgs.filter(isRequest)
-              var replyMsgs = msgs.filter(isReply)
-              var shardMsgs = msgs.filter(isShard)
+              var requestMsgs = thread.filter(isRequest)
+              var replyMsgs = thread.filter(isReply)
+              var shardMsgs = thread.filter(isShard)
 
               var shards = shardMsgs.map(shard => {
                 const { recps, shard: encryptedShard } = get(shard, 'value.content')
@@ -117,8 +141,8 @@ exports.create = (api) => {
 
                 // only gets the first one per person...
                 // if we have more than one, they're sending us multiple shards,
-                // some of which could be duds (including the first)
-                // we should handle this gracefully...
+                // some of which could be duds (including the first),
+                // %%TODO%%: handle this gracefully...
                 var body = uniq(replies.map(r => r.shard))[0]
 
                 return pickBy({
@@ -164,6 +188,7 @@ exports.create = (api) => {
           var recordsArray = transform(records, (acc, value, key, obj) => {
             if (obj[key]['ritualId']) acc.push({ id: key, ...obj[key] })
           }, [])
+          console.log(recordsArray)
           store.set(recordsArray)
         })
       )

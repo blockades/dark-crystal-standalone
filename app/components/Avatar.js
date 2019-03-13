@@ -12,7 +12,7 @@ module.exports = function Avatar (props = {}, children = []) {
   const colourHash = new ColourHash()
 
   return computed(imageUrl(id), (src) => (
-    h('div.img', { style: { padding: `0 0 0 ${size / 8}rem` } }, [
+    h('div.img', { title: id, style: { padding: `0 0 0 ${size / 8}rem` } }, [
       h('img', {
         src,
         classList: ['Avatar'],

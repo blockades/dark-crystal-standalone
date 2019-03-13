@@ -65,7 +65,7 @@ exports.create = (api) => {
             return canSubmit
               ? Button({
                   text: 'Share',
-                  onClick: (e) => api.app.actions.secrets.create(params)
+                  onClick: (e) => api.app.actions.secrets.create({ params })
                 })
               : null
           })

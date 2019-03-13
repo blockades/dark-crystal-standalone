@@ -1,7 +1,9 @@
 Peers -show {
   display: grid
   grid-template-columns: auto 1fr
-  height: 557px;
+  overflow-y: scroll
+  position: relative
+  height: 555px
 
   div.left {
     cursor: pointer
@@ -14,6 +16,35 @@ Peers -show {
       align-items: center
       background: #784e7e
       :hover { background: #1eaedb }
+    }
+  }
+
+  div.container {
+    display: grid
+    grid-template-rows: auto 1fr
+    padding: 0 1rem 1rem 0
+    grid-gap: 1rem
+
+    section.profile {
+      padding: 1rem
+      display: grid
+      grid-template-columns: auto auto
+
+      div.left {
+      }
+
+      div.right {
+
+      }
+    }
+
+    section.shard {
+      display: grid
+      grid-template-columns: auto auto
+      justify-content: space-between
+      margin: 0 0 0 1rem
+      padding: .5rem
+      background: #784e7e
     }
   }
 }
