@@ -6,6 +6,7 @@ exports.gives = nest('app.views.root.index')
 
 exports.needs = nest({
   'app.actions.secrets.fetch': 'first',
+  'app.actions.shards.fetch': 'first',
   'router.sync.goTo': 'first'
 })
 
@@ -16,6 +17,7 @@ exports.create = (api) => {
     setTimeout(() => api.router.sync.goTo('/secrets'), 2000)
 
     api.app.actions.secrets.fetch()
+    api.app.actions.shards.fetch()
 
     return h('Root -index', [
       h('img', {
