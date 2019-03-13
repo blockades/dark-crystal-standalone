@@ -1,7 +1,6 @@
 const nest = require('depnest')
-const pull = require('pull-stream')
 const scuttle = require('scuttle-dark-crystal')
-const { h, computed, Array: MutantArray, map, throttle } = require('mutant')
+const { h, computed } = require('mutant')
 
 const Peers = require('../../components/Peers')
 const Forward = require('../../components/Forward')

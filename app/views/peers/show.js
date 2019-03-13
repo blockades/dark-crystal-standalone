@@ -1,5 +1,4 @@
 const nest = require('depnest')
-const pull = require('pull-stream')
 const { h, computed, Value } = require('mutant')
 
 const Avatar = require('../../components/Avatar')
@@ -44,8 +43,9 @@ exports.create = (api) => {
           const peer = shards.find(s => s.id === state.id)
 
           if (!peer) return h('section', [ h('p', 'No shards mate') ])
-          else return peer.shards.map((shard) => (
-            h('section.shard', { title: shard.root }, [
+          else return peer.shards.map((shard) => {
+            console.log(shard)
+            return h('section.shard', { title: shard.root, 'ev-click': () => api.router.sync.goTo({ path: `/shards/${shard.id}`, shard }) }, [
               h('div.left', [
                 h('div.sentAt', shard.sentAt)
               ]),
@@ -53,7 +53,7 @@ exports.create = (api) => {
                 h('div.state', shard.state)
               ])
             ])
-          ))
+          })
         })
       ])
     ])

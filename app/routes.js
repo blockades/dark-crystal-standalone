@@ -20,6 +20,7 @@ const SettingsAccountIndexPath = (request) => request.path === `/settings/accoun
 const SettingsNetworkIndexPath = (request) => request.path === `/settings/network`
 
 const PeersShowPath = (request) => request.peer && request.path === `/peers/${request.peer.id}`
+const ShardsShowPath = (request) => request.shard && request.path === `/shards/${request.shard.id}`
 
 const NotificationsIndexPath = (request) => request.path === `/notifications`
 
@@ -44,6 +45,7 @@ module.exports = {
   SecretsNewSubmitPath,
 
   PeersShowPath,
+  ShardsShowPath,
 
   SettingsIndexPath,
   SettingsAccountIndexPath,

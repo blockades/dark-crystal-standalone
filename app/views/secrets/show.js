@@ -1,5 +1,4 @@
 const nest = require('depnest')
-const pull = require('pull-stream')
 const { clipboard } = require('electron')
 const { h, computed, Value } = require('mutant')
 

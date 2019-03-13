@@ -66,9 +66,11 @@ exports.create = (api) => {
       pull(
         scuttle.shard.pull.fromOthers({ reverse: true, live: false  }),
         pull.paramap((shard, done) => {
+          const id = shard.key
           const author = get(shard, 'value.author')
           const root = get(shard, 'value.content.root')
 
+          set(records, [author, root, 'id'], id)
           set(records, [author, root, 'sentAt'], new Date(shard.value.timestamp).toLocaleDateString())
 
           pull(

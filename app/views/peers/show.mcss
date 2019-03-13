@@ -45,6 +45,7 @@ Peers -show {
     }
 
     section.shard {
+      cursor: pointer
       max-height: 35px
       display: grid
       grid-template-columns: auto auto
@@ -52,6 +53,10 @@ Peers -show {
       margin: 0 0 0 1rem
       padding: .5rem
       background: #784e7e
+
+      :hover {
+        background: #1EAEDB
+      }
     }
   }
 }
