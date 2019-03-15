@@ -17,6 +17,9 @@ exports.needs = nest({
 exports.create = (api) => {
   return nest('app.views.peers.show', peersShow)
 
+  // This design isn't right. I've put together something to show for the moment.
+  // %%TODO%%: Redesign the peersShow interface and the shardsShow interface
+
   function peersShow (request, children = []) {
     const state = {
       id: request.peer.id
@@ -44,8 +47,7 @@ exports.create = (api) => {
 
           if (!peer) return h('section', [ h('p', 'No shards mate') ])
           else return peer.shards.map((shard) => {
-            console.log(shard)
-            return h('section.shard', { title: shard.root, 'ev-click': () => api.router.sync.goTo({ path: `/shards/${shard.id}`, shard }) }, [
+            return h('section.shard', { title: shard.root, 'ev-click': () => api.router.sync.goTo({ path: `/shards/${shard.id}`, shard: { ...shard, peerId: peer.id } }) }, [
               h('div.left', [
                 h('div.sentAt', shard.sentAt)
               ]),

@@ -15,13 +15,16 @@ exports.create = (api) => {
   return nest('app.actions.secrets.create', createSecret)
 
   function createSecret (props = {}) {
-    const { params } = props
+    const {
+      params,
+      onSubmit = (error, data) => {
+        if (err) api.router.sync.goTo({ page: `/error`, error })
+        else api.router.sync.goTo({ page: `/secrets` })
+      }
+    } = props
 
     const scuttle = Scuttle(api.sbot.obs.connection)
 
-    scuttle.share.async.share(params, (error, data) => {
-      if (err) api.router.sync.goTo({ page: `/error`, error })
-      else api.router.sync.goTo({ page: `/secrets` })
-    })
+    scuttle.share.async.share(params, onSubmit)
   }
 }

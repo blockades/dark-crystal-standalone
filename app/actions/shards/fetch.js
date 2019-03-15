@@ -27,6 +27,19 @@ exports.needs = nest({
 // 1. Requested - shards with an outstanding request
 // 2. Received - shards we're holding but haven't received a request
 // 3. Returned - shards we've sent (that don't have a pending outstanding request...)
+//
+// RETHINK:
+// We want to be able to render a list of the shard's request / reply history
+// We want to be able to highlight outstanding requests
+// There is no 'final' 'returned' state of a shard with ephemeral returns - shards can be returned multiple times
+// A return simply tells those involved that it was sent back at least once
+//
+// If the peersShow view displays a list of the shards, organised by their current 'state', either received or requested
+// We want to make 'requested' shards prominent in the interface
+// We want to have a notifications appear when a shard has been requested
+// We want to make 'received' shards less prominent but still visible, as there is no immediate action to be taken by the user
+// We want to make 'requested' shards return to 'received' when they have been sent
+// We want to make a 'forward request' _really prominent_ and add warnings to get the user to check out of band
 
 exports.create = (api) => {
   return nest('app.actions.shards.fetch', fetch)
