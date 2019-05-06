@@ -5,7 +5,7 @@ const { h, computed } = require('mutant')
 const Peers = require('../../components/Peers')
 const Forward = require('../../components/Forward')
 
-exports.gives = nest('app.views.secrets.index')
+exports.gives = nest('views.secrets.index')
 
 exports.needs = nest({
   'app.actions.secrets.fetch': 'first',
@@ -15,7 +15,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.secrets.index', secretsIndex)
+  return nest('views.secrets.index', secretsIndex)
 
   function secretsIndex (request) {
     return h('Secrets -index', [

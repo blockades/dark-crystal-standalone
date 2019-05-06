@@ -4,7 +4,7 @@ const { h, computed, Value } = require('mutant')
 const Avatar = require('../../components/Avatar')
 const Backward = require('../../components/Backward')
 
-exports.gives = nest('app.views.peers.show')
+exports.gives = nest('views.peers.show')
 
 exports.needs = nest({
   'app.actions.shards.fetch': 'first',
@@ -15,7 +15,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.peers.show', peersShow)
+  return nest('views.peers.show', peersShow)
 
   // This design isn't right. I've put together something to show for the moment.
   // %%TODO%%: Redesign the peersShow interface and the shardsShow interface

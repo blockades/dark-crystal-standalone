@@ -3,7 +3,8 @@ const { h } = require('mutant')
 
 const NavBar = require('../../components/NavBar')
 
-exports.gives = nest('app.views.layouts.index')
+exports.gives = nest('views.layouts.index')
+
 exports.needs = nest({
   'router.sync.goTo': 'first',
   'router.sync.goBack': 'first',
@@ -12,7 +13,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.layouts.index', layoutIndex)
+  return nest('views.layouts.index', layoutIndex)
 
   function layoutIndex (request, children = []) {
     return h('article', [

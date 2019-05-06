@@ -2,7 +2,7 @@ const nest = require('depnest')
 const { h } = require('mutant')
 const { join } = require('path')
 
-exports.gives = nest('app.views.root.index')
+exports.gives = nest('views.root.index')
 
 exports.needs = nest({
   'app.actions.secrets.fetch': 'first',
@@ -11,7 +11,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.root.index', rootIndex)
+  return nest('views.root.index', rootIndex)
 
   function rootIndex () {
     setTimeout(() => api.router.sync.goTo('/secrets'), 2000)

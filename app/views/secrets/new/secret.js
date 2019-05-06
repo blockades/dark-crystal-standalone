@@ -5,7 +5,7 @@ const Button = require('../../../components/Button')
 const Backward = require('../../../components/Backward')
 const Secret = require('../../../components/Secret')
 
-exports.gives = nest('app.views.secrets.new.secret')
+exports.gives = nest('views.secrets.new.secret')
 
 exports.needs = nest({
   'router.sync.goBack': 'first',
@@ -14,7 +14,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.secrets.new.secret', secretsNew)
+  return nest('views.secrets.new.secret', secretsNew)
 
   function secretsNew (request) {
     const { state } = request

@@ -7,7 +7,7 @@ const Slider = require('../../../components/Slider')
 const Backward = require('../../../components/Backward')
 const Peers = require('../../../components/Peers')
 
-exports.gives = nest('app.views.secrets.new.submit')
+exports.gives = nest('views.secrets.new.submit')
 
 exports.needs = nest({
   'app.actions.secrets.create': 'first',
@@ -18,7 +18,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.secrets.new.submit', secretsNew)
+  return nest('views.secrets.new.submit', secretsNew)
 
   function secretsNew (request) {
     const { state } = request

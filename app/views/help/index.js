@@ -1,7 +1,8 @@
 const nest = require('depnest')
 const { h } = require('mutant')
 
-exports.gives = nest('app.views.help.index')
+exports.gives = nest('views.help.index')
+
 exports.needs = nest({
   'message.async.publish': 'first',
   'sbot.obs.connection': 'first',
@@ -9,7 +10,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.help.index', helpIndex)
+  return nest('views.help.index', helpIndex)
 
   function helpIndex (request) {
     return h('Help -index', [

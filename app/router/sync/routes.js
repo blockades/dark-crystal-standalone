@@ -4,22 +4,22 @@ const isRoot = require('scuttle-dark-crystal/isRoot')
 exports.gives = nest('router.sync.routes')
 
 exports.needs = nest({
-  'app.views.root.index': 'first',
-  'app.views.layouts.index': 'first',
-  'app.views.layouts.settings': 'first',
-  'app.views.layouts.blank': 'first',
-  'app.views.secrets.index': 'first',
-  'app.views.secrets.show': 'first',
-  'app.views.secrets.new.name': 'first',
-  'app.views.secrets.new.secret': 'first',
-  'app.views.secrets.new.trust': 'first',
-  'app.views.secrets.new.submit': 'first',
-  'app.views.peers.show': 'first',
-  'app.views.shards.show': 'first',
-  'app.views.settings.account.index': 'first',
-  'app.views.settings.network.index': 'first',
-  'app.views.errors.show': 'first',
-  'app.views.help.index': 'first'
+  'views.root.index': 'first',
+  'views.layouts.index': 'first',
+  'views.layouts.settings': 'first',
+  'views.layouts.blank': 'first',
+  'views.secrets.index': 'first',
+  'views.secrets.show': 'first',
+  'views.secrets.new.name': 'first',
+  'views.secrets.new.secret': 'first',
+  'views.secrets.new.trust': 'first',
+  'views.secrets.new.submit': 'first',
+  'views.peers.show': 'first',
+  'views.shards.show': 'first',
+  'views.settings.account.index': 'first',
+  'views.settings.network.index': 'first',
+  'views.errors.show': 'first',
+  'views.help.index': 'first'
 })
 
 const {
@@ -55,7 +55,7 @@ exports.create = (api) => {
       errors,
       help,
       layouts
-    } = api.app.views
+    } = api.views
 
     const routes = [
       [ RootPath, { view: root.index, layout: layouts.blank } ],

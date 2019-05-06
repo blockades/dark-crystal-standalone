@@ -4,7 +4,7 @@ const { h, computed } = require('mutant')
 const CopyToClipboard = require('../../../components/CopyToClipboard')
 const Avatar = require('../../../components/Avatar')
 
-exports.gives = nest('app.views.settings.account.index')
+exports.gives = nest('views.settings.account.index')
 
 exports.needs = nest({
   'keys.sync.id': 'first',
@@ -16,7 +16,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.settings.account.index', settingsAccountIndex)
+  return nest('views.settings.account.index', settingsAccountIndex)
 
   function settingsAccountIndex (request) {
     const id = api.keys.sync.id()

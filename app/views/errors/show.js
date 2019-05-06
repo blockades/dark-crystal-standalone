@@ -1,7 +1,7 @@
 const nest = require('depnest')
 const { h } = require('mutant')
 
-exports.gives = nest('app.views.errors.show')
+exports.gives = nest('views.errors.show')
 exports.needs = nest({
   'message.async.publish': 'first',
   'sbot.obs.connection': 'first',
@@ -9,7 +9,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.errors.show', errorsShow)
+  return nest('views.errors.show', errorsShow)
 
   function errorsShow (request) {
     const { error } = request

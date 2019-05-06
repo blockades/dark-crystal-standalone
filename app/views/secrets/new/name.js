@@ -4,7 +4,7 @@ const { h, computed, Array: MutantArray, map, Struct } = require('mutant')
 const Button = require('../../../components/Button')
 const Backward = require('../../../components/Backward')
 
-exports.gives = nest('app.views.secrets.new.name')
+exports.gives = nest('views.secrets.new.name')
 
 exports.needs = nest({
   'router.sync.goBack': 'first',
@@ -13,7 +13,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.secrets.new.name', secretsNew)
+  return nest('views.secrets.new.name', secretsNew)
 
   function secretsNew (request) {
     const state = Struct({

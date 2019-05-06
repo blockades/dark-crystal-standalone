@@ -7,7 +7,7 @@ const Button = require('../../../components/Button')
 const Slider = require('../../../components/Slider')
 const Backward = require('../../../components/Backward')
 
-exports.gives = nest('app.views.secrets.new.trust')
+exports.gives = nest('views.secrets.new.trust')
 
 exports.needs = nest({
   'router.sync.goBack': 'first',
@@ -17,7 +17,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.secrets.new.trust', secretsNew)
+  return nest('views.secrets.new.trust', secretsNew)
 
   function secretsNew (request) {
     const { state } = request

@@ -10,7 +10,7 @@ const {
   SettingsNetworkIndexPath
 } = require('../../routes')
 
-exports.gives = nest('app.views.layouts.settings')
+exports.gives = nest('views.layouts.settings')
 exports.needs = nest({
   'router.sync.goTo': 'first',
   'router.sync.goBack': 'first',
@@ -19,7 +19,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.layouts.settings', layoutSettingsIndex)
+  return nest('views.layouts.settings', layoutSettingsIndex)
 
   function layoutSettingsIndex (request, children = []) {
     return h('article', [

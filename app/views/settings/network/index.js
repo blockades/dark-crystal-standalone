@@ -3,7 +3,7 @@ const { computed, h, Struct } = require('mutant')
 
 const Peers = require('../../../components/Peers')
 
-exports.gives = nest('app.views.settings.network.index')
+exports.gives = nest('views.settings.network.index')
 
 exports.needs = nest({
   'keys.sync.id': 'first',
@@ -15,7 +15,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.settings.network.index', settingsNetworkIndex)
+  return nest('views.settings.network.index', settingsNetworkIndex)
 
   function settingsNetworkIndex (request) {
     const state = {

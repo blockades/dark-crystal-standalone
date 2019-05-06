@@ -6,7 +6,7 @@ const Avatar = require('../../components/Avatar')
 const Backward = require('../../components/Backward')
 const Tabs = require('../../components/Tabs')
 
-exports.gives = nest('app.views.shards.show')
+exports.gives = nest('views.shards.show')
 
 exports.needs = nest({
   'router.sync.goTo': 'first',
@@ -15,7 +15,7 @@ exports.needs = nest({
 })
 
 exports.create = (api) => {
-  return nest('app.views.shards.show', shardsShow)
+  return nest('views.shards.show', shardsShow)
 
   // This design isn't right. I've put together something to show for the moment.
   // %%TODO%%: Redesign the peersShow interface and the shardsShow interface
