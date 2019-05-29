@@ -18,12 +18,12 @@ exports.create = function (api) {
     const src = api.about.obs.imageUrl(id)
     const color = computed(src, src => src.match(/^http/) ? 'rgba(0,0,0,0)' : api.about.obs.color(id))
 
-    const avatar = api.about.html.link(id,
+    const avatar = h('a', [
       h('img', {
         style: { 'background-color': color },
         src
       })
-    )
+    ])
     avatar.classList.add('Avatar')
     avatar.style.setProperty('--avatar-size', getSize(size))
 
