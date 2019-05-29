@@ -1,0 +1,152 @@
+DarkCrystalFriendsCrystalsShow {
+  background: black
+  color: white
+
+  --side-pad: 1rem
+
+  width: 40rem
+  min-height: 40rem
+  padding: 2rem 0 1rem
+
+  display: grid
+  grid-template-columns: auto 1fr auto
+
+  section.left, section.right {
+    padding: 0 .5rem
+    display: grid
+    align-content: center
+    justify-content: center
+  }
+
+  section.body {
+    display: grid
+    grid-template-rows: auto auto auto 1fr
+
+    div.header {
+      display: grid
+      grid-template-columns: 50% 50%;
+
+      div.author {
+        div.avatar {
+          padding: 0 var(--side-pad)
+        }
+
+        div.name {
+          font-size: 1rem
+          font-weight: 600
+          letter-spacing: 1px
+
+          padding: 0 var(--side-pad)
+        }
+      }
+
+      div.details {
+        display: grid
+        grid-gap: .5rem
+
+        div.date {
+          span {
+            font-style: italic
+            font-size: 1rem
+            letter-spacing: 1px
+          }
+        }
+
+        div.root {
+          span {
+            font-style: italic
+            font-size: 1rem
+            letter-spacing: 1px
+          }
+        }
+      }
+    }
+
+    div.tabs {
+      padding: 0 var(--side-pad)
+      margin: 1rem 0
+
+      display: grid
+      grid-template-columns: auto auto
+      grid-gap: 1.5rem
+      justify-content: start
+      text-transform: uppercase
+      letter-spacing: 2px
+      font-size: .7rem
+
+      div.tab {
+        cursor: pointer
+        padding-bottom: .5rem
+        border-bottom: 1px solid rgba(0,0,0,0)
+
+        -selected { border-bottom: 1px solid white }
+
+        span { padding-left: .5rem }
+      }
+    }
+
+    div.forwards {
+      overflow-y: auto
+
+      display: grid
+      align-content: start
+      grid-gap: .2rem
+
+      div.forward {
+        letter-spacing: 1px
+
+        padding: .5rem var(--side-pad)
+        display: grid
+        grid-auto-flow: column
+        justify-content: space-between
+        justify-items: start
+        align-items: center
+        grid-gap: 1rem
+        background: rebeccapurple
+        color: white
+
+        div.rts {
+          font-family: monospace
+          font-weight: 600
+        }
+
+        transition: background 1s ease-in
+
+        :hover {
+          transition: background .5s ease-in
+          color: white
+          background: deeppink
+        }
+      }
+    }
+
+    div.secret {
+      padding: 0 var(--side-pad)
+
+      div.actions {
+        display: grid
+        padding: 1rem 0
+      }
+
+      div.section {
+        div.DarkCrystalSecret {
+          grid-template-rows: auto
+          min-width: inherit
+          min-height: 300px
+
+          pre {
+            white-space: pre-wrap
+            word-wrap: break-word
+          }
+        }
+      }
+    }
+
+    div.actions {
+      display: grid
+      padding: 1rem 0
+      align-self: end
+    }
+  }
+}
+

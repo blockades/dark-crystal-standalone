@@ -1,0 +1,27 @@
+DarkCrystalRecipient {
+  background-color: #fff
+  color: #222
+  height: 2.5rem
+  margin: .4rem .5rem
+
+  display: flex
+  align-items: center
+  justify-items: flex-start
+
+  a.Avatar {
+    width: 2.5rem
+    height: 2.5rem
+    width: var(--avatar-size)
+    height: var(--avatar-size)
+    img {
+      height: 2.5rem
+      width: 2.5rem
+      width: var(--avatar-size)
+      height: var(--avatar-size)
+    }
+  }
+
+  div.name {
+    margin: 0 1rem 0 .5rem
+  }
+}

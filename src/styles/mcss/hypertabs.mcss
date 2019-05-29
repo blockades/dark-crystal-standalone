@@ -1,0 +1,142 @@
+Hypertabs {
+  display: flex
+  flex-direction: column
+
+  top: var(--app-border-width)
+  bottom: var(--app-border-width)
+  left: var(--app-border-width)
+  right: var(--app-border-width)
+
+  height: initial
+
+  nav {
+    height: 2.3rem
+    min-height: 2.3rem
+    background: none
+
+    display: flex
+
+    section.tabs {
+      min-width: 0
+
+      flex-grow: 1
+      display: flex
+
+      div.tab {
+        flex-grow: 1
+
+        z-index: 1000
+        min-width: 3.5rem
+        max-width: 18rem
+        font-size: .9rem
+        background: rgba(0, 0, 0, 0)
+          
+        overflow: hidden
+
+        padding: 0
+        border: none
+        margin: 0 .3rem 0 0 
+
+        display: flex
+        align-items: center
+        justify-content: space-between
+
+        a {
+          color: var(--app-border-color)
+          outline: none
+          :hover { text-decoration: none }
+        }
+
+        a.link {
+          flex-grow: 1
+          flex-shrink: 0
+          overflow-x: hidden
+          min-width: 0
+          max-width: calc(100% - 1.4rem)
+          white-space: nowrap
+          text-overflow: ellipsis
+
+          padding: .45rem 0 .45rem .6rem
+          /* padding: 0 0 var(--app-border-width) .6rem */
+        }
+
+        a.close {
+          visibility: hidden
+          font-family: FontAwesome
+          line-height: 1rem
+          font-weight: 300
+
+          display: flex
+          justify-content: center
+
+          ::before {
+            content: '\f00d'
+            /* visibility: visible */
+          }
+
+          :hover {
+            background: var(--page-background)
+            color: var(--page-color)
+          }
+        }
+
+        :hover {
+          background: var(--app-border-background-mid)
+          a.link { color: var(--app-border-color) }
+          a.close { 
+            ::before { visibility: visible }
+          }
+          transition: all .2s ease-in
+        }
+
+        -selected {
+          z-index: 0
+          color: var(--page-color)
+          background: var(--page-background)
+
+          a.link {
+            color: var(--page-color)
+            text-decoration: none
+            max-width: calc(100% - 2rem)
+            cursor: default
+          }
+          a.close {
+            color: var(--page-color)
+
+            ::before { visibility: visible }
+            :hover { }
+          }
+
+          :hover {
+            background: var(--page-background)
+            a.link { color: var(--page-color) }
+            transition: none
+          }
+        }
+
+        -notify {
+          background-color: orange;
+        }
+
+      }
+
+    }
+  }
+
+  section.content {
+    background-color: var(--page-background)
+    // this brings the scroll-bar in
+    padding: .5rem .4rem
+
+    height: 100% /* needed to stop making nav weird */
+
+    display: flex
+
+    div.page {
+      flex-grow: 1
+
+      display: flex /*hack to get give Scroller context it needs */
+    }
+  }
+}
+
