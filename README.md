@@ -23,5 +23,3 @@ npm run start:dev
 # NOTE: on a testnet
 npm run start:testnet
 ```
-
-Once started, hit Ctrl+Shift+M and choose Galaxy S5 for the correct dimensions.
