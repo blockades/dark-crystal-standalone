@@ -1,5 +1,5 @@
 const pull = require('pull-stream')
-const { h, Array: MutantArray, Value, Struct } = require('mutant')
+const { h, when, computed, Array: MutantArray, Value, Struct } = require('mutant')
 const getContent = require('ssb-msg-content')
 
 const isRitual = require('scuttle-dark-crystal/isRitual')
@@ -7,36 +7,75 @@ const isShard = require('scuttle-dark-crystal/isShard')
 const isRequest = require('scuttle-dark-crystal/isRequest')
 const isReply = require('scuttle-dark-crystal/isReply')
 
+const Secret = require('../component/secret')
 const ShardsSummary = require('./shards/summary')
 const ShardsRecords = require('./shards/records')
 
-module.exports = function CrystalsShow ({ root, scuttle, avatar, modal }) {
+const DETAILS = 'details'
+const SHARDS = 'shards'
+const SECRET = 'secret'
+
+module.exports = function CrystalsShow (opts) {
+  const {
+    root,
+    scuttle,
+    avatar,
+    name,
+    onCancel
+  } = opts
+
   const rootId = root.key
+  const { name: crystalName } = getContent(root)
 
   const store = Struct({
     ready: Value(false),
     ritual: Value(),
-    shardRecords: MutantArray([])
+    shardRecords: MutantArray([]),
   })
+
+  const state = {
+    tab: Value(DETAILS),
+    quorumMet: Value(false),
+    hasRequests: Value(false),
+    numReplies: Value(0),
+    secret: Value(),
+    secretLabel: Value(),
+    error: Value()
+  }
 
   updateStore()
   watchForUpdates()
 
-  return h('DarkCrystalCrystalsShow', { title: '' }, [ // title blank stops everything inside getting a generic tooltip
-    ShardsSummary({
-      ritual: store.ritual,
-      shardRecords: store.shardRecords,
-      scuttle,
-      modal,
-      avatar
-    }),
-    ShardsRecords({
-      root,
-      records: store.shardRecords,
-      scuttle,
-      modal,
-      avatar
-    })
+  return h('CrystalsShow', { title: '' }, [
+    h('h1', crystalName),
+    h('section.body', [
+      Tabs(state),
+      computed(state.tab, tab => {
+        switch (tab) {
+          case DETAILS: return ShardsSummary({
+            ritual: store.ritual,
+            shardRecords: store.shardRecords,
+            scuttle,
+            avatar,
+            state
+          })
+          case SHARDS: return ShardsRecords({
+            root,
+            records: store.shardRecords,
+            scuttle,
+            avatar,
+            state,
+            name
+          })
+          case SECRET: return SecretTab({
+            scuttle,
+            state,
+            rootId
+          })
+        }
+      })
+    ]),
+    h('section.actions', [ h('button -primary', { 'ev-click': onCancel }, 'Cancel') ])
   ])
 
   function updateStore () {
@@ -94,4 +133,43 @@ function joinInvitesAndReplies (shard, msgs) {
     requests: dialogueMsgs.filter(isRequest),
     replies: dialogueMsgs.filter(isReply)
   }
+}
+
+function Tabs (state) {
+  return computed(state.tab, tab => {
+    return h('div.tabs', [
+      h('div.tab',
+        tab === DETAILS ? { className: '-selected' } : { 'ev-click': () => state.tab.set(DETAILS) },
+        [ DETAILS ]
+      ),
+      h('div.tab',
+        tab === SHARDS ? { className: '-selected' } : { 'ev-click': () => state.tab.set(SHARDS) },
+        [ SHARDS ]
+      ),
+      when(state.quorumMet,
+        h('div.tab',
+          tab === SECRET ? { className: '-selected' } : { 'ev-click': () => state.tab.set(SECRET) },
+          [ SECRET ]
+        ),
+        null
+      )
+    ])
+  })
+}
+
+
+function SecretTab ({ scuttle, state, rootId }) {
+  const view = Value()
+
+  scuttle.recover.async.recombine(rootId, (err, secret) => {
+    if (err) state.error.set(err)
+    else {
+      let container = h('div.secret', [
+        h('div.section', [ Secret({ secret: secret.secret, secretLabel: secret.label }) ])
+      ])
+      view.set(container)
+    }
+  })
+
+  return view
 }

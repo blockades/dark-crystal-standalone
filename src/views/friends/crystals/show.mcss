@@ -6,7 +6,6 @@ DarkCrystalFriendsCrystalsShow {
 
   width: 40rem
   min-height: 40rem
-  padding: 2rem 0 1rem
 
   display: grid
   grid-template-columns: auto 1fr auto
@@ -19,6 +18,7 @@ DarkCrystalFriendsCrystalsShow {
   }
 
   section.body {
+    padding: 2rem 0 1rem
     display: grid
     grid-template-rows: auto auto auto 1fr
 

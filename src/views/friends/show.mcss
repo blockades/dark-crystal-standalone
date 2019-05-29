@@ -3,7 +3,6 @@ DarkCrystalFriendsShow {
 
   width: 40rem
   height: 40rem
-  padding: 2rem 0 1rem
 
   display: grid
   grid-template-columns: auto 1fr auto
@@ -23,11 +22,12 @@ DarkCrystalFriendsShow {
   }
 
   section.body {
+    padding: 2rem 0 1rem
     overflow-y: hidden
 
     display: grid
     align-content: start
-    grid-template-rows: auto auto auto 1fr
+    grid-template-rows: auto auto auto 20rem auto;
     grid-gap: 1rem
 
     div.avatar {
@@ -150,9 +150,7 @@ DarkCrystalFriendsShow {
     div.actions {
       padding: 0 var(--side-pad)
       align-self: end
-
       display: grid
-      justify-content: center
     }
   }
 }

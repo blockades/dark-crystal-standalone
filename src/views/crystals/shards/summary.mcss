@@ -1,13 +1,11 @@
 DarkCrystalShardsSummary {
-  color: white
-  background: black
+  color: black
+  background: white
   padding: 1rem
 
   display: grid
   grid-template-columns: 1fr 10rem
   grid-gap: 2rem
-  align-content: start
-  justify-items: stretch
 
   section {
     h3 {
@@ -47,11 +45,14 @@ DarkCrystalShardsSummary {
 }
 
 DarkCrystalSecret {
-  color: white
-  background: black
+  max-height: 30rem;
+  overflow-y: scroll;
+  display: grid;
+  align-content: start;
+  grid-gap: .2rem;
+  color: black
+  background: white
 
-  min-height: 400px
-  min-width: 600px
   padding: 1rem
 
   display: grid

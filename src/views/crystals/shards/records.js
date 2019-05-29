@@ -6,8 +6,8 @@ module.exports = function DarkCrystalShardsRecords (opts) {
     root,
     records,
     scuttle,
-    modal,
-    avatar
+    avatar,
+    name
   } = opts
 
   return h('DarkCrystalShardsRecords', [
@@ -19,7 +19,7 @@ module.exports = function DarkCrystalShardsRecords (opts) {
             root,
             record,
             scuttle,
-            modal,
+            name,
             avatar
           })
         })

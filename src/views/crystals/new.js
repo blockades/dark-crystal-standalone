@@ -10,7 +10,7 @@ module.exports = function CrystalsNew (opts) {
     suggest,
     name,
     avatar,
-    afterRitual = console.log,
+    onSubmit = console.log,
     onCancel = console.log
   } = opts
 
@@ -76,28 +76,30 @@ module.exports = function CrystalsNew (opts) {
         })
       ])
     ]),
+    h('section.errors', [
+      h('div.errors', [
+        when(state.showErrors,
+          h('div.error.-validation', [
+            Errors('The following fields are required:', errors.validation)
+          ])
+        ),
+        when(errors.ritual,
+          h('div.error.-ritual', [
+            Errors('Something went wrong:', errors.ritual)
+          ])
+        )
+      ])
+    ]),
     h('section.actions', when(state.performingRitual,
       h('i.fa.fa-spinner.fa-pulse'),
       [
         h('button -subtle', { 'ev-click': () => { state.set(initialState); onCancel() } }, 'Cancel'),
         when(errors.validation,
-          h('button -subtle', { 'ev-click': () => state.showErrors.set(true) }, 'Perform Ritual'),
-          h('button -primary', { 'ev-click': () => performRitual(state) }, 'Perform Ritual')
+          h('button -subtle', { 'ev-click': () => state.showErrors.set(true) }, 'Submit'),
+          h('button -primary', { 'ev-click': () => performRitual(state) }, 'Submit')
         )
       ]
-    )),
-    when(state.showErrors,
-      h('section.errors.-validation', [
-        h('div.spacer'),
-        Errors('The ritual ingredients need tuning:', errors.validation)
-      ])
-    ),
-    when(errors.ritual,
-      h('section.errors.-ritual', [
-        h('div.spacer'),
-        Errors('Something went wrong with the ritual', errors.ritual)
-      ])
-    )
+    ))
   ])
 
   function performRitual (state) {
@@ -112,7 +114,7 @@ module.exports = function CrystalsNew (opts) {
         return
       }
 
-      afterRitual(err, data)
+      onSubmit(err, data)
       state.set(initialState)
     })
   }

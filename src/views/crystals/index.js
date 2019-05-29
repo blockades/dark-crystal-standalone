@@ -1,21 +1,33 @@
 const pull = require('pull-stream')
 const { h, Array: MutantArray, map, throttle } = require('mutant')
 
+const CrystalsNew = require('./new')
+
 module.exports = function CrystalsIndex (opts) {
   const {
     scuttle,
-    routeTo
+    showCrystal,
+    newCrystal,
   } = opts
 
   const roots = getRoots()
 
-  return h('DarkCrystalCrystalsIndex', [ map(roots, Root, { comparer }) ])
+  return h('DarkCrystalCrystalsIndex', [
+    h('div.new', { title: 'Create a new Dark Crystal' }, [
+      h('div.overview', { 'ev-click': () => newCrystal() }, [
+        h('i.fa.fa-plus.fa-lg')
+      ])
+    ]),
+    map(roots, Root, { comparer })
+  ])
 
   function Root (msg) {
+    const { value: { timestamp, content: { name } } } = msg
+    const date = new Date(timestamp).toLocaleDateString()
     return h('div.crystal', [
-      h('div.overview', { 'ev-click': () => routeTo(msg) }, [
-        h('div.name', msg.value.content.name),
-        h('div.started', new Date(msg.value.timestamp).toLocaleDateString())
+      h('div.overview', { title: `${name} - ${date}`, 'ev-click': () => showCrystal({ root: msg }) }, [
+        h('div.name', name),
+        h('div.started', date)
       ])
     ])
   }

@@ -3,22 +3,24 @@ DarkCrystal {
   align-content: start
   justify-content: center
   grid-template-columns: 40rem
-  grid-template-rows: 6rem 1rem 1fr auto
+  grid-template-rows: 4rem 3rem auto
   grid-gap: 1rem
 
   width: 100%
-  overflow-y: scroll
 
-  h1 {
-    text-transform: uppercase
-    letter-spacing: .5rem
-    font-size: 1.2rem
-
+  div.header {
     display: grid
-    grid-template-columns: repeat(4, auto)
-    grid-gap: .9rem
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 1rem
     justify-content: start
     align-items: baseline
+    margin-top: .5rem
+
+    h1 {
+      text-transform: uppercase
+      letter-spacing: .5rem
+      font-size: 1.2rem
+    }
 
     i {
       :hover {
@@ -26,8 +28,6 @@ DarkCrystal {
         cursor: pointer
       }
     }
-
-    margin-top: 2.5rem
   }
 }
 

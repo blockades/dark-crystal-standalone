@@ -56,14 +56,11 @@ DarkCrystalShardsRecord {
   div.request {
     grid-column: 3
 
-    button {
-      border: none
-      justify-self: end
-      background: #9754de
-      color: white
+    i {
+      cursor: pointer
       :hover {
-        transition: background .5s ease-in
-        background: deeppink
+        transition: color .2s ease-in
+        color: deeppink
       }
     }
   }

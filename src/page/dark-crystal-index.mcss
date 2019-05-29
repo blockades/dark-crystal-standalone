@@ -1,4 +1,11 @@
 DarkCrystal -index {
+  i.fa.fa-spinner {
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+  }
+
   section.picker {
     display: flex
 
@@ -28,15 +35,6 @@ DarkCrystal -index {
     button {
       width: 4rem
       justify-self: end
-    }
-
-    div.DarkCrystalFriendsIndex {
-      margin-top: 2.8rem
-      /* aligns with my crystal index */
-    }
-
-    div.DarkCrystalFriendsCrystalsIndex {
-      margin-top: 2.8rem
     }
   }
 }

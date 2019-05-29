@@ -1,4 +1,7 @@
 DarkCrystalFriendsIndex {
+  overflow-y: scroll
+  max-height: 28rem
+
   font-family: sans, sans-serif, arial
 
   display: grid

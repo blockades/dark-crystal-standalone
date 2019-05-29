@@ -1,8 +1,27 @@
 DarkCrystalCrystalsIndex {
+  overflow-y: scroll
+  max-height: 28rem
+  padding: 1rem
   font-family: sans, sans-serif, arial
 
   display: grid
   grid-gap: .5rem
+
+  div.new {
+
+    div.overview {
+      display: grid
+      justify-content: center
+      padding: .5rem 1rem
+      color: deeppink
+      cursor: pointer
+
+      :hover {
+        transition: color .5s ease-in
+        color: rebeccapurple
+      }
+    }
+  }
 
   div.crystal {
     div.overview {

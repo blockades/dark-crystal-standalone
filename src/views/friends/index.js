@@ -5,11 +5,7 @@ const { set, transform, sortBy } = require('lodash')
 const getContent = require('ssb-msg-content')
 const isRequest = require('scuttle-dark-crystal/isRequest')
 const isReply = require('scuttle-dark-crystal/isReply')
-// const sort = require('ssb-sort')
 
-// const DarkCrystalShowShard = require('./show')
-
-// NOTE - these are currently connect to mcss
 const RECEIVED = 'received'
 const REQUESTED = 'requested'
 const RETURNED = 'returned'

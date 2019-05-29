@@ -1,7 +1,7 @@
 const pull = require('pull-stream')
 const pullParamap = require('pull-paramap')
 const { h, Value, computed, Array: MutantArray } = require('mutant')
-const { set, get, transform } = require('lodash')
+const { get, set, transform } = require('lodash')
 
 const RECOVERED = 'recovered'
 const WAITING = 'waiting'

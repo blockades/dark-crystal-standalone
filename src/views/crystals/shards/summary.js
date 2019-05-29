@@ -5,15 +5,7 @@ const ProgressBar = require('../../component/progress-bar')
 const getRecp = require('../../lib/get-recp')
 const Secret = require('../../component/secret')
 
-module.exports = function DarkCrystalShardsSummary ({ ritual, shardRecords, scuttle, modal, avatar }) {
-  const state = {
-    recombining: Value(false),
-    modalOpen: Value(false),
-    secret: Value(),
-    secretLabel: Value(),
-    error: Value()
-  }
-
+module.exports = function DarkCrystalShardsSummary ({ ritual, shardRecords, scuttle, avatar, state }) {
   return computed([ritual, shardRecords], (ritual, records) => {
     if (!ritual) return
 
@@ -21,7 +13,8 @@ module.exports = function DarkCrystalShardsSummary ({ ritual, shardRecords, scut
 
     const hasRequests = records.some(r => r.requests.length > 0)
     const numReplies = records.filter(r => r.replies.length > 0).length
-    const quorumMet = numReplies >= quorum
+
+    state.quorumMet.set(numReplies >= quorum)
 
     return h('DarkCrystalShardsSummary', [
       h('section.custodians', [
@@ -43,32 +36,7 @@ module.exports = function DarkCrystalShardsSummary ({ ritual, shardRecords, scut
             title: 'Shards gathered'
           })
         ])
-      ),
-      when(quorumMet,
-        h('section.recombine', [
-          // h('span', 'Quorum reached!'),
-          h('button -primary',
-            { 'ev-click': () => {
-              state.recombining.set(true)
-
-              scuttle.recover.async.recombine(root, (err, secretObject) => {
-                if (err) state.error.set(err)
-                else {
-                  state.secret.set(secretObject.secret)
-                  if (secretObject.label) state.secretLabel.set(secretObject.label)
-                }
-                state.recombining.set(false)
-                state.modalOpen.set(true)
-              })
-            } },
-            when(state.recombining,
-              h('i.fa.fa-spinner.fa-pulse'),
-              'Show secret'
-            )
-          )
-        ])
-      ),
-      modal(Secret(state), { isOpen: state.modalOpen })
+      )
     ])
   })
 }

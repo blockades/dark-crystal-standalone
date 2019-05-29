@@ -4,8 +4,10 @@ DarkCrystalCrystalsNew {
   color: #fff
   background: #000
 
-  width: 50rem
-  min-height: 32rem
+  width: 40rem
+  min-height: 40rem
+  display: grid
+  grid-template-rows: 4rem auto auto auto
 
   h1 {
     font-size: 1rem
@@ -47,18 +49,21 @@ DarkCrystalCrystalsNew {
     display: grid
     grid-template-columns: auto auto
     grid-gap: 1rem
-
-    padding-bottom: 2rem
-
-    justify-content: end
+    align-self: end
   }
 
   section.errors {
-    background: #750c37
-
+    padding: 1rem
     display: grid
-    grid-template-columns: 7.5rem auto
     align-items: center
+
+    div.errors {
+      background: #750c37
+
+      div.error {
+        padding: 1rem 1rem 0 1rem
+      }
+    }
   }
 
   (input) {
