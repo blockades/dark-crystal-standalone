@@ -1,5 +1,7 @@
 DarkCrystalFriendsShow {
   --side-pad: 1rem
+  color: #000
+  background: #fff
 
   width: 40rem
   height: 40rem
