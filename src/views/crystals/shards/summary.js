@@ -1,15 +1,14 @@
-const { h, when, computed, Value } = require('mutant')
+const { h, when, computed } = require('mutant')
 const getContent = require('ssb-msg-content')
 
 const ProgressBar = require('../../component/progress-bar')
 const getRecp = require('../../lib/get-recp')
-const Secret = require('../../component/secret')
 
 module.exports = function DarkCrystalShardsSummary ({ ritual, shardRecords, scuttle, avatar, state }) {
   return computed([ritual, shardRecords], (ritual, records) => {
     if (!ritual) return
 
-    const { quorum, root } = getContent(ritual)
+    const { quorum } = getContent(ritual)
 
     const hasRequests = records.some(r => r.requests.length > 0)
     const numReplies = records.filter(r => r.replies.length > 0).length

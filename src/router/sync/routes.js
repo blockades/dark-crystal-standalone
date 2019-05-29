@@ -13,8 +13,8 @@ exports.create = (api) => {
     const pages = api.app.page
 
     const routes = [
-      [ loc => loc.page === 'dark-crystal', pages.darkCrystalIndex  ],
-      [ loc => isRoot(loc), pages.darkCrystalShow  ]
+      [ loc => loc.page === 'dark-crystal', pages.darkCrystalIndex ],
+      [ loc => isRoot(loc), pages.darkCrystalShow ]
     ]
 
     return [...sofar, ...routes]

@@ -30,7 +30,7 @@ module.exports = function CrystalsShow (opts) {
   const store = Struct({
     ready: Value(false),
     ritual: Value(),
-    shardRecords: MutantArray([]),
+    shardRecords: MutantArray([])
   })
 
   const state = {
@@ -156,7 +156,6 @@ function Tabs (state) {
     ])
   })
 }
-
 
 function SecretTab ({ scuttle, state, rootId }) {
   const view = Value()

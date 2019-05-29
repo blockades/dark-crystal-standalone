@@ -1,4 +1,4 @@
-const { h, resolve, Value, computed, when } = require('mutant')
+const { h, computed } = require('mutant')
 
 const Cropper = require('../../lib/cropper')
 
@@ -7,7 +7,6 @@ module.exports = function AccountEdit (opts) {
     addBlob,
     avatar,
     name,
-    onCancel,
     feedId,
     blobUrl,
     state
@@ -38,4 +37,3 @@ module.exports = function AccountEdit (opts) {
     ])
   )
 }
-

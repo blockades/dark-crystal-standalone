@@ -1,13 +1,11 @@
 const pull = require('pull-stream')
 const { h, Array: MutantArray, map, throttle } = require('mutant')
 
-const CrystalsNew = require('./new')
-
 module.exports = function CrystalsIndex (opts) {
   const {
     scuttle,
     showCrystal,
-    newCrystal,
+    newCrystal
   } = opts
 
   const roots = getRoots()

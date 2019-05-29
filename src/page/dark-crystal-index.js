@@ -9,7 +9,7 @@ const {
   when,
   onceTrue,
   Array: MutantArray,
-  Struct,
+  Struct
 } = require('mutant')
 
 // Views
@@ -22,9 +22,6 @@ const FriendsIndex = require('../views/friends/index')
 const FriendsShow = require('../views/friends/show')
 const ForwardNew = require('../views/forward/new')
 const SettingsEdit = require('../views/settings/edit')
-
-// Components
-const Tooltip = require('../views/component/tooltip')
 
 // Modes / Tabs
 const MINE = 'My Crystals'
@@ -49,7 +46,6 @@ exports.needs = nest({
   'sbot.async.addBlob': 'first',
   'sbot.obs.localPeers': 'first'
 })
-
 
 exports.create = function (api) {
   return nest({
@@ -91,7 +87,7 @@ exports.create = function (api) {
                   about: server.id
                 }
               }
-            },
+            }
             // %%TODO%%: Work out why reduce isn't working?
             // $map: ['value', 'content', 'type'],
             // $reduce: { $count: true }
@@ -203,7 +199,7 @@ exports.create = function (api) {
     return h('section.content', { className: computed(mode, m => m === MINE ? '-active' : '') }, [
       h('CrystalsIndex', [ CrystalsIndex({ scuttle, showCrystal, newCrystal }) ]),
       modal
-   ])
+    ])
   }
 
   function OthersShards ({ mode, scuttle }) {

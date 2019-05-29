@@ -16,11 +16,9 @@
     "url": "git+https://github.com/blockades/dark-crystal-standalone.git"
   },
   "keywords": [
-    "scuttlebutt",
-    "gatherings",
-    "calender"
+    "scuttlebutt"
   ],
-  "author": "mixmix",
+  "author": "dark-crystal",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/blockades/dark-crystal-standalone/issues"
@@ -35,7 +33,6 @@
     "electron-default-menu": "^1.0.1",
     "electron-window-state": "^5.0.3",
     "font-awesome": "^4.7.0",
-    "fs": "0.0.1-security",
     "hypercrop": "^1.1.0",
     "hyperfile": "^2.0.0",
     "hyperlightbox": "^1.0.0",
@@ -47,10 +44,7 @@
     "patch-settings": "^1.1.2",
     "patch-suggest": "^3.0.1",
     "patchcore": "^2.1.6",
-    "path": "^0.12.7",
-    "pull-notify": "^0.1.1",
     "pull-paramap": "^1.2.2",
-    "pull-pause": "0.0.2",
     "pull-stream": "^3.6.9",
     "read-directory": "^3.0.1",
     "require-style": "^1.0.1",

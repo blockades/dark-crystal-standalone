@@ -1,7 +1,6 @@
 const path = require('path')
-const { basename  } = path
 const readDirectory = require('read-directory')
-const { each  } = require('libnested')
+const { each } = require('libnested')
 const nest = require('depnest')
 
 const contents = readDirectory.sync(path.join(__dirname, '..'), {

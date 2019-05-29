@@ -93,7 +93,7 @@ function suggestify (input, suggest, state) {
 
     const searchTerm = inputText.replace(/^@/, '')
     suggest.about(searchTerm, cb)
-  }, {cls: 'PatchSuggest'})
+  }, { cls: 'PatchSuggest' })
 
   input.addEventListener('suggestselect', (e) => {
     const { id: link, title: name } = e.detail

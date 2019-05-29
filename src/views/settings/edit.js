@@ -25,7 +25,6 @@ module.exports = function SettingsEdit (opts) {
     avatar: Value()
   }
 
-
   return h('Settings', [
     h('h1', 'Settings'),
     h('section.body', [
@@ -90,6 +89,5 @@ function Tabs (state) {
     ])
   })
 }
-
 
 function identity (id) { return id }

@@ -1,7 +1,7 @@
 const pull = require('pull-stream')
 const pullParamap = require('pull-paramap')
 const { h, Value, computed } = require('mutant')
-const { set, transform }= require('lodash')
+const { set, transform } = require('lodash')
 const getContent = require('ssb-msg-content')
 
 module.exports = function DarkCrystalForwardIndex (opts) {

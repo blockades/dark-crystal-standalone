@@ -1,5 +1,5 @@
 const nest = require('depnest')
-const { isBlobLink, isFeed, isMsg } = require('ssb-ref')
+const { isMsg } = require('ssb-ref')
 
 exports.gives = nest('router.async.normalise')
 
@@ -25,8 +25,7 @@ exports.create = (api) => {
           cb(null, { key: request, value })
         }
       })
-    }
-    else if (isPath(request)) cb(null, { path: request })
+    } else if (isPath(request)) cb(null, { path: request })
 
     return true
   }
