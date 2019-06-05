@@ -21,7 +21,6 @@ exports.create = (api) => {
 
   function secretsShow (request) {
     const { secret } = request
-    console.log(secret)
 
     const state = {
       tab: Value('history')
