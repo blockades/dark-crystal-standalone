@@ -1,0 +1,18 @@
+Settings Account -index {
+  grid-template-rows: auto 2rem 2rem;
+  grid-gap: 1rem;
+
+  section.setting {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 1rem;
+    padding: 1rem 0 1rem 0
+
+    i {
+      cursor: pointer
+      padding-top: 0.2rem
+
+      :hover { color: #1eaedb }
+    }
+  }
+}

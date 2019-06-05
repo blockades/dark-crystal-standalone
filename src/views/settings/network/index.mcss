@@ -1,0 +1,13 @@
+Settings Network -index {
+  display: grid
+  grid-gap: 1rem
+
+  div {
+    display: grid
+    grid-template-rows: auto 1fr
+    grid-gap: .5rem
+    padding: 1rem 0 1rem 0
+
+    label { font-weight: bold }
+  }
+}

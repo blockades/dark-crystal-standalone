@@ -1,0 +1,4 @@
+Settings -index {
+  display: grid
+  padding: 1rem
+}

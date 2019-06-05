@@ -1,0 +1,11 @@
+Root -index {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  justify-items: center;
+
+  img {
+    cursor: pointer
+    width: 75%
+  }
+}
