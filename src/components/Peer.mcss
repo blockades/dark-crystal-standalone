@@ -1,0 +1,17 @@
+div.peer {
+  cursor: pointer
+  font-size: 10pt
+
+  div.name {
+    text-align: center
+  }
+
+  a {
+    padding: 0 .5rem 0 0
+
+    img {
+      height: 35px
+      width: 35px
+    }
+  }
+}

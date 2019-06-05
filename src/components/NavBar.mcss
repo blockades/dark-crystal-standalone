@@ -1,0 +1,71 @@
+nav {
+  -webkit-app-region: drag
+  padding: .5rem
+  display: grid
+  grid-template-rows: auto auto
+  grid-gap: .5rem
+  border-bottom: 1px solid #F5F5DC
+  background: #190518
+
+  section.bottom {
+    -webkit-app-region: drag
+    padding: 0 0 .5rem 0
+  }
+
+  section.top {
+    -webkit-app-region: drag
+    display: grid
+    grid-template-columns: auto auto
+    justify-content: space-between
+    align-items: center
+
+    div.left {
+      -webkit-app-region: drag
+      display: grid
+      grid-template-columns: auto auto auto
+      grid-gap: .5rem
+
+      i {
+        border-radius: 3px;
+        padding: .1rem .3rem .1rem .3rem
+      }
+
+      i.active {
+        background: #1EAEDB;
+        :hover {
+          color: #FFFFFF
+        }
+      }
+
+      i {
+        cursor: pointer
+        :hover {
+          color: #1EAEDB
+        }
+      }
+    }
+
+    div.right {
+      -webkit-app-region: drag
+      display: grid
+      grid-template-columns: auto auto
+      grid-gap: 1rem
+      padding: .5rem .5rem 1rem 1rem
+
+      i {
+        cursor: pointer
+        :hover {
+          color: #1eaedb
+        }
+      }
+    }
+
+    div.middle {
+      -webkit-app-region: drag
+      display: grid
+      grid-template-rows: 1rem
+      grid-gap: .5rem
+      padding: .5rem 0 0 0
+    }
+  }
+}

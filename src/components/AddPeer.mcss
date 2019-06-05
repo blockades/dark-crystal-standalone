@@ -1,0 +1,9 @@
+div.add-peer {
+  input {
+    width: 100%
+  }
+
+  i {
+    padding-left: .5rem
+  }
+}
