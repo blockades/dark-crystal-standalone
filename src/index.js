@@ -6,10 +6,8 @@ const bulk = require('bulk-require')
 require('setimmediate')
 
 const app = {
-  about: bulk(__dirname, ['about/**/*.js']),
-  app: bulk(__dirname, ['app/**/*.js']),
-  message: bulk(__dirname, ['message/**/*.js']),
-  page: bulk(__dirname, ['page/**/*.js']),
+  actions: bulk(__dirname, ['actions/**/*.js']),
+  views: bulk(__dirname, ['views/**/*.js']),
   router: bulk(__dirname, ['router/**/*.js']),
   styles: bulk(__dirname, ['styles/**/*.js']),
   ...require('../lib/scuttle')
