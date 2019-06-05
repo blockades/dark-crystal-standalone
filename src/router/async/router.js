@@ -3,6 +3,7 @@ const nest = require('depnest')
 exports.gives = nest('router.async.router')
 
 exports.needs = nest({
+  'views.layouts.index': 'first',
   'router.async.normalise': 'first',
   'router.sync.routes': 'reduce'
 })
@@ -27,8 +28,9 @@ exports.create = (api) => {
     return (request, cb) => {
       const route = routes.find(([validator]) => validator(request))
       if (route) {
-        var view = route[1]
-        cb(null, view(request))
+        var { view, layout } = route[1]
+        if (!layout) layout = api.views.layouts.index
+        cb(null, layout(request, [ view(request) ]))
       }
     }
   }
