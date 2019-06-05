@@ -62,10 +62,7 @@ exports.create = (api) => {
     const scuttle = Scuttle(api.sbot.obs.connection)
     const id = api.keys.sync.id()
 
-    if (!store) {
-      store = MutantArray([])
-      updateStore()
-    }
+    updateStore()
 
     watchForUpdates()
 
@@ -188,6 +185,7 @@ exports.create = (api) => {
           var recordsArray = transform(records, (acc, value, key, obj) => {
             if (obj[key]['ritualId']) acc.push({ id: key, ...obj[key] })
           }, [])
+          if (!store) store = MutantArray([])
           store.set(recordsArray)
         })
       )

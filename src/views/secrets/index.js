@@ -1,6 +1,7 @@
 const nest = require('depnest')
 const scuttle = require('scuttle-dark-crystal')
 const { h, computed } = require('mutant')
+const { isEmpty } = require('lodash')
 
 const Peers = require('../../components/Peers')
 const Forward = require('../../components/Forward')
@@ -30,7 +31,8 @@ exports.create = (api) => {
         Forward({ routeTo: () => api.router.sync.goTo({ path: `/secrets/new` }) })
       ]),
       computed(api.app.actions.secrets.fetch(), (secrets) => {
-        if (!secrets.length) return h('i.fa.fa-spinner.fa-pulse.fa-2x')
+        if (!secrets) return h('i.fa.fa-spinner.fa-pulse.fa-2x')
+        else if (isEmpty(secrets)) return console.log("no secrets...")
         else return secrets.map((secret) => (
           h('section.secret', [
             h('div.main', {
