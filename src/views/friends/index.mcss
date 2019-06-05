@@ -1,0 +1,64 @@
+DarkCrystalFriendsIndex {
+  overflow-y: scroll
+  max-height: 28rem
+
+  font-family: sans, sans-serif, arial
+
+  display: grid
+  grid-template-columns: repeat(auto-fill, 6rem)
+  grid-column-gap: 2rem
+  grid-row-gap: 1.5rem
+  align-content: start
+
+  div.DarkCrystalFriendShards {
+  }
+}
+
+DarkCrystalFriendShards {
+  display: grid
+  grid-gap: .5rem
+  align-content: start
+
+  div.avatar {}
+  div.name {}
+  div.shards {
+    cursor: pointer
+
+    display: grid
+    grid-template-columns: repeat(auto-fill, 1rem)
+    grid-gap: .5rem
+  }
+}
+
+DarkCrystalShard {
+  cursor: pointer
+
+  -received {
+    color: purple
+    /* filter: drop-shadow(grey 0 0 5px) */
+  }
+
+  -requested {
+    color: fuchsia
+    animation: pulse 1s infinite
+  }
+
+  -returned {
+    color: rgba(0,0,0,.3)
+  }
+
+}
+
+@keyframes pulse {
+  0% {
+    filter: drop-shadow(hsl(300, 100%, 100%) 0 0 5px);
+  }
+
+  66% {
+    filter: drop-shadow(hsl(300, 100%, 75%) 0 0 5px);
+  }
+
+  100% {
+    filter: drop-shadow(hsl(300, 100%, 50%) 0 0 5px);
+  }
+}

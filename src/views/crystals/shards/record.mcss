@@ -1,0 +1,67 @@
+DarkCrystalShardsRecord {
+  padding: 1rem
+  border: 1px solid black
+  
+  display: grid
+  grid-template-columns: auto 1fr auto
+  justify-content: start
+  grid-row-gap: 1rem
+  grid-column-gap: 4rem
+
+  div.author {
+    grid-column: 1
+
+    max-height: 4rem
+  }
+
+  div.history {
+    grid-column: 2
+
+    display: grid
+    grid-gap: .2rem
+    align-content: start
+
+    div.historyItem {
+      display: grid
+      grid-template-columns: 12rem auto
+      grid-gap: 2rem
+      justify-content: start
+
+      div.Timestamp {
+        color: darkgrey
+        font-family: sans
+        letter-spacing: 2px
+        font-size: .8rem
+
+        visibility: hidden
+      }
+
+      div.action {
+        display: grid
+        grid-gap: .5rem
+        grid-template-columns: 1rem 1rem auto
+        align-items: baseline
+        justify-content: start
+
+        -shard-return { color: deeppink }
+
+      }
+
+      :hover {
+        div.Timestamp { visibility: visible }
+      }
+    }
+  }
+
+  div.request {
+    grid-column: 3
+
+    i {
+      cursor: pointer
+      :hover {
+        transition: color .2s ease-in
+        color: deeppink
+      }
+    }
+  }
+}
