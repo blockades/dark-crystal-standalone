@@ -1,0 +1,79 @@
+body {
+  -ms-overflow-style: scrollbar
+}
+
+p {
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+
+main.app {
+  display: grid
+  border: 2px solid #F5F5DC;
+  width: 360px
+  height: 650px
+  background: #2B0929
+  color: #F5F5DC
+
+  article {
+    width: 360px
+  }
+}
+
+input {
+  -webkit-app-region: no-drag
+  width: 100%
+  font-family: monospace
+  background: inherit
+  color: #F5F5DC
+  border: 1px solid #F5F5DC;
+  padding: .2rem -0.2rem .2rem .2rem
+}
+
+textarea {
+  font-family: monospace
+  background: #2B0929
+  color: #F5F5DC
+  border: 1px solid #F5F5DC
+  padding: .2rem -0.2rem .2rem .2rem
+}
+
+textarea.hidden {
+  display: none
+}
+
+input[type=range]{
+  -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: goldenrod;
+  margin-top: -4px;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ccc;
+}
+
+p.small {
+  font-size: 10pt
+}

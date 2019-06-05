@@ -1,0 +1,23 @@
+.purple-bg {
+  background: #2B0929
+}
+
+.purple {
+  color: #2B0929
+}
+
+.white-bg {
+  background: #FFFFFF
+}
+
+.white {
+  color: #FFFFFF
+}
+
+.black-bg {
+  background: #000000
+}
+
+.black {
+  color: #000000
+}
