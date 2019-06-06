@@ -22,4 +22,16 @@ ProgressBar {
       background-color: deeppink
     }
   }
+
+  progress.low {
+    background: red
+  }
+
+  progress.medium {
+    background: white
+  }
+
+  progress.high {
+    background: green
+  }
 }

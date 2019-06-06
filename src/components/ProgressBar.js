@@ -5,13 +5,14 @@ module.exports = function ProgressBar (opts) {
     prepend,
     maximum,
     value,
-    title,
-    append
+    title = '',
+    append,
+    classList = []
   } = opts
 
   return h('ProgressBar', [
     prepend,
-    h('progress', { max: maximum, value, title: '' }),
+    h('progress', { classList, max: maximum, value, title }),
     append
   ])
 }
