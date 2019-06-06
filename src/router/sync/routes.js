@@ -12,6 +12,7 @@ exports.needs = nest({
   'views.secrets.show': 'first',
   'views.secrets.new.name': 'first',
   'views.secrets.new.secret': 'first',
+  'views.secrets.new.custodians': 'first',
   'views.secrets.new.trust': 'first',
   'views.secrets.new.submit': 'first',
   'views.settings.account.index': 'first',
@@ -27,6 +28,7 @@ const {
 
   SecretsNewNamePath,
   SecretsNewSecretPath,
+  SecretsNewCustodiansPath,
   SecretsNewTrustPath,
   SecretsNewSubmitPath,
 
@@ -51,6 +53,7 @@ exports.create = (api) => {
       [ SecretsNewPath, { view: secrets.new.name } ],
       [ SecretsNewNamePath, { view: secrets.new.name } ],
       [ SecretsNewSecretPath, { view: secrets.new.secret } ],
+      [ SecretsNewCustodiansPath, { view: secrets.new.custodians } ],
       [ SecretsNewTrustPath, { view: secrets.new.trust } ],
       [ SecretsNewSubmitPath, { view: secrets.new.submit } ],
       [ SettingsIndexPath, { view: settings.account.index, layout: layouts.settings } ],

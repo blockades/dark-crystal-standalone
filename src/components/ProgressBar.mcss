@@ -2,7 +2,6 @@ ProgressBar {
   height: 1.8rem
 
   progress[value] {
-    /* Reset the default appearance */
     -webkit-appearance: none
      appearance: none
 

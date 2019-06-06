@@ -8,7 +8,16 @@ const SecretsShowPath = (request) => request.secret && request.path === `/secret
 const SecretsNewPath = (request) => request.path === `/secrets/new`
 const SecretsNewNamePath = (request) => request.path === `/secrets/new/name`
 const SecretsNewSecretPath = (request) => request.state && request.state.secretName && request.path === `/secrets/new/secret`
-const SecretsNewTrustPath = (request) => request.state && request.state.secretName && request.state.secret && request.path === `/secrets/new/trust`
+
+const SecretsNewCustodiansPath = (request) => (
+  request.state && request.state.secretName &&
+    request.state.secret && request.path === `/secrets/new/custodians`
+)
+
+const SecretsNewTrustPath = (request) => (
+  request.state && request.state.secretName && request.state.secret &&
+    request.state.peers && request.path === `/secrets/new/trust`
+)
 const SecretsNewSubmitPath = (request) => (
   request.state && request.state.secretName && request.state.secret &&
     request.state.quorum && request.state.peers && request.path === `/secrets/new/submit`
@@ -30,6 +39,7 @@ module.exports = {
 
   SecretsNewNamePath,
   SecretsNewSecretPath,
+  SecretsNewCustodiansPath,
   SecretsNewTrustPath,
   SecretsNewSubmitPath,
 

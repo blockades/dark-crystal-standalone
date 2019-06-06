@@ -44,7 +44,7 @@ exports.create = (api) => {
             !!secret && !!secret.length
               ? Button({
                 text: 'Next',
-                onClick: () => api.router.sync.goTo({ path: `/secrets/new/trust`, state })
+                onClick: () => api.router.sync.goTo({ path: `/secrets/new/custodians`, state })
               })
               : null
           ))
