@@ -1,0 +1,62 @@
+Peers -show {
+  display: grid
+  grid-template-columns: auto 1fr
+  overflow-y: scroll
+  position: relative
+  height: 555px
+
+  div.left {
+    cursor: pointer
+    display: grid
+    grid-template-rows: 9.5rem auto
+
+    i {
+      padding: 0 .2rem 0 .2rem
+      display: grid
+      align-items: center
+      background: #784e7e
+      :hover { background: #1eaedb }
+    }
+  }
+
+  div.container {
+    display: grid
+    padding: 0 1rem 1rem 0
+    grid-gap: 1rem
+
+    i.fa.fa-spinner {
+      position: absolute
+      top: 50%
+      left: 42%
+      transform: translate(-50%, -50%)
+    }
+
+    section.profile {
+      padding: 1rem
+      display: grid
+      grid-template-columns: auto auto
+
+      div.left {
+      }
+
+      div.right {
+
+      }
+    }
+
+    section.shard {
+      cursor: pointer
+      max-height: 35px
+      display: grid
+      grid-template-columns: auto auto
+      justify-content: space-between
+      margin: 0 0 0 1rem
+      padding: .5rem
+      background: #784e7e
+
+      :hover {
+        background: #1EAEDB
+      }
+    }
+  }
+}
