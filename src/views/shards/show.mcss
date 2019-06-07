@@ -1,0 +1,26 @@
+Shards -show {
+  display: grid
+  grid-template-columns: auto 1fr
+  overflow-y: scroll
+  position: relative
+  height: 555px
+
+  div.left {
+    cursor: pointer
+    display: grid
+    grid-template-rows: 9.5rem auto
+
+    i {
+      padding: 0 .2rem 0 .2rem
+      display: grid
+      align-items: center
+      background: #784e7e
+      :hover { background: #1eaedb }
+    }
+  }
+
+  div.main {
+    display: grid
+    grid-template-rows: 9.5rem 2.5rem auto
+  }
+}
