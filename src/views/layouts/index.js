@@ -9,6 +9,7 @@ exports.needs = nest({
   'router.sync.goTo': 'first',
   'router.sync.goBack': 'first',
   'about.async.suggest': 'first',
+  'app.actions.secrets.fetch': 'first',
   'keys.sync.id': 'first'
 })
 
@@ -21,6 +22,7 @@ exports.create = (api) => {
         routeTo: api.router.sync.goTo,
         goBack: api.router.sync.goBack,
         suggest: { about: api.about.async.suggest },
+        secrets: api.app.actions.secrets.fetch,
         myId: api.keys.sync.id(),
         request
       }),

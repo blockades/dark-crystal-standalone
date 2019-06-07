@@ -1,11 +1,12 @@
-const { h, resolve } = require('mutant')
+const { h, Value, computed, resolve } = require('mutant')
 const addSuggest = require('suggest-box')
-const { isFeedId  } = require('ssb-ref')
+const { isFeedId } = require('ssb-ref')
 
 module.exports = function AddPeer (props = {}, children = []) {
   const {
-    peers,
+    selected,
     suggest,
+    secrets = Value(),
     max = 1,
     placeholder = '',
     onChange = console.log,
@@ -13,16 +14,20 @@ module.exports = function AddPeer (props = {}, children = []) {
     canClear = false
   } = props
 
+  var theSecrets = secrets()
+
   const state = {
-    peers,
+    selected,
     min: 0,
     max,
     isEmpty: true
   }
 
   const input = h('input', { placeholder })
-  suggestify(input, suggest, state, ({ state, link, name, e }) => {
-    addRecp({ state, link, name }, (err) => {
+  suggestify(input, suggest, state, (e) => {
+    var matched = e.detail
+
+    select({ state, matched }, (err) => {
       if (err) console.error(err)
 
       e.target.value = ''
@@ -32,7 +37,7 @@ module.exports = function AddPeer (props = {}, children = []) {
   })
 
   input.addEventListener('keydown', (e) => {
-    if (state.peers.getLength() >= max && !isBackspace(e)) {
+    if (state.selected.getLength() >= max && !isBackspace(e)) {
       e.preventDefault()
       return false
     }
@@ -43,7 +48,7 @@ module.exports = function AddPeer (props = {}, children = []) {
     state.isEmpty = wasEmpty && e.target.value.length === 0
 
     if (isFeedId(e.target.value)) {
-      addRecp({ state, link: e.target.value }, (err) => {
+      select({ state, link: e.target.value }, (err) => {
         if (err) console.error(err)
 
         e.target.value = ''
@@ -52,8 +57,8 @@ module.exports = function AddPeer (props = {}, children = []) {
       return
     }
 
-    if (isBackspace(e) && state.isEmpty && state.peers.getLength() > state.min) {
-      peers.pop()
+    if (isBackspace(e) && state.isEmpty && state.selected.getLength() > state.min) {
+      selected.pop()
       onChange()
     }
 
@@ -67,42 +72,47 @@ module.exports = function AddPeer (props = {}, children = []) {
   }, [
     input,
     canClear ? h('i.fa.fa-times', {
-      'ev-click': (e) => state.peers.set([]),
+      'ev-click': (e) => state.selected.set([]),
       'style': { 'cursor': 'pointer' },
       'title': 'Clear'
     }) : h('div'),
     ...children
   ])
+
+  function suggestify (input, suggest, state, callback) {
+    if (!input.parentElement) return setTimeout(() => suggestify(input, suggest, state, callback), 100)
+
+    addSuggest(input, (inputText, cb) => {
+      if (state.selected.getLength() >= state.max) return
+
+      if (isFeedId(inputText)) return
+
+      if (inputText.match(/^@/)) {
+        const searchTerm = inputText.replace(/^@/, '')
+        suggest.about(searchTerm, cb)
+      } else {
+        secrets = resolve(theSecrets)
+        if (!secrets) return
+
+        var secrets = secrets
+          .filter(secret => secret.name.startsWith(inputText))
+          .map(s => Object.assign(s, { title: s.name, subtitle: s.createdAt, value: s.id }))
+
+        if (secrets.length) cb(null, secrets)
+      }
+    }, {cls: 'PatchSuggest'})
+
+    input.addEventListener('suggestselect', callback)
+  }
 }
 
-function suggestify (input, suggest, state, callback) {
-  // TODO use a legit module to detect whether ready
-  if (!input.parentElement) return setTimeout(() => suggestify(input, suggest, state, callback), 100)
-
-  addSuggest(input, (inputText, cb) => {
-    if (state.peers.getLength() >= state.max) return
-    // TODO - tell the user they're only allowed 6 (or 7?!) people in a message
-
-    if (isFeedId(inputText)) return
-    // suggest mention not needed, handled by eventListener above
-
-    const searchTerm = inputText.replace(/^@/, '')
-    suggest.about(searchTerm, cb)
-  }, {cls: 'PatchSuggest'})
-
-  input.addEventListener('suggestselect', (e) => {
-    const { id: link, title: name } = e.detail
-    callback({ state, link, name, e })
-  })
-}
-
-function addRecp ({ state, link, name }, cb) {
-  const isAlreadyPresent = resolve(state.peers).find(r => r === link || r.link === link)
+function select ({ state, matched }, cb) {
+  const isAlreadyPresent = resolve(state.selected).find(r => r === matched.link || r.link === matched.link)
   if (isAlreadyPresent) return cb(new Error('can only add each peer once'))
 
-  if (state.peers.getLength() >= state.max) return cb(new Error(`cannot add any more peers, already at max (${state.max})`))
+  if (state.selected.getLength() >= state.max) return cb(new Error(`cannot add any more selected, already at max (${state.max})`))
 
-  state.peers.push({ link, name })
+  state.selected.push(matched)
   cb(null)
 }
 

@@ -14,6 +14,7 @@ module.exports = function NavBar (props = {}, children = []) {
     goBack,
     request,
     suggest,
+    secrets,
     myId
   } = props
 
@@ -44,6 +45,7 @@ module.exports = function NavBar (props = {}, children = []) {
     h('section.bottom', [
       Search({
         suggest,
+        secrets,
         routeTo,
         myId
       })

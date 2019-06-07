@@ -27,19 +27,35 @@ exports.create = (api) => {
       tab: Value('history')
     }
 
-    console.log(shard)
-
     return h('Shards -show', [
       Backward({ routeTo: api.router.sync.goBack }),
       h('div.main', [
         h('section.details', [
-          h('div.local', [
+          h('div', [
             Avatar({
               id: shard.peerId,
               size: 5,
               imageUrl: api.about.obs.imageUrl,
               onClick: api.router.sync.goTo({ path: `/peers/${shard.peerId}`, peer: { id: shard.peerId } })
             })
+          ]),
+          h('div', [
+            h('div.field', [
+              h('label', 'Root ID'),
+              h('input', { disabled: true, value: shard.root })
+            ]),
+            h('div.field', [
+              h('label', 'ID'),
+              h('input', { disabled: true, value: shard.id })
+            ]),
+            h('div.field', [
+              h('label', 'Sent On'),
+              h('input', { disabled: true, value: shard.sentAt })
+            ]),
+            h('div.field', [
+              h('label', 'Status'),
+              h('input', { disabled: true, value: shard.state })
+            ])
           ])
         ]),
         h('section.tabs', [
@@ -59,7 +75,5 @@ exports.create = (api) => {
 }
 
 function Actions (state) {
-  return h('whatevs', [
-    JSON.stringify(state)
-  ])
+  return h('div')
 }
