@@ -15,6 +15,8 @@ exports.needs = nest({
   'views.secrets.new.custodians': 'first',
   'views.secrets.new.trust': 'first',
   'views.secrets.new.submit': 'first',
+  'views.peers.show': 'first',
+  'views.shards.show': 'first',
   'views.settings.account.index': 'first',
   'views.settings.network.index': 'first',
 })
@@ -32,6 +34,9 @@ const {
   SecretsNewTrustPath,
   SecretsNewSubmitPath,
 
+  ShardsShowPath,
+  PeersShowPath,
+
   SettingsIndexPath,
   SettingsAccountIndexPath,
   SettingsNetworkIndexPath
@@ -42,6 +47,8 @@ exports.create = (api) => {
     const {
       root,
       secrets,
+      shards,
+      peers,
       settings,
       layouts
     } = api.views
@@ -56,6 +63,8 @@ exports.create = (api) => {
       [ SecretsNewCustodiansPath, { view: secrets.new.custodians } ],
       [ SecretsNewTrustPath, { view: secrets.new.trust } ],
       [ SecretsNewSubmitPath, { view: secrets.new.submit } ],
+      [ PeersShowPath, { view: peers.show } ],
+      [ ShardsShowPath, { view: shards.show } ],
       [ SettingsIndexPath, { view: settings.account.index, layout: layouts.settings } ],
       [ SettingsAccountIndexPath, { view: settings.account.index, layout: layouts.settings } ],
       [ SettingsNetworkIndexPath, { view: settings.network.index, layout: layouts.settings } ]
