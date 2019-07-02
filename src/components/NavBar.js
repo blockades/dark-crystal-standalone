@@ -6,12 +6,15 @@ const Minimize = require('../components/Minimize')
 
 const { isSettingsNamespace } = require('../routes')
 
+const Search = require('./Search')
+
 module.exports = function NavBar (props = {}, children = []) {
   const {
     routeTo,
     goBack,
     request,
     suggest,
+    secrets,
     myId
   } = props
 
@@ -38,6 +41,14 @@ module.exports = function NavBar (props = {}, children = []) {
           }
         })
       ])
+    ]),
+    h('section.bottom', [
+      Search({
+        suggest,
+        secrets,
+        routeTo,
+        myId
+      })
     ])
   ])
 
